@@ -3,12 +3,24 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+import edu.uga.dawgtrades.DTException;
+import edu.uga.dawgtrades.model.ObjectModel;
+import edu.uga.dawgtrades.model.RegisteredUser;
+import edu.uga.dawgtrades.model.impl.ObjectModelImpl;
+import edu.uga.dawgtrades.persistence.Persistence;
+import edu.uga.dawgtrades.persistence.impl.DbUtils;
+import edu.uga.dawgtrades.persistence.impl.PersistenceImpl;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Connection;
+import java.util.Iterator;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -16,66 +28,79 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class LoginServlet extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet LoginServlet</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet LoginServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+        PrintWriter out = response.getWriter();
+
+        String username = request.getParameter("username");
+        String password = request.getParameter("password");
+
+        Connection conn = null;
+        ObjectModel objectModel = null;
+        Persistence persistence = null;
+        ServletContext sc = getServletContext();
+
+        try {
+
+            // get a database connection
+            conn = DbUtils.connect();
+
+            // obtain a reference to the ObjectModel module      
+            objectModel = new ObjectModelImpl();
+
+            // obtain a reference to Persistence module and connect it to the ObjectModel        
+            persistence = new PersistenceImpl(conn, objectModel);
+
+            // connect the ObjectModel module to the Persistence module
+            objectModel.setPersistence(persistence);
+
+            Iterator<RegisteredUser> userIter = null;
+            RegisteredUser runningUser = null;
+            RegisteredUser modelUser = objectModel.createRegisteredUser();
+            modelUser.setName(username);
+            modelUser.setPassword(password);
+
+            userIter = objectModel.findRegisteredUser(modelUser);
+
+            if (userIter.hasNext()) {
+                HttpSession session = request.getSession(true);
+                runningUser = userIter.next();
+                session.setAttribute("currentSessionUser", runningUser);
+                response.sendRedirect("home.jsp");
+                sc.setAttribute("Error","");
+            } else {
+                sc.setAttribute("Error", "Incurrect Username or Password!");
+                RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
+                rd.include(request, response);
+            }
+
+        } catch (DTException e) {
+
+        } finally {
+            try {
+                conn.close();
+                out.close();
+            } catch (Exception e) {
+                System.err.println("Exception: " + e);
+            }
+
         }
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }
 
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }
 
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
     @Override
     public String getServletInfo() {
         return "Short description";

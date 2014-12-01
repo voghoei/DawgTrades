@@ -9,18 +9,22 @@
 <link rel="stylesheet" type="text/css" href="style.css" />
 </head>
 <body>
+    
 <div class="container">
 	<section id="content">
-		<form action="">
+            <form method="POST" action="LoginServlet">
 			<h1>Login Form</h1>
+                        <div>
+                            ${Error}
+                        </div>
 			<div>
-				<input type="text" placeholder="Username" required="" id="username" />
+				<input type="text" placeholder="Username" required="" name="username" id="username" />
 			</div>
 			<div>
-				<input type="password" placeholder="Password" required="" id="password" />
+				<input type="password" placeholder="Password" required="" name="password" id="password" />
 			</div>
 			<div>
-				<input type="submit" value="Log in" />
+				<input type="submit" value="Log in"  />
 				<a href="#">Lost your password?</a>
 				<a href="#">Register</a>
 			</div>

@@ -21,11 +21,11 @@ public abstract class DbAccessConfig
 
     /** The database user name.
      */
-    static  String DB_CONNECTION_USERNAME = "team6";
+    static  String DB_CONNECTION_USERNAME = "root";
 
     /** The password for the database user.
      */
-    static  String DB_CONNECTION_PWD = "attribute";
+    static  String DB_CONNECTION_PWD = "";
 
 }
 

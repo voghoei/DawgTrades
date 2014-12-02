@@ -40,7 +40,7 @@ public class LoginControl {
     }
 
     public boolean attemptLogin(String username, String password, HttpSession session)
-            throws ServletException, IOException {
+            throws ServletException, IOException, DTException {
         Connection conn = null;
         ObjectModel objectModel = null;
         Persistence persistence = null;
@@ -81,7 +81,6 @@ public class LoginControl {
                 System.err.println("Exception: " + e);
             }
         }
-        return false;
     }
 
 }

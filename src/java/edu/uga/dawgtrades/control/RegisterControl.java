@@ -1,3 +1,5 @@
+package edu.uga.dawgtrades.control;
+
 import edu.uga.dawgtrades.DTException;
 import edu.uga.dawgtrades.model.ObjectModel;
 import edu.uga.dawgtrades.model.RegisteredUser;

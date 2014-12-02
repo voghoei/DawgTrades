@@ -164,7 +164,8 @@ public class LoginServlet extends HttpServlet {
             }
 
         } catch (DTException e) {
-
+            request.setAttribute("error", "An exception occurred: " e.getMessage());
+            request.getRequestDispatcher("/login.ftl").forward(request, response);
         } finally {
             try {
                 conn.close();

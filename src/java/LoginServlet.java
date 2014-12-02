@@ -115,14 +115,18 @@ public class LoginServlet extends HttpServlet {
         
         // Get current session
         HttpSession session = request.getSession(true);
-        RegisteredUser currentUser = session.getAttribute("currentSessionUser");
+        RegisteredUser currentUser = (RegisteredUser) session.getAttribute("currentSessionUser");
 
-        if(currentUser)
+        if(currentUser != null)
         {
             // Already logged in, redirect.
             response.sendRedirect("/");
             return;
         }
+
+        String username = request.getParameter("username");
+        String password = request.getParameter("password");
+
 
         Connection conn = null;
         ObjectModel objectModel = null;
@@ -164,7 +168,6 @@ public class LoginServlet extends HttpServlet {
         } finally {
             try {
                 conn.close();
-                out.close();
             } catch (Exception e) {
                 System.err.println("Exception: " + e);
             }

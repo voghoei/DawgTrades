@@ -11,6 +11,12 @@
 </div>
 </#if>
 <div class="row">
+	<div class="col-md-12 alert alert-info">
+		<span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>
+		Need to register? <a href="register">Click here!</a>
+	</div>
+</div>
+<div class="row">
 	<div class="col-md-12">
 		<form role="form" action="login" method="post">
 			<div class="form-group">
@@ -25,12 +31,6 @@
 				<button type="submit" class="btn btn-default">Submit</button>
 			</div>
 		</form>
-	</div>
-</div>
-<div class="row">
-	<div class="col-md-12 alert alert-info">
-		<span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>
-		Need to register? <a href="register">Click here!</a>
 	</div>
 </div>
 </@default.mainLayout>

@@ -20,8 +20,10 @@
 			<div class="form-group">
 	                <label for="password">Password</label>
 	                <input type="password" class="form-control" placeholder="Password" id="password" name="password">
-	        </div>
-			<button type="submit" class="btn btn-default">Submit</button>
+			</div>
+			<div class="form-group">
+				<button type="submit" class="btn btn-default">Submit</button>
+			</div>
 		</form>
 	</div>
 </div>

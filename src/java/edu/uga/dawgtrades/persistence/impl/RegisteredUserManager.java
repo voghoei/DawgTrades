@@ -133,6 +133,11 @@ public class RegisteredUserManager {
                 if (registeredUser.getName() != null) // userName is unique, so it is sufficient to get a person
                 {
                     query.append(" where name = '" + registeredUser.getName() + "'");
+
+                    // Sometimes we're doing a login
+                    if (registeredUser.getPassword() != null) {
+                        condition.append(" and password = '" + registeredUser.getPassword() + "'");
+                    }
                 } else {
                     if (registeredUser.getFirstName() != null) {
                         if (condition.length() > 0) {

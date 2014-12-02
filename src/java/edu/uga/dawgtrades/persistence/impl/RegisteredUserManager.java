@@ -136,7 +136,7 @@ public class RegisteredUserManager {
 
                     // Sometimes we're doing a login
                     if (registeredUser.getPassword() != null) {
-                        condition.append(" and password = '" + registeredUser.getPassword() + "'");
+                        query.append(" and password = '" + registeredUser.getPassword() + "'");
                     }
                 } else {
                     if (registeredUser.getFirstName() != null) {

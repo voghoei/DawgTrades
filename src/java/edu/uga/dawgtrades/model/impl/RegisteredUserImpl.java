@@ -26,14 +26,20 @@ public class RegisteredUserImpl extends Persistent implements RegisteredUser {
         this.name = name;
         this.firstName = firstName;
         this.lastName = lastName;
-        MessageDigest md = MessageDigest.getInstance("SHA-256");
-        md.update(password.getBytes());
-        byte byteData[] = md.digest();
-        StringBuffer sb = new StringBuffer();
-        for (int i = 0; i < byteData.length; i++) {
-         sb.append(Integer.toString((byteData[i] & 0xff) + 0x100, 16).substring(1));
+        try {
+            MessageDigest md = MessageDigest.getInstance("SHA-256");
+            md.update(password.getBytes());
+            byte byteData[] = md.digest();
+            StringBuffer sb = new StringBuffer();
+            for (int i = 0; i < byteData.length; i++) {
+             sb.append(Integer.toString((byteData[i] & 0xff) + 0x100, 16).substring(1));
+            }
+            this.password = sb.toString();
         }
-        this.password = sb.toString();
+        catch(Exception e)
+        {
+            this.password = password;
+        }
         this.email = email;
         this.canText = canText;
         this.isAdmin = isAdmin;
@@ -69,14 +75,20 @@ public class RegisteredUserImpl extends Persistent implements RegisteredUser {
     }
 
     public void setPassword(String password) {
-        MessageDigest md = MessageDigest.getInstance("SHA-256");
-        md.update(password.getBytes());
-        byte byteData[] = md.digest();
-        StringBuffer sb = new StringBuffer();
-        for (int i = 0; i < byteData.length; i++) {
-         sb.append(Integer.toString((byteData[i] & 0xff) + 0x100, 16).substring(1));
+        try {
+            MessageDigest md = MessageDigest.getInstance("SHA-256");
+            md.update(password.getBytes());
+            byte byteData[] = md.digest();
+            StringBuffer sb = new StringBuffer();
+            for (int i = 0; i < byteData.length; i++) {
+             sb.append(Integer.toString((byteData[i] & 0xff) + 0x100, 16).substring(1));
+            }
+            this.password = sb.toString();
         }
-        this.password = sb.toString();
+        catch(Exception e)
+        {
+            this.password = password;
+        }
     }
 
     public String getEmail() {

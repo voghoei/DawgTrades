@@ -471,7 +471,7 @@
 
     <!-- Copy static files from external dependencies as needed -->
     <!-- *** CUSTOMIZE HERE AS REQUIRED BY YOUR APPLICATION *** -->
-    <copy    todir="${build.home}/lib">
+    <copy    todir="${build.home}/WEB-INF/lib">
         <fileset dir="${basedir}/lib">
             <include name="*.jar"/>
         </fileset>

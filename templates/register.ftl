@@ -23,7 +23,7 @@
                         <label for="phone">Phone Number</label>
                         <input type="tel" class="form-control" placeholder="Phone Number">
                 </div>
-
+		<button type="submit" class="btn btn-default">Submit</button>
 
 
 	</form>

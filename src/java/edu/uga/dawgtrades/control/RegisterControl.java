@@ -19,7 +19,7 @@ public class RegisterControl{
 
 
 	private void connect(){
-		conn.DbUtils.connect();
+		conn = DbUtils.connect();
 		objectModel = new ObjectModelImpl();
 		persistence = new PersistenceImpl(conn,objectModel);
 		objectModel.setPersistence(persistence);

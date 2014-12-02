@@ -26,7 +26,7 @@
 </servlet-mapping>
      <servlet>
         <servlet-name>LoginServlet</servlet-name>
-        <servlet-class>LoginServlet</servlet-class>
+        <servlet-class>edu.uga.dawgtrades.ui.LoginUI</servlet-class>
      </servlet>
      <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>

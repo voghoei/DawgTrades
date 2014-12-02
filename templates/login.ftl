@@ -11,16 +11,18 @@
 </div>
 </#if>
 <div class="row">
-	<form role="form" action="login" method="post">
-		<div class="form-group">
-			<label for="username">Username</label>
-			<input type="text" class="form-control" placeholder="username" name="username" id="username">
-		</div>
-		<div class="form-group">
-                <label for="password">Password</label>
-                <input type="password" class="form-control" placeholder="Password" id="password" name="password">
-        </div>
-		<button type="submit" class="btn btn-default">Submit</button>
-	</form>
+	<div class="col-md-12">
+		<form role="form" action="login" method="post">
+			<div class="form-group">
+				<label for="username">Username</label>
+				<input type="text" class="form-control" placeholder="username" name="username" id="username">
+			</div>
+			<div class="form-group">
+	                <label for="password">Password</label>
+	                <input type="password" class="form-control" placeholder="Password" id="password" name="password">
+	        </div>
+			<button type="submit" class="btn btn-default">Submit</button>
+		</form>
+	</div>
 </div>
 </@default.mainLayout>

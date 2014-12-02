@@ -95,9 +95,9 @@ public class LoginServlet extends HttpServlet {
         
         // Get current session
         HttpSession session = request.getSession(true);
-        RegisteredUser currentUser = session.getAttribute("currentSessionUser");
+        RegisteredUser currentUser = (RegisteredUser) session.getAttribute("currentSessionUser");
 
-        if(currentUser)
+        if(currentUser != null)
         {
             // Already logged in, redirect.
             response.sendRedirect("/");

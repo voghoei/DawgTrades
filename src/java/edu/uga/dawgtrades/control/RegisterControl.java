@@ -19,12 +19,12 @@ public class RegisterControl{
 
 
 	private void connect() throws DTException{
-		try{
+		
 			conn = DbUtils.connect();
 			objectModel = new ObjectModelImpl();
 			persistence = new PersistenceImpl(conn,objectModel);
 			objectModel.setPersistence(persistence);
-		}
+		
 	}
 	private void close(){
 		try{

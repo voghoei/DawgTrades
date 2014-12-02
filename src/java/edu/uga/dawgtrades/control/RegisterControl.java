@@ -38,6 +38,7 @@ public class RegisterControl{
 		@return true if user was successfully added. false is an error occurred
 	*/
 	public boolean attemptToRegister(String name, String firstName, String lastName, String password, String email, String phone, boolean canText ){
+		try{
 		connect();
 		RegisteredUser modelUser = objectModel.createRegisteredUser();
 		modelUser.setName(name);
@@ -49,7 +50,7 @@ public class RegisterControl{
 		modelUser.setIsAdmin(false);
 		modelUser.setCanText(canText);
 		
-		try{
+		
 			persistence.saveRegisteredUser(modelUser);			
 		}catch(DTException e){
 			return false;

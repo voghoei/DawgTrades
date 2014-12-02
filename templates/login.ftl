@@ -11,7 +11,7 @@
 </div>
 </#if>
 <div class="row">
-	<form role="form" action="login">
+	<form role="form" action="login" method="post">
 		<div class="form-group">
 			<label for="username">Username</label>
 			<input type="text" class="form-control" placeholder="username" name="username" id="username">

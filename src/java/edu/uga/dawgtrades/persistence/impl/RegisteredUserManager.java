@@ -154,13 +154,6 @@ public class RegisteredUserManager {
                         condition.append(" lastName = '" + registeredUser.getLastName() + "'");
                     }
 
-                    if (registeredUser.getPassword() != null) {
-                        if (condition.length() > 0) {
-                            condition.append(" and");
-                        }
-                        condition.append(" password = '" + registeredUser.getPassword() + "'");
-                    }
-
                     if (registeredUser.getIsAdmin() != false) {
                         if (condition.length() > 0) {
                             condition.append(" and");

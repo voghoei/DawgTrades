@@ -330,14 +330,8 @@
 
 -->
 
-  <target name="dist" depends="compile,javadoc"
+  <target name="dist" depends="compile"
    description="Create binary distribution">
-
-    <!-- Copy documentation subdirectories -->
-    <mkdir   dir="${dist.home}/docs"/>
-    <copy    todir="${dist.home}/docs">
-      <fileset dir="${docs.home}"/>
-    </copy>
 
     <!-- Create application JAR file -->
     <jar jarfile="${dist.home}/${app.name}-${app.version}.war"

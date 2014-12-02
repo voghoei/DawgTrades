@@ -19,7 +19,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author sahar
  */
-public class LoginUI extends HttpServlet {
+public class IndexUI extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)

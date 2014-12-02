@@ -24,6 +24,15 @@
     <servlet-name>fileServlet</servlet-name>
     <url-pattern>/resources/*</url-pattern>
 </servlet-mapping>
+
+    <servlet>
+        <servlet-name>IndexServlet</servlet-name>
+        <servlet-class>edu.uga.dawgtrades.ui.IndexUI</servlet-class>
+     </servlet>
+     <servlet-mapping>
+        <servlet-name>IndexServlet</servlet-name>
+        <url-pattern>/</url-pattern>
+     </servlet-mapping>
      <servlet>
         <servlet-name>LoginServlet</servlet-name>
         <servlet-class>edu.uga.dawgtrades.ui.LoginUI</servlet-class>
@@ -40,6 +49,8 @@
         <servlet-name>RegisterServlet</servlet-name>
         <url-pattern>/register</url-pattern>
      </servlet-mapping>
+
+
     <session-config>
         <session-timeout>30</session-timeout>
     </session-config>

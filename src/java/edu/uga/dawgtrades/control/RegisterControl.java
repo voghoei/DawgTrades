@@ -18,11 +18,13 @@ public class RegisterControl{
 	private Persistence persistence = null;
 
 
-	private void connect(){
-		conn = DbUtils.connect();
-		objectModel = new ObjectModelImpl();
-		persistence = new PersistenceImpl(conn,objectModel);
-		objectModel.setPersistence(persistence);
+	private void connect() throws DTException{
+		try{
+			conn = DbUtils.connect();
+			objectModel = new ObjectModelImpl();
+			persistence = new PersistenceImpl(conn,objectModel);
+			objectModel.setPersistence(persistence);
+		}
 	}
 	private void close(){
 		try{
@@ -51,8 +53,9 @@ public class RegisterControl{
 			persistence.saveRegisteredUser(modelUser);			
 		}catch(DTException e){
 			return false;
+		}finally{
+			close();
 		}
-		close();
 		return true;
 	}
 	

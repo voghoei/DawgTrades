@@ -10,6 +10,7 @@ import edu.uga.dawgtrades.persistence.impl.DbUtils;
 import edu.uga.dawgtrades.persistence.impl.PersistenceImpl;
 import java.sql.Connection;
 import java.util.Date;
+import java.util.Iterator;
 import javax.servlet.http.HttpSession;
 
 public class ExperienceReportControl {
@@ -36,7 +37,40 @@ public class ExperienceReportControl {
         }
     }
 
+    public Iterator<RegisteredUser> getAllUsers() throws DTException {
+        Iterator<RegisteredUser> userIter = null;
+        try {
+            connect();
+            RegisteredUser modelUser = objectModel.createRegisteredUser();
+            userIter = objectModel.findRegisteredUser(modelUser);
+
+        } catch (DTException e) {
+            error = e.getMessage();
+
+        } finally {
+            close();
+        }
+        return userIter;
+    }
     
+    public Iterator<ExperienceReport> getAllRepotsOfUser(RegisteredUser user) throws DTException {
+        Iterator<ExperienceReport> reportIter = null;
+        try {
+            connect();
+            ExperienceReport modelReport = objectModel.createExperienceReport();
+            modelReport.setReviewed(user);
+            reportIter = objectModel.findExperienceReport(modelReport);
+
+        } catch (DTException e) {
+            error = e.getMessage();
+
+        } finally {
+            close();
+        }
+        return reportIter;
+    }
+    
+
     public boolean attemptToWriteExperienceReport(RegisteredUser user, int rate, String report, HttpSession session) throws DTException {
         ExperienceReport modelExperienceReport = null;
         try {

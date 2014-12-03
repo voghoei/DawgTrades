@@ -55,7 +55,7 @@ public class RegisterControl{
 		
 		persistence.saveRegisteredUser(modelUser);			
 		}catch(DTException e){
-			error = e;
+			error = e.getMessage();
 			return false;
 		}finally{
 			close();

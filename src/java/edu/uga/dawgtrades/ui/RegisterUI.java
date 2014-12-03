@@ -40,7 +40,7 @@ public class RegisterUI extends HttpServlet{
 				response.sendRedirect("/login");
 				//need to add a success message
 			}else{
-				request.setAttribute("error","Registration failed: "+ctrl.getError);
+				request.setAttribute("error","Registration failed: "+ctrl.getError());
 				request.getRequestDispatcher("/register.ftl").forward(request,response);
 			}
 		

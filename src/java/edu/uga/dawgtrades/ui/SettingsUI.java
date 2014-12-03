@@ -2,7 +2,7 @@ package edu.uga.dawgtrades.ui;
 
 
 import edu.uga.dawgtrades.DTException;
-import edu.uga.dawgtrades.control.SettingsControl;
+import edu.uga.dawgtrades.control.SettingsCtrl;
 import edu.uga.dawgtrades.control.LoginControl;
 import java.io.IOException;
 import java.io.PrintWriter;

@@ -35,9 +35,7 @@ public class RegisterUI extends HttpServlet{
 			request.getRequestDispatcher("/register.ftl").forward(request,response);
 			return;			
 		}
-		try{
-		
-		}
+	
 			
 	}
 }

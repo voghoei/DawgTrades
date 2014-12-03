@@ -1,4 +1,4 @@
-<#macro sideNav title="sideNav">
+
 	<div class="row">
   <div class="col-sm-3">
     <div class="sidebar-nav">
@@ -39,4 +39,4 @@
     Main content goes here
   </div>
 </div> 
-</#macro>
+

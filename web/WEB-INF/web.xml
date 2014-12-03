@@ -45,6 +45,7 @@
      </servlet-mapping>
 
 
+
      <servlet>
         <servlet-name>LogoutServlet</servlet-name>
         <servlet-class>edu.uga.dawgtrades.ui.LogoutUI</servlet-class>
@@ -64,6 +65,14 @@
         <url-pattern>/register</url-pattern>
      </servlet-mapping>
 
+  <servlet>
+        <servlet-name>SettingsServlet</servlet-name>
+        <servlet-class>edu.uga.dawgtrades.ui.SettingsUI</servlet-class>
+     </servlet>
+     <servlet-mapping>
+        <servlet-name>SettingsServlet</servlet-name>
+        <url-pattern>/settings</url-pattern>
+     </servlet-mapping>
 
     <session-config>
         <session-timeout>30</session-timeout>

@@ -11,6 +11,7 @@
 			<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
 			<!-- Font-Awesome -->
 			<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
+			<link rel="stylesheet" href="/resources/css/custom.css">
 			
 			<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
 			<!--[if lt IE 9]>
@@ -56,7 +57,7 @@
 			        <li class="dropdown">
 			          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">${loggedInUser.getFirstName()} <span class="caret"></span></a>
 			          <ul class="dropdown-menu" role="menu">
-			            <li><a href="#">Account Settings</a></li>
+			            <li><a href="/settings">Account Settings</a></li>
 			            <li><a href="#">My Auctions</a></li>
 			            <li class="divider"></li>
 			            <li><a href="/logout">Log Out</a></li>

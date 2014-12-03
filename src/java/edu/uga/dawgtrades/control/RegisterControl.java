@@ -39,7 +39,7 @@ public class RegisterControl{
 		attemptToRegister
 		@return true if user was successfully added. false is an error occurred
 	*/
-	public boolean attemptToRegister(String name, String firstName, String lastName, String password, String email, String phone, boolean canText ){
+	public boolean attemptToRegister(String name, String firstName, String lastName, String password, String email, String phone, boolean canText )throws DTException{
 		try{
 		connect();
 		RegisteredUser modelUser = objectModel.createRegisteredUser();

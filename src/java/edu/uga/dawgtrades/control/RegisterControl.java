@@ -18,7 +18,7 @@ public class RegisterControl{
 	private Connection conn = null;
 	private ObjectModel objectModel = null;
 	private Persistence persistence = null;
-
+	private String error="Error Unknown";
 
 	private void connect() throws DTException{
 		
@@ -53,13 +53,17 @@ public class RegisterControl{
 		modelUser.setCanText(canText);
 		
 		
-			persistence.saveRegisteredUser(modelUser);			
+		persistence.saveRegisteredUser(modelUser);			
 		}catch(DTException e){
+			error = e;
 			return false;
 		}finally{
 			close();
 		}
 		return true;
+	}
+	public String getError(){
+		return error;
 	}
 	
 	

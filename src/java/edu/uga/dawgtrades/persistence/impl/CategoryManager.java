@@ -138,7 +138,7 @@ public class CategoryManager {
 
     public void delete(Category category)
             throws DTException {
-        String deleteCategorySql = "delete from category where id = ?";
+        String deleteCategorySql = "delete from Category where id = ?";
         PreparedStatement stmt = null;
         int inscnt;
 

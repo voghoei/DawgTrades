@@ -8,7 +8,7 @@
                 ${error}
         </div>
 </#if>
-<#import "sideNav.ftl" as sideNav>
+<#include "sideNav.ftl">
 <div class="row">
 	<form role="form" action="settings" method="post">
 		

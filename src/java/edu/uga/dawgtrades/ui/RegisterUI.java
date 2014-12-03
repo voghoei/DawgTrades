@@ -29,7 +29,7 @@ public class RegisterUI extends HttpServlet{
 		String phone = request.getParameter("phone");
 		String password = request.getParameter("password");
 		String passwordRe = request.getParameter("passwordRe");
-		
+		RegisterControl ctrl = new RegisterControl();		
 		if(!password.equals(passwordRe)){
 			request.setAttribute("error","Passwords don't match.");
 			request.getRequestDispatcher("/register.ftl").forward(request,response);

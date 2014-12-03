@@ -35,6 +35,19 @@ public class RegisterUI extends HttpServlet{
 			request.getRequestDispatcher("/register.ftl").forward(request,response);
 			return;			
 		}
+		try{
+			if(ctrl.attemptToRegister(username,fname,lname,password,email,phone,true)){
+				response.sendRedirect("/login");
+				//need to add a success message
+			}else{
+				request.setAttribute("error","Registration failed.");
+				request.getRequestDispatcher("/register.ftl").forward(request,response);
+			}
+		
+		}catch(DTException e){
+			request.setAttribute("error","An exception occured: " + e.getMessage());
+			request.getRequestDispatcher("/register.ftl").forward(request,response);
+		}
 	
 			
 	}

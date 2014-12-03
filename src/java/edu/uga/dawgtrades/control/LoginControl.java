@@ -38,6 +38,14 @@ public class LoginControl {
         }
         return false;
     }
+    
+    public RegisteredUser getLoggedInUser(HttpSession session)
+            throws ServletException, IOException {
+        
+        // Get current session
+        RegisteredUser currentUser = (RegisteredUser) session.getAttribute("currentSessionUser");
+        return currentUser;
+    }
 
     public boolean attemptLogin(String username, String password, HttpSession session)
             throws ServletException, IOException, DTException {

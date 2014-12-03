@@ -52,14 +52,27 @@ public class ExperienceReportControl {
         }
         return userIter;
     }
-    
-    public Iterator<ExperienceReport> getAllRepotsOfUser(RegisteredUser user) throws DTException {
+
+    public Iterator<ExperienceReport> getAllRepotsOfUser(long user_id) throws DTException {
         Iterator<ExperienceReport> reportIter = null;
+        Iterator<RegisteredUser> userIter = null;
+        RegisteredUser runningUser = null;
         try {
             connect();
-            ExperienceReport modelReport = objectModel.createExperienceReport();
-            modelReport.setReviewed(user);
-            reportIter = objectModel.findExperienceReport(modelReport);
+
+            RegisteredUser modelUser = objectModel.createRegisteredUser();
+            modelUser.setId(user_id);
+            userIter = objectModel.findRegisteredUser(modelUser);
+            if (userIter.hasNext()) {
+
+                runningUser = userIter.next();
+                ExperienceReport modelReport = objectModel.createExperienceReport();
+                modelReport.setReviewed(runningUser);
+                reportIter = objectModel.findExperienceReport(modelReport);
+
+            } else {
+                error = "user not found";
+            }
 
         } catch (DTException e) {
             error = e.getMessage();
@@ -69,20 +82,15 @@ public class ExperienceReportControl {
         }
         return reportIter;
     }
-    
 
-    public boolean attemptToWriteExperienceReport(RegisteredUser user, int rate, String report, HttpSession session) throws DTException {
+    public boolean attemptToWriteExperienceReport(RegisteredUser reviewer, RegisteredUser reviewed, int rate, String report) throws DTException {
         ExperienceReport modelExperienceReport = null;
         try {
 
-            RegisteredUser currentUser = (RegisteredUser) session.getAttribute("currentSessionUser");
             connect();
-            if (currentUser != null) {
-                modelExperienceReport = objectModel.createExperienceReport(currentUser, user, rate, report, new Date());
 
-            } else {
-                return false;
-            }
+            modelExperienceReport = objectModel.createExperienceReport(reviewer, reviewed, rate, report, new Date());
+
             objectModel.storeExperienceReport(modelExperienceReport);
 
             return true;

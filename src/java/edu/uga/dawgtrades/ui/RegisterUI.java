@@ -22,6 +22,22 @@ public class RegisterUI extends HttpServlet{
 
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException{
+		String username = request.getParameter("username");
+		String fname = request.getParameter("fname");
+		String lname = request.getParameter("lname");
+		String email = request.getParameter("email");
+		String phone = request.getParameter("phone");
+		String password = request.getParameter("password");
+		String passwordRe = request.getParameter("passwordRe");
 		
+		if(!password.equals(passwordRe)){
+			request.setAttribute("error","Passwords don't match.");
+			request.getRequestDispatcher("/register.ftl").forward(request,response);
+			return;
+		}
+		try{
+		
+		}
+			
 	}
 }

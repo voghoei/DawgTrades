@@ -19,3 +19,4 @@
     padding-bottom: 12px;
   }
 }
+#settingsForm.form-control::-webkit-input-placeholder{color:white;}

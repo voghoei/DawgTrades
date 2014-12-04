@@ -9,8 +9,8 @@
         </div>
 </#if>
 <#include "sideNav.ftl">
-
-	<label> Username: </label>
+	<#if loggedInUser??>
+	<label> Username: </label><p> ${loggedInUser.getName()}</p>
 	<form role="form" action="settings" method="post">
 		<div class="form-group">
 			<label> First Name:</label>
@@ -24,6 +24,7 @@
 
 
 	</form>
+	</#if>
 	</div>
 </div>
 </@default.mainLayout>

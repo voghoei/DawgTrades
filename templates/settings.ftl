@@ -18,7 +18,7 @@
 		</div>		
 		   <div class="form-group">
                         <label> Last Name:</label>
-                        <input type="text" class="form-control" name="lname" placeholder="${loggedInUser.getFirstName()}">
+                        <input type="text" class="form-control" name="lname" placeholder="${loggedInUser.getLastName()}">
                 </div>
 		
 

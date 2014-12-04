@@ -4,6 +4,7 @@ package edu.uga.dawgtrades.ui;
 import edu.uga.dawgtrades.DTException;
 import edu.uga.dawgtrades.control.SettingsCtrl;
 import edu.uga.dawgtrades.control.LoginControl;
+import edu.uga.dawgtrades.model.RegisteredUser;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;

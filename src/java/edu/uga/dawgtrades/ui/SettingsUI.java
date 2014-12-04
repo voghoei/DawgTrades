@@ -22,8 +22,14 @@ public class SettingsUI extends HttpServlet{
 		LoginControl ctrl = new LoginControl();
 		if(!ctrl.checkIsLoggedIn(session)){
 			response.sendRedirect("/login");
+			request.setAttribute("loggedInUser","");
+			request.removeAttribute("loggedInUser");
 			return;
+		}else{
+			RegisteredUser currentUser = (RegisteredUser)session.getAttribute("currentSessionUser");
+			request.setAttribute("loggedInUser",currentUser);
 		}
+		
 		request.getRequestDispatcher("/settings.ftl").forward(request,response);
 
 	}

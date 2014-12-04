@@ -14,7 +14,7 @@
 	<form role="form" action="settings" method="post">
 		<div class="form-group">
 			<label> First Name:</label>
-			<input type="text" class="form-control" name="fname" placeholder="first name here">
+			<input type="text" class="form-control" name="fname" placeholder="${loggedInUser.getFirstName()}">
 		</div>		
 		   <div class="form-group">
                         <label> Last Name:</label>

@@ -9,7 +9,7 @@
         </div>
 </#if>
 <#include "sideNav.ftl">
-<div class="row">
+
 	<label> Username: </label>
 	<form role="form" action="settings" method="post">
 		<div class="form-group">
@@ -24,5 +24,6 @@
 
 
 	</form>
+	</div>
 </div>
 </@default.mainLayout>

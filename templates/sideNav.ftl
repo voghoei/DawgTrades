@@ -24,7 +24,5 @@
     </div>
   </div>
   <div class="col-sm-9">
-    Main content goes here
-  </div>
-</div> 
+    
 

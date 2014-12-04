@@ -19,11 +19,11 @@ public class SettingsUI extends HttpServlet{
 	 @Override
         protected void doGet(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException{
 		HttpSession session = request.getSession(true);
-/*		LoginControl ctrl = new LoginControl();
+		LoginControl ctrl = new LoginControl();
 		if(!ctrl.checkIsLoggedIn(session)){
 			response.sendRedirect("/login");
 			return;
-		}*/
+		}
 		request.getRequestDispatcher("/settings.ftl").forward(request,response);
 
 	}

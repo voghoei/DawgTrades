@@ -10,12 +10,8 @@
 </#if>
 <#include "sideNav.ftl">
 <div class="row">
-	<label> Username: </label><p> ${loggedInUser.getName()}</p>
 	<form role="form" action="settings" method="post">
-		<div class="form-group">
-			<label> First Name:</label>
-			<input type="text" class="form-control" name="fname" placeholder="${loggedInUser.getFirstName()}">
-		</div>		
+		
 
 
 

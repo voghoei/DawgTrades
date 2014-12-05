@@ -57,14 +57,14 @@
 			        <li class="dropdown">
 			          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">${loggedInUser.getFirstName()} <span class="caret"></span></a>
 			          <ul class="dropdown-menu" role="menu">
-			            <li><a href="/settings">Account Settings</a></li>
+			            <li><a href="/DawgTrades/settings">Account Settings</a></li>
 			            <li><a href="#">My Auctions</a></li>
 			            <li class="divider"></li>
-			            <li><a href="/logout">Log Out</a></li>
+			            <li><a href="/DawgTrades/logout">Log Out</a></li>
 			          </ul>
 			        </li>
 			        <#else>
-			        <li><a href="/login">Login</a></li>
+			        <li><a href="/DawgTrades/login">Login</a></li>
 			        </#if>
 			      </ul>
 			    </div><!-- /.navbar-collapse -->

@@ -6,9 +6,7 @@ package edu.uga.dawgtrades.control;
  */
 import edu.uga.dawgtrades.DTException;
 import edu.uga.dawgtrades.control.LoginControl;
-import edu.uga.dawgtrades.model.ObjectModel;
-import edu.uga.dawgtrades.model.Category;
-import edu.uga.dawgtrades.model.Item;
+import edu.uga.dawgtrades.model.*;
 import edu.uga.dawgtrades.model.impl.ObjectModelImpl;
 import edu.uga.dawgtrades.persistence.Persistence;
 import edu.uga.dawgtrades.persistence.impl.DbUtils;
@@ -109,6 +107,7 @@ public class CategoryControl {
                         count += catCount;
                     }
                 }
+                return count;
             }else{
                 return -1;
             }
@@ -121,7 +120,6 @@ public class CategoryControl {
         finally {
             this.close();
         }
-
     }
 
     public ArrayList<Category> getCategoriesWithParentID(long id) {

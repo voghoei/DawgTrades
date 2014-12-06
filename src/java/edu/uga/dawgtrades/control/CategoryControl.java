@@ -17,7 +17,8 @@ import edu.uga.dawgtrades.persistence.impl.ItemIterator;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
-import java.util.ArrayList;
+import java.util.ArrayList
+import java.util.Iterator;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpSession;
@@ -99,7 +100,7 @@ public class CategoryControl {
                 toFind = results.next();
                 Item itemSearch = this.objectModel.createItem();
                 itemSearch.setCategoryId(toFind.getId());
-                ItemIterator items = this.objectModel.findItem(itemSearch);
+                ItemIterator items = (ItemIterator) this.objectModel.findItem(itemSearch);
                 count += items.getCount();
                 ArrayList<Category> subCats = this.getCategoriesWithParentID(toFind.getId());
                 for(Category cat : subCats) {

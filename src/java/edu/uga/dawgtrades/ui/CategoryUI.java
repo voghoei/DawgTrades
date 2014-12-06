@@ -21,7 +21,7 @@ import edu.uga.dawgtrades.model.RegisteredUser;
  *
  * @author sahar
  */
-public class IndexUI extends HttpServlet {
+public class CategoryUI extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)

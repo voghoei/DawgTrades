@@ -24,7 +24,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author reanimus
  */
-public class LoginControl {
+public class CategoryControl {
 
     private Connection conn = null;
     private ObjectModel objectModel = null;
@@ -69,7 +69,7 @@ public class LoginControl {
             this.connect();
             Category toFind = this.objectModel.createCategory();
             toFind.setId(id);
-            Iterator<Category> results = this.ObjectModel.findCategory(toFind);
+            Iterator<Category> results = this.objectModel.findCategory(toFind);
             if(results.hasNext()) {
                 return results.next();
             }else{
@@ -92,12 +92,12 @@ public class LoginControl {
             this.connect();
             Category toFind = this.objectModel.createCategory();
             toFind.setId(id);
-            Iterator<Category> results = this.ObjectModel.findCategory(toFind);
+            Iterator<Category> results = this.objectModel.findCategory(toFind);
             if(results.hasNext()) {
                 toFind = results.next();
-                Item itemSearch = this.ObjectModel.createItem();
+                Item itemSearch = this.objectModel.createItem();
                 itemSearch.setCategoryId(toFind.getId());
-                Iterator<Item> items = this.ObjectModel.findItem(itemSearch);
+                Iterator<Item> items = this.objectModel.findItem(itemSearch);
                 count += items.getCount();
                 ArrayList<Category> subCats = this.getCategoriesWithParentID(toFind.getId());
                 for(Category cat : subCats) {
@@ -126,7 +126,7 @@ public class LoginControl {
             this.connect();
             Category toFind = this.objectModel.createCategory();
             toFind.setParentId(id);
-            Iterator<Category> results = this.ObjectModel.findCategory(toFind);
+            Iterator<Category> results = this.objectModel.findCategory(toFind);
             ArrayList<Category> out = new ArrayList<Category>();
             while(results.hasNext()) {
                 out.add(results.next());

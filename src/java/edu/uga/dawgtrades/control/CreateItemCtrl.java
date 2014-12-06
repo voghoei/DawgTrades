@@ -40,9 +40,9 @@ public class CreateItemCtrl{
 		try{
 			connect();
 			Item item = objectModel.createItem();
-			item.setName = name;
-			item.setCode = code;
-			item.setDescription = description;
+			item.setName(name);
+			item.setCode(code);
+			item.setDescription(description);
 			
 		}catch(DTException e){
 			error = e.getMessage();

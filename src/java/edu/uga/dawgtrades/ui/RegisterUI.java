@@ -37,8 +37,7 @@ public class RegisterUI extends HttpServlet{
 		}
 		try{
 			if(ctrl.attemptToRegister(username,fname,lname,password,email,phone,true)){
-				response.sendRedirect("/login");
-				//need to add a success message
+				response.sendRedirect("/login?message=c3daec042ebd773d1d2e505235f1449c4ff1625f");
 			}else{
 				request.setAttribute("error","Registration failed: "+ctrl.getError());
 				request.getRequestDispatcher("/register.ftl").forward(request,response);

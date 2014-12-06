@@ -18,7 +18,7 @@ import java.sql.Connection;
 import java.util.Iterator;
 import java.util.Set;
 import javax.servlet.RequestDispatcher;
-import javax.serlvet.ServletException;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpSession;
 public class CreateItemCtrl{
 	

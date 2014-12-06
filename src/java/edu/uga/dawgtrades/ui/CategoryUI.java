@@ -73,7 +73,7 @@ public class CategoryUI extends HttpServlet {
                 request.setAttribute("error", "Invalid category ID. Please try again.");
             }
         } else {
-            ArrayList<Category> subCats = catCtrl.getCategoriesWithParentID(-1);
+            ArrayList<Category> subCats = catCtrl.getCategoriesWithParentID(0);
             if(subCats != null && !subCats.isEmpty()) {
                 ArrayList<Long> counts = new ArrayList<Long>();
                 for(Category cat : subCats) {

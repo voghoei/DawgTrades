@@ -21,7 +21,7 @@ public class CreateItemCtrl{
 	private Connection conn = null;
 	private ObjectModel objectModel = null;
 	private Persistence persistence = null;
-	
+	private String error="Error Unknown";
 	private void connect() throws DTException{
 		conn = DbUtils.connect();
 		objectModel = new ObjectModelImpl();
@@ -44,12 +44,17 @@ public class CreateItemCtrl{
 			item.setCode = code;
 			item.setDescription = description;
 			
+		}catch(DTException e){
+			error = e.getMessage();
+			return false;
+		}finally{
+			close();
 		}
 		return true;
 	}
 	
 	private void addAttributes(Set<Attribute> attributes){	
-		
+				
 	}
 
 }

@@ -1,8 +1,8 @@
 <#import "default.ftl" as default>
 <#if specificCategory??>
-	<#set title = "DawgTrades - Browse: ${specificCategory.getName()}">
+	<#assign title = "DawgTrades - Browse: ${specificCategory.getName()}">
 <#else>
-	<#set title = "DawgTrades - Browse">
+	<#assign title = "DawgTrades - Browse">
 </#if>
 <@default.mainLayout title>
 <#if error??>

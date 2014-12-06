@@ -15,6 +15,7 @@ public class ItemIterator implements Iterator<Item> {
     private ResultSet rs = null;
     private ObjectModel objectModel = null;
     private boolean more = false;
+    private long count = 0;
 
     public ItemIterator(ResultSet rs, ObjectModel objectModel)
             throws DTException {
@@ -23,11 +24,19 @@ public class ItemIterator implements Iterator<Item> {
         this.objectModel = objectModel;
 
         try {
+            if (rs.last()) {
+              this.count = rs.getRow();
+              rs.beforeFirst(); // not rs.first() because the rs.next() below will move on, missing the first element
+            }
             this.more = rs.next();
         } catch (Exception e) {
             throw new DTException("ItemIterator: Cannot create bid iterator; root cause: " + e);
         }
 
+    }
+
+    public long getCount() {
+        return this.count;
     }
 
     public boolean hasNext() {

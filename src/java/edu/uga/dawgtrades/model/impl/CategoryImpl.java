@@ -7,7 +7,7 @@ import java.util.Set;
 
 public class CategoryImpl extends Persistent implements Category {
 
-    private long ParentId;
+    private long ParentId = -1;
     private String name;
 
     public CategoryImpl() {

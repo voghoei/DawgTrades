@@ -53,7 +53,7 @@ public class RegisterControl{
 		modelUser.setCanText(canText);
 		
 		
-		persistence.saveRegisteredUser(modelUser);			
+		objectModel.storeRegisteredUser(modelUser);			
 		}catch(DTException e){
 			error = e.getMessage();
 			return false;

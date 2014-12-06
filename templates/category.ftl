@@ -1,9 +1,10 @@
 <#import "default.ftl" as default>
 <#if specificCategory??>
-	<@default.mainLayout "DawgTrades - Browse: ${specificCategory.getName()}">
+	<#set title = "DawgTrades - Browse: ${specificCategory.getName()}">
 <#else>
-	<@default.mainLayout "DawgTrades - Browse">
+	<#set title = "DawgTrades - Browse">
 </#if>
+<@default.mainLayout title>
 <#if error??>
 <div class="row">
 	<div class="col-md-12 alert alert-danger" role="alert">

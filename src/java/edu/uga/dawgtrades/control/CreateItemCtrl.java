@@ -36,8 +36,8 @@ public class CreateItemCtrl{
 		}
 	}
 	
-	public boolean attemptItemCreate(Set<Attribute>,Set<Category>,String name, String code, String description){
-		
+	public boolean attemptItemCreate(Set<Attribute> attributes,Set<Category> categories,String name, String code, String description){
+		return true;
 	}
 
 }

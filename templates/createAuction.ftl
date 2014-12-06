@@ -4,6 +4,12 @@
 <div class="row">
 	<form role="form" action="createAuction" method="post">
 		<!-- create item stuff goes here -->
+		<#if item??>
+			<h3> Item here </h3>
+		<#else>
+			<a href="/createItem">Add an Item.</a>
+		</#if>
+		
 		<div class="form-group">
 			<label for="expiration"> Auction Expiration Date </label>
 			<input type="datetime" class="form-control" name="expiration">

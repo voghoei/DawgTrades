@@ -6,6 +6,7 @@ package edu.uga.dawgtrades.ui;
  */
 import edu.uga.dawgtrades.DTException;
 import edu.uga.dawgtrades.control.LoginControl;
+import edu.uga.dawgtrades.control.CommonControl;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
@@ -36,8 +37,14 @@ public class LoginUI extends HttpServlet {
             return;
         }
 
-        request.setAttribute("error", "");
-        request.removeAttribute("error");
+        // Check for a message to display
+        String messageID = request.getParameter("message");
+        if(messageID != null) {
+            String message = CommonControl.infoMessages.get(messageID);
+            if(message != null) {
+                request.setAttribute("message", message);
+            }
+        }
         request.getRequestDispatcher("/login.ftl").forward(request, response);
     }
 

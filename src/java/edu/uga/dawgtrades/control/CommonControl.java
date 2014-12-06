@@ -14,9 +14,18 @@ import java.util.Iterator;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpSession;
+import java.util.*;
 
 public class CommonControl{
-	
+	public static final Map<String, String> infoMessages;
+    static
+    {
+        infoMessages = new HashMap<String, String>();
+        infoMessages.put(
+        	"c3daec042ebd773d1d2e505235f1449c4ff1625f",
+        	"Registration successful! Login with your username and password below."
+    	);
+    }
 	public boolean isAdmin(RegisteredUser user)throws ServletException, IOException,DTException{
 		Connection conn = null;
 		ObjectModel objectModel = null;

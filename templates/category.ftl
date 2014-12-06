@@ -24,27 +24,32 @@
 	</div>
 </div>
 </#if>
-
-<#if specificCategory??>
-	<h1>${specificCategory.getName()}</h1>>
-<#else>
-	<h1>Categories</h1>>
-</#if>
 <div class="row">
 	<div class="col-md-4">
-		<#if subCategories??>
-			<div class="list-group">
-				<#list subCategories as subCategory>
-					<a href="category?id=${subCategory.getId()}" class="list-group-item">
-						<#assign idx = subCategories?seq_index_of(subCategory)>
-						<#if subCategoryCounts[idx] gte 0><span class="badge">${subCategoryCounts[idx]}</span></#if>
-						${subCategory.getName()}
-					</a>
-				</#list>
+		<div class="panel panel-default">
+		  <div class="panel-heading">
+			<#if specificCategory??>
+				${specificCategory.getName()}
+			<#else>
+				Categories
+			</#if>
 			</div>
-		<#else>
-			<em>No <#if specificCategory??>sub</#if>categories</em>
-		</#if>
+			<#if subCategories??>
+				<div class="list-group">
+					<#list subCategories as subCategory>
+						<a href="category?id=${subCategory.getId()}" class="list-group-item">
+							<#assign idx = subCategories?seq_index_of(subCategory)>
+							<#if subCategoryCounts[idx] gte 0><span class="badge">${subCategoryCounts[idx]}</span></#if>
+							${subCategory.getName()}
+						</a>
+					</#list>
+				</div>
+			<#else>
+				<ul class="list-group">
+    				<li class="list-group-item">No <#if specificCategory??>sub</#if>categories.</li>
+				</ul>
+			</#if>
+		</div>
 	</div>
 </div>
 </@default.mainLayout>

@@ -30,7 +30,7 @@ public class ItemImpl extends Persistent implements Item {
         this.name = name;
     }
 
-    public ItemImpl(long categoryId, long ownerId, String code, String name, String description, Set<AttributelImpl> attributes, Set<AuctionImpl> auctions) {
+    public ItemImpl(long categoryId, long ownerId, String code, String name, String description) {
         this.categoryId = categoryId;
         this.ownerId = ownerId;
         this.code = code;

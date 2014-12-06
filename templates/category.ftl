@@ -36,7 +36,7 @@
 			<div class="list-group">
 				<#list subCategories as subCategory>
 					<a href="category?id=${subCategory.getId()}" class="list-group-item">
-						<#if subCategoryCounts[subCategory] > -1><span class="badge">${subCategoryCounts[subCategory]}</span></#if>
+						<#if subCategoryCounts[subCategories?seq_index_of(subCategory)] > -1><span class="badge">${subCategoryCounts[subCategory]}</span></#if>
 						${subCategory.getName()}
 					</a>
 				</#list>

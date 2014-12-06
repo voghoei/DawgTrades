@@ -43,7 +43,9 @@ public class CreateItemCtrl{
 			item.setName(name);
 			item.setCode(code);
 			item.setDescription(description);
-			
+			RegisteredUser currentUser = (RegisteredUser) session.getAttribute("currentSessionUser");
+			item.setOwnerId(currentUser.getId());
+			//objectModel.storeItem(item);
 		}catch(DTException e){
 			error = e.getMessage();
 			return false;
@@ -54,7 +56,7 @@ public class CreateItemCtrl{
 	}
 	
 	private void addAttributes(Set<Attribute> attributes){	
-				
+		// add attributes for this item				
 	}
-
+	
 }

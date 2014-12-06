@@ -2,16 +2,16 @@ package edu.uga.dawgtrades.model.impl;
 
 import edu.uga.dawgtrades.model.*;
 
-public class AttributelImpl extends Persistent implements Attribute {
+public class AttributeImpl extends Persistent implements Attribute {
 
     private long attributetypeId;
     private long itemId;
     private String value;
 
-    public AttributelImpl() {
+    public AttributeImpl() {
     }
 
-    public AttributelImpl(long attributetypeId, long itemId, String value) {
+    public AttributeImpl(long attributetypeId, long itemId, String value) {
         this.attributetypeId = attributetypeId;
         this.itemId = itemId;
         this.value = value;

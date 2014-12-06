@@ -36,8 +36,20 @@ public class CreateItemCtrl{
 		}
 	}
 	
-	public boolean attemptItemCreate(Set<Attribute> attributes,Set<Category> categories,String name, String code, String description){
+	public boolean attemptItemCreate(Set<Attribute> attributes,Set<Category> categories,String name, String code, String description)throws DTException{
+		try{
+			connect();
+			Item item = objectModel.createItem();
+			item.setName = name;
+			item.setCode = code;
+			item.setDescription = description;
+			
+		}
 		return true;
+	}
+	
+	private void addAttributes(Set<Attribute> attributes){	
+		
 	}
 
 }

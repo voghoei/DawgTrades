@@ -61,7 +61,7 @@
         <url-pattern>/register</url-pattern>
      </servlet-mapping>
 
-  <servlet>
+    <servlet>
         <servlet-name>SettingsServlet</servlet-name>
         <servlet-class>edu.uga.dawgtrades.ui.SettingsUI</servlet-class>
      </servlet>
@@ -69,6 +69,15 @@
         <servlet-name>SettingsServlet</servlet-name>
         <url-pattern>/settings</url-pattern>
      </servlet-mapping>
+
+    <servlet>
+        <servlet-name>CreateAuctionServlet</servlet-name>
+        <servlet-class>edu.uga.dawgtrades.ui.CreateAuctionUI</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CreateAuctionServlet</servlet-name>
+        <url-pattern>/createAuction</url-pattern>
+    </servlet-mapping>
 
     <session-config>
         <session-timeout>30</session-timeout>

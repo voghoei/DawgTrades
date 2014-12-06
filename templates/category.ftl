@@ -24,6 +24,12 @@
 	</div>
 </div>
 </#if>
+
+<#if specificCategory??>
+	<h1>${specificCategory.getName()}</h1>>
+<#else>
+	<h1>Categories</h1>>
+</#if>
 <div class="row">
 	<div class="col-md-4">
 		<#if subCategories??>

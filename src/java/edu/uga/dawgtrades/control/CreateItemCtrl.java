@@ -39,7 +39,7 @@ public class CreateItemCtrl{
 		}
 	}
 	
-	public boolean attemptItemCreate(HttpSession session,Set<Attribute> attributes,Set<Category> categories,String name, String code, String description)throws DTException{
+	public boolean attemptItemCreate(HttpSession session,Set<Attribute> attributes,Set<Category> categories,String name, String code, String description)throws DTException, ServletException,IOException{
 		try{
 			connect();
 			Item item = objectModel.createItem();

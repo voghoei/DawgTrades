@@ -17,7 +17,7 @@ import java.io.PrintWriter;
 import java.sql.Connection;
 import java.util.Iterator;
 import java.util.Set;
-import javax.servlet.http.httpSession;
+import javax.servlet.http.HttpSession;
 public class CreateItemCtrl{
 	
 	private Connection conn = null;

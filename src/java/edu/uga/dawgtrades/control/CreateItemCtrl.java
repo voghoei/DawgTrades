@@ -1,6 +1,7 @@
 package edu.uga.dawgtrades.control;
 
 import edu.uga.dawgtrades.DTException;
+import edu.uga.dawgtrades.control.LoginControl;
 import edu.uga.dawgtrades.model.ObjectModel;
 import edu.uga.dawgtrades.model.RegisteredUser;
 import edu.uga.dawgtrades.model.Item;
@@ -16,12 +17,14 @@ import java.io.PrintWriter;
 import java.sql.Connection;
 import java.util.Iterator;
 import java.util.Set;
+import javax.servlet.http.httpSession;
 public class CreateItemCtrl{
 	
 	private Connection conn = null;
 	private ObjectModel objectModel = null;
 	private Persistence persistence = null;
 	private String error="Error Unknown";
+	private LoginControl ctrl = new LoginControl();
 	private void connect() throws DTException{
 		conn = DbUtils.connect();
 		objectModel = new ObjectModelImpl();
@@ -36,14 +39,14 @@ public class CreateItemCtrl{
 		}
 	}
 	
-	public boolean attemptItemCreate(Set<Attribute> attributes,Set<Category> categories,String name, String code, String description)throws DTException{
+	public boolean attemptItemCreate(HttpSession session,Set<Attribute> attributes,Set<Category> categories,String name, String code, String description)throws DTException{
 		try{
 			connect();
 			Item item = objectModel.createItem();
 			item.setName(name);
 			item.setCode(code);
 			item.setDescription(description);
-			RegisteredUser currentUser = (RegisteredUser) session.getAttribute("currentSessionUser");
+			RegisteredUser currentUser = ctrl.getLoggedInUser(session);
 			item.setOwnerId(currentUser.getId());
 			//objectModel.storeItem(item);
 		}catch(DTException e){

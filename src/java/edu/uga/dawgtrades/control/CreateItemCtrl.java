@@ -25,7 +25,7 @@ public class CreateItemCtrl{
 	private void connect() throws DTException{
 		conn = DbUtils.connect();
 		objectModel = new ObjectModelImpl();
-		persistence = new PersistenceImpl();
+		persistence = new PersistenceImpl(conn,objectModel);
 		objectModel.setPersistence(persistence);
 	}
 	private void close(){

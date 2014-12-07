@@ -18,7 +18,7 @@
 <#if message??>
 <div class="row">
 	<div class="col-md-12 alert alert-success" role="alert">
-		<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+		<span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>
 		<span class="sr-only">Message:</span>
 		${message}
 	</div>

@@ -24,7 +24,7 @@
 <#include "adminNav.ftl">
 	<#if categoriesMap??>
 		<ul class="list-group">
-			<@catAdmin.categoryRow categoryMap=categoriesMap categoryId="0">
+			<@catAdmin.categoryRow categoryMap=categoriesMap categoryID="0" />
 		</ul>
 	</#if>
 	</div>

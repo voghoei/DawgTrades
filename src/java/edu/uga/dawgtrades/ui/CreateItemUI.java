@@ -3,8 +3,10 @@ package edu.uga.dawgtrades.ui;
 import edu.uga.dawgtrades.DTException;
 import edu.uga.dawgtrades.control.LoginControl;
 import edu.uga.dawgtrades.model.RegisteredUser;
+import edu.uga.dawgtrades.control.CreateItemCtrl;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.*;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -27,6 +29,11 @@ public class CreateItemUI extends HttpServlet{
 			RegisteredUser currentUser = (RegisteredUser)session.getAttribute("currentSessionUser");
 			request.setAttribute("loggedInUser",currentUser);
 		}
+		CreateItemCtrl itemCtrl = new CreateItemCtrl();
+		Map<String,String> categories = itemCtrl.getCategoryList();
+		
+		request.setAttribute("categoryList",categories);
+			
 		request.getRequestDispatcher("/createItem.ftl").forward(request,response);
 	}
 

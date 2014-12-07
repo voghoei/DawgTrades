@@ -88,9 +88,10 @@ public class CreateItemCtrl{
 	public ArrayList<AttributeType> getCategoryAttributes(long id){
 		try{
 			this.connect();
-			AttributeType attrType = this.objectModel.createAttributeTypes();
-			attrType.setCategoryId(id);
-			Iterator<AttributeType> results = this.objectModel.getAttributeType(attrType);
+			AttributeType attrType = this.objectModel.createAttributeType();
+			Category category = this.objectModel.createCategory();
+			category.setId(id);
+			Iterator<AttributeType> results = this.objectModel.getAttributeType(category);
 			ArrayList<AttributeType> attributeTypes = new ArrayList<AttributeType>();
 			while(results.hasNext()){
 				attributeTypes.add(results.next());

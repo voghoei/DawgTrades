@@ -57,6 +57,11 @@
 		</div>
 	</div>
 	<div class="col-md-9">
+		<#if categoryAuctions??>
+
+		<#else>
+			<p class="lead text-centered">No open auctions found.</p>
+		</#if>
 	</div>
 </div>
 </@default.mainLayout>

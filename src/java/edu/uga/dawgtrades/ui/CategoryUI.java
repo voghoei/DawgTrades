@@ -100,7 +100,7 @@ public class CategoryUI extends HttpServlet {
                 request.setAttribute("error", "Invalid category ID. Please try again.");
             }
         }
-
+        request.setAttribute("message", "Browsing category");
         // Fall through to this if error'd.
         ArrayList<Category> subCats = catCtrl.getCategoriesWithParentID(0);
         if(subCats != null && !subCats.isEmpty()) {

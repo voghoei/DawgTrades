@@ -78,6 +78,7 @@ public class CreateItemCtrl{
 			return categoriesMap;	
 		}catch(DTException e){
 			error = e.getMessage();
+			return null;
 		}finally{
 			this.close();
 		}

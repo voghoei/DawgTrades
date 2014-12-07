@@ -60,56 +60,6 @@ public class MembershipControl {
         return membershipMap;	
     }
 
-    public Iterator<ExperienceReport> getAllRepotsOfUser(long user_id) throws DTException {
-        Iterator<ExperienceReport> reportIter = null;
-        Iterator<RegisteredUser> userIter = null;
-        RegisteredUser runningUser = null;
-        try {
-            connect();
-
-            RegisteredUser modelUser = objectModel.createRegisteredUser();
-            modelUser.setId(user_id);
-            userIter = objectModel.findRegisteredUser(modelUser);
-            if (userIter.hasNext()) {
-
-                runningUser = userIter.next();
-                ExperienceReport modelReport = objectModel.createExperienceReport();
-                modelReport.setReviewed(runningUser);
-                reportIter = objectModel.findExperienceReport(modelReport);
-
-            } else {
-                error = "user not found";
-            }
-
-        } catch (DTException e) {
-            error = e.getMessage();
-
-        } finally {
-            close();
-        }
-        return reportIter;
-    }
-
-    public boolean attemptToWriteExperienceReport(RegisteredUser reviewer, RegisteredUser reviewed, int rate, String report) throws DTException {
-        ExperienceReport modelExperienceReport = null;
-        try {
-
-            connect();
-
-            modelExperienceReport = objectModel.createExperienceReport(reviewer, reviewed, rate, report, new Date());
-
-            objectModel.storeExperienceReport(modelExperienceReport);
-
-            return true;
-        } catch (DTException e) {
-            error = e.getMessage();
-            return false;
-        } finally {
-            close();
-        }
-
-    }
-
     public String getError() {
         return error;
     }

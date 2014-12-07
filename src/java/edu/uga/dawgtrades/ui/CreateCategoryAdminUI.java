@@ -67,7 +67,7 @@ public class CreateCategoryAdminUI extends HttpServlet {
             }
             request.setAttribute("loggedInUser",currentUser);
         }
-        response.sendRedirect("/admin/categories")
+        response.sendRedirect("/admin/categories");
     }
 
     @Override

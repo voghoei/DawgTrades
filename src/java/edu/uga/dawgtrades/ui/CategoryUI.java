@@ -68,10 +68,11 @@ public class CategoryUI extends HttpServlet {
                         HashMap<String, Bid> bids = catCtrl.getBidsForAuctions(auctions);
                         HashMap<String, Item> items = catCtrl.getItemsForAuctions(auctions);
                         if(bids != null && items != null) {
-                            request.setAttribute("categoryAuctions", auctions);
-                            request.setAttribute("categoryItems", items);
-                            request.setAttribute("auctionBids", bids);
-
+                            if(!auctions.isEmpty()) {
+                                request.setAttribute("categoryAuctions", auctions);
+                                request.setAttribute("categoryItems", items);
+                                request.setAttribute("auctionBids", bids);
+                            }
                         }else {
                             if(catCtrl.hasError()) {
                                 request.setAttribute("error", "Error while getting auction data: " + catCtrl.getError());
@@ -114,9 +115,11 @@ public class CategoryUI extends HttpServlet {
                 HashMap<String, Bid> bids = catCtrl.getBidsForAuctions(auctions);
                 HashMap<String, Item> items = catCtrl.getItemsForAuctions(auctions);
                 if(bids != null && items != null) {
-                    request.setAttribute("categoryAuctions", auctions);
-                    request.setAttribute("categoryItems", items);
-                    request.setAttribute("auctionBids", bids);
+                    if(!auctions.isEmpty()) {
+                        request.setAttribute("categoryAuctions", auctions);
+                        request.setAttribute("categoryItems", items);
+                        request.setAttribute("auctionBids", bids);
+                    }
 
                 }else {
                     if(catCtrl.hasError()) {

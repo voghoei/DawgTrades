@@ -7,7 +7,7 @@
 		<#if item??>
 			<h3> Item here </h3>
 		<#else>
-			<a href="/createItem">Add an Item.</a>
+			<a id="createItemLink"  href="/createItem">Add an Item</a>
 		</#if>
 		
 		<div class="form-group">

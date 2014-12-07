@@ -89,6 +89,15 @@
         <url-pattern>/createAuction</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>CreateItemServlet</servlet-name>
+        <servlet-class>edu.uga.dawgtrades.ui.CreateItemUI</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CreateItemServlet</servlet-name>
+        <url-pattern>/createItem</url-pattern>
+    </servlet-mapping>
+
     <session-config>
         <session-timeout>30</session-timeout>
     </session-config>

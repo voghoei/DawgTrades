@@ -69,7 +69,7 @@ public class CreateItemCtrl{
 		try{
 			connect();
 			Category modelCategory = objectModel.createCategory();
-			Category category = new CategoryImpl();
+			Category category = null;
 			Iterator<Category> categories = objectModel.findCategory(modelCategory);
 			while(categories.hasNext()){
 				category = categories.next();

@@ -24,6 +24,11 @@
 	</div>
 </div>
 </#if>
+<#if specificCategory??>
+	<h1>Browsing ${specificCategory.getName()}</h1>
+<#else>
+	<h1>Browsing all categories</h1>
+</#if>
 <div class="row">
 	<div class="col-md-3">
 		<div class="panel panel-default">
@@ -52,11 +57,6 @@
 		</div>
 	</div>
 	<div class="col-md-9">
-		<#if specificCategory??>
-			<h1>${specificCategory.getName()}</h1>
-		<#else>
-			<h1>All Categories</h1>
-		</#if>
 	</div>
 </div>
 </@default.mainLayout>

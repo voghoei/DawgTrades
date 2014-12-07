@@ -68,20 +68,18 @@ public class CreateItemCtrl{
 		ArrayList<Category> categoriesMap = new ArrayList<Category>();
 		try{
 			connect();
-			Category modelCategory = objectModel.createCategory();
-			//Category category = null;
-			Iterator<Category> categories = objectModel.findCategory(modelCategory);
+			Category modelCategory = this.objectModel.createCategory();
+			Iterator<Category> categories = this.objectModel.findCategory(modelCategory);
 			while(categories.hasNext()){
 				modelCategory = categories.next();
 				categoriesMap.add(modelCategory);
 			}
 					
-			
+			return categoriesMap;	
 		}catch(DTException e){
 			error = e.getMessage();
 		}finally{
 			close();
 		}
-		return categoriesMap;
 	}	
 }

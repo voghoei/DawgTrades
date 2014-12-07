@@ -71,7 +71,7 @@ public class CreateItemCtrl{
 			Iterator<Category> categories = objectModel.findCategory(category);
 			while(categories.hasNext()){
 				category = categories.next();
-				categoriesMap.put(category.getId().toString(),category.getName().toString());
+				categoriesMap.put(String.parseLong(category.getId()),category.getName().toString());
 			}
 					
 			

@@ -66,8 +66,9 @@ public class CategoryUI extends HttpServlet {
                                 request.setAttribute("auctionBids", bids);
 
                             }else {
-                            if(catCtrl.hasError()) {
-                                request.setAttribute("error", "Error while getting auction data: " + catCtrl.getError());
+                                if(catCtrl.hasError()) {
+                                    request.setAttribute("error", "Error while getting auction data: " + catCtrl.getError());
+                                }
                             }
                         }else{
                             if(catCtrl.hasError()) {
@@ -112,8 +113,9 @@ public class CategoryUI extends HttpServlet {
                     request.setAttribute("auctionBids", bids);
 
                 }else {
-                if(catCtrl.hasError()) {
-                    request.setAttribute("error", "Error while getting auction data: " + catCtrl.getError());
+                    if(catCtrl.hasError()) {
+                        request.setAttribute("error", "Error while getting auction data: " + catCtrl.getError());
+                    }
                 }
             }else{
                 if(catCtrl.hasError()) {

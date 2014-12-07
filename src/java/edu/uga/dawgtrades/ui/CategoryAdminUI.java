@@ -32,7 +32,7 @@ public class CategoryAdminUI extends HttpServlet {
         if(subCats != null && !subCats.isEmpty()) {
             children.put(Long.valueOf(id).toString(), subCats);
             for(Category cat : subCats) {
-                children.putAll(this.populateHashmapWithCategories(children, cat.getId()));
+                children.putAll(this.populateHashmapWithCategories(cat.getId()));
             }
         }
         return children;

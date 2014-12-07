@@ -80,5 +80,6 @@ public class CreateItemCtrl{
 		}finally{
 			close();
 		}
+		return categoriesMap;
 	}	
 }

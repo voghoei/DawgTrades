@@ -14,11 +14,9 @@ import edu.uga.dawgtrades.persistence.impl.PersistenceImpl;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Connection;
-import java.util.Iterator;
-import java.util.Set;
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletException;
+import java.sql.*;
+import java.util.*;
+import javax.servlet.*;
 import javax.servlet.http.HttpSession;
 public class CreateItemCtrl{
 	
@@ -63,5 +61,23 @@ public class CreateItemCtrl{
 	private void addAttributes(Set<Attribute> attributes){	
 		// add attributes for this item				
 	}
-	
+	public LinkedHashMap<String,String> getCategoryList(){
+		try{
+			Map<String,String> categoriesMap = new LinkedHashMap<String,String>();
+			connect();
+			Category modelCategory = new CategoryImpl();
+			Category category = new CategoryImpl();
+			Iterator<Category> categories = objectModel.findCategory(category);
+			while(categories.hasNext()){
+				category = categories.next();
+				categoriesMap.put(category.getId(),category.getName());
+			}
+					
+			
+		}catch(DTException e){
+			error = e.getMessage();
+		}finally{
+			close();
+		}
+	}	
 }

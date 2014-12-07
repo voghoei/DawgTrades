@@ -30,7 +30,7 @@
 			<form id="categoryForm" action="createItem" method="POST">
 				<select id="category" name="category" onchange="document.getElementById('categoryForm').submit();">
 					<option value="#" disabled>Select Category</option>
-					<#list categoryList as category><option value="${category.getId()}">${category.getName()}</option>
+					<#list categoryList as category><option name="id" value="${category.getId()}">${category.getName()}</option>
 					</#list>
 				</select>
 			</form>

@@ -46,7 +46,7 @@ public class CategoryControl {
         return err;
     }
 
-    protected HashMap<String, ArrayList> populateHashmapWithCategories(long id) {
+    public HashMap<String, ArrayList> populateHashmapWithCategories(long id) {
         ArrayList<Category> subCats = this.getCategoriesWithParentID(id);
         HashMap<String, ArrayList> children = new HashMap<String, ArrayList>();
         if(subCats != null && !subCats.isEmpty()) {

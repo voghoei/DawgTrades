@@ -19,6 +19,8 @@ public interface Persistence {
     public void saveMembership(Membership membership) throws DTException;
 
     public Membership restoreMembership() throws DTException;
+    
+    public Iterator<Membership> restoreMembership(Membership membership) throws DTException;
 
     public void deleteMembership(Membership membership) throws DTException;
 

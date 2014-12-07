@@ -43,6 +43,10 @@ public class ObjectModelImpl extends Persistent implements ObjectModel {
     public Membership findMembership() throws DTException {
         return persistence.restoreMembership();
     }
+    
+    public Iterator<Membership> findMembership(Membership membership) throws DTException {
+        return persistence.restoreMembership(membership);
+    }
 
     public void storeMembership(Membership membership) throws DTException {
         persistence.saveMembership(membership);

@@ -28,7 +28,7 @@ public interface ObjectModel {
     public Category getCategory(Item item) throws DTException;
 
     //Attribute Type
-    public AttributeType createAttributeType(Category category, String name) throws DTException;
+    public AttributeType createAttributeType(Category category, String name, boolean isString) throws DTException;
 
     public AttributeType createAttributeType();
 

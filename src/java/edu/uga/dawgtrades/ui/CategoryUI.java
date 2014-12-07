@@ -63,7 +63,7 @@ public class CategoryUI extends HttpServlet {
                             request.setAttribute("error", "Unknown error while getting subcategories");
                         }
                     }
-                    ArrayList<Auction> auctions = catCtrl.getCategoryAuctions(0);
+                    ArrayList<Auction> auctions = catCtrl.getCategoryAuctions(id);
                     if(auctions != null) {
                         HashMap<Long, Bid> bids = catCtrl.getBidsForAuctions(auctions);
                         HashMap<Long, Item> items = catCtrl.getItemsForAuctions(auctions);

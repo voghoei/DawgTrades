@@ -60,6 +60,10 @@
 			            <li><a href="/settings">Account Settings</a></li>
 			            <li><a href="#">My Auctions</a></li>
 			            <li class="divider"></li>
+			            <#if loggedInUser.getIsAdmin()>
+			            <li><a href="/admin">Admin Panel</a></li>
+			            <li class="divider"></li>
+			            </#if>
 			            <li><a href="/logout">Log Out</a></li>
 			          </ul>
 			        </li>

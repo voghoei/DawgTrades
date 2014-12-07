@@ -1,4 +1,4 @@
-package edu.uga.dawgtrades.ui
+package edu.uga.dawgtrades.ui;
 
 import edu.uga.dawgtrades.model.Category;
 import edu.uga.dawgtrades.DTException;
@@ -16,11 +16,15 @@ import java.io.PrintWriter;
 
 public class CategorySelectUI extends HttpServlet{
 	@Override
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletExcetion, IOException{
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 		
 		HttpSession session = request.getSession(true);
 		
 		
+	}
+	@Override
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+	
 	}
 	
 

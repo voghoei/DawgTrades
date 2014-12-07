@@ -7,6 +7,7 @@ import edu.uga.dawgtrades.model.RegisteredUser;
 import edu.uga.dawgtrades.model.Item;
 import edu.uga.dawgtrades.model.Attribute;
 import edu.uga.dawgtrades.model.Category;
+import edu.uga.dawgtrades.model.impl.CategoryImpl;
 import edu.uga.dawgtrades.model.impl.ObjectModelImpl;
 import edu.uga.dawgtrades.persistence.Persistence;
 import edu.uga.dawgtrades.persistence.impl.DbUtils;
@@ -70,7 +71,7 @@ public class CreateItemCtrl{
 			Iterator<Category> categories = objectModel.findCategory(category);
 			while(categories.hasNext()){
 				category = categories.next();
-				categoriesMap.put(category.getId(),category.getName());
+				categoriesMap.put(category.getId().toString(),category.getName().toString());
 			}
 					
 			

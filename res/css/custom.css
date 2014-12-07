@@ -28,3 +28,6 @@ a#createItemLink {
 .lead-no-bottom-margin {
   margin-bottom: 0 !important;
 }
+.margin-bottom {
+  margin-bottom:0.5em;
+}

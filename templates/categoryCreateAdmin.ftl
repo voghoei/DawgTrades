@@ -23,7 +23,7 @@
 </div>
 </#if>
 <#include "adminNav.ftl">
-	<form role="form" action="create" method="post">
+	<form role="form" action="create" method="POST">
 		<!-- create item stuff goes here -->
 		
 		<div class="form-group">
@@ -32,14 +32,12 @@
 		</div>
 		<div class="form-group">
 			<label for="category"> Parent Category </label>
-			<#if categoryMap??>
-			<form name="categoryForm" action="categorySelect" method="POST">
-				<select id="category" name="category" onchange="document.categoryForm.submit();">
-					<option value="#" disabled>Select Category</option>
-					<option value="0">None (Root-level Category)</option>
-					<@catList.categoryList categoryMap=categoriesMap categoryID="0" />
-				</select>
-			</form>
+			<#if categoriesMap??>
+			<select id="category" name="category" class="form-control">
+				<option value="#" disabled>Select Category</option>
+				<option value="0">None (Root-level Category)</option>
+				<@catList.categoryList categoryMap=categoriesMap categoryID="0" />
+			</select>
 			<#else>
 			<p> No categories found</p>
 			</#if>

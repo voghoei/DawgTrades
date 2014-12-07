@@ -100,14 +100,14 @@ public class CategoryManager {
         query.append(selectCategorySql);
 
         if (category != null) {
-            if (category.getId() >= 0) // id is unique, so it is sufficient to get a person
+            if (category.getId() > 0) // id is unique, so it is sufficient to get a person
             {
                 query.append(" where id = " + category.getId());
             } else if (category.getName() != null) // userName is unique, so it is sufficient to get a person
             {
                 query.append(" where name = '" + category.getName() + "'");
             } else {
-                if (category.getParentId() > 0) {
+                if (category.getParentId() >= 0) {
                     condition.append(" Category_id = '" + category.getParentId() + "'");
                 }
 

@@ -62,7 +62,7 @@ public class CreateItemCtrl{
 	private void addAttributes(Set<Attribute> attributes){	
 		// add attributes for this item				
 	}
-	public LinkedHashMap<String,String> getCategoryList(){
+	public Map<String,String> getCategoryList(){
 		Map<String,String> categoriesMap = new LinkedHashMap<String,String>();
 		try{
 			connect();

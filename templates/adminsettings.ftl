@@ -1,5 +1,5 @@
 <#import "default.ftl" as default>
-<@default.mainLayout "Settings">
+<@default.mainLayout "Admin Panel">
 <h1>Admin Panel</h1>
 <#if error??>
 <div class="row">

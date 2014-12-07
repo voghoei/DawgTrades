@@ -134,9 +134,40 @@ public class CategoryControl {
 
     public ArrayList<Auction> getCategoryAuctions(long id) {
         long count = 0;
+        ArrayList<Auction> auctions = new ArrayList<Auction>();
         try {
             this.connect();
-            return null;
+            Category toFind = this.objectModel.createCategory();
+            toFind.setId(id);
+            Iterator<Category> results = this.objectModel.findCategory(toFind);
+            if(results.hasNext()) {
+                toFind = results.next();
+                Item itemSearch = this.objectModel.createItem();
+                itemSearch.setCategoryId(toFind.getId());
+                ItemIterator items = (ItemIterator) this.objectModel.findItem(itemSearch);
+                while(items.hasNext()) {
+                    Item item = items.next();
+                    Auction auction = this.objectModel.createAuction();
+                    auction.setItemId(item.getId());
+                    Iterator<Auction> auctionResult = this.objectModel.findAuction(auction);
+                    while(auctionResult.hasNext()) {
+                        auction = auctionResult.next();
+                        if(!auction.getIsClosed()) {
+                            auctions.add(auction);
+                        }
+                    }
+                }
+                ArrayList<Category> subCats = this.getCategoriesWithParentID(toFind.getId());
+                for(Category cat : subCats) {
+                    ArrayList<Auction> subAuctions = this.getCategoryAuctions(cat.getId());
+                    if(subAuctions != null) {
+                        auctions.addAll(subAuctions);
+                    }
+                }
+                return auctions;
+            }else{
+                return null;
+            }
         }
         catch(DTException e) {
             this.hasError = true;

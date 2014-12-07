@@ -12,7 +12,7 @@
 </#if>
 <#include "adminNav.ftl">
 	<#if loggedInUser??>
-	<label> Welcome, </label><p> ${loggedInUser.getName()}</p>
+	<p class="lead">Welcome, ${loggedInUser.getFirstName()}</p>
 	</#if>
 	</div>
 </div>

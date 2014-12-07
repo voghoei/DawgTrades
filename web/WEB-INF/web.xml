@@ -13,10 +13,6 @@
             <param-value>/WEB-INF/resources</param-value>
         </init-param>
     </servlet>
-    <servlet>
-        <servlet-name>MembershipUI</servlet-name>
-        <servlet-class>edu.uga.dawgtrades.ui.MembershipUI</servlet-class>
-    </servlet>
     <servlet-mapping>
         <servlet-name>fileServlet</servlet-name>
         <url-pattern>/resources/*</url-pattern>
@@ -109,9 +105,13 @@
         <servlet-name>CreateItemServlet</servlet-name>
         <url-pattern>/createItem</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>MembershipUI</servlet-name>
+        <servlet-class>edu.uga.dawgtrades.ui.MembershipUI</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>MembershipUI</servlet-name>
-        <url-pattern>/MembershipUI</url-pattern>
+        <url-pattern>/membership</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>30</session-timeout>

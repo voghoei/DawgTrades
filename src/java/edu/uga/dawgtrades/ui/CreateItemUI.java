@@ -4,6 +4,7 @@ import edu.uga.dawgtrades.DTException;
 import edu.uga.dawgtrades.control.LoginControl;
 import edu.uga.dawgtrades.model.RegisteredUser;
 import edu.uga.dawgtrades.model.Category;
+import edu.uga.dawgtrades.model.AttributeType;
 import edu.uga.dawgtrades.control.CreateItemCtrl;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -34,18 +35,31 @@ public class CreateItemUI extends HttpServlet{
 		ArrayList<Category> categories = itemCtrl.getCategoryList();
 		if(categories != null){	
 			request.setAttribute("categoryList",categories);
-			request.setAttribute("error","List size: "+itemCtrl.getError());
-		}else{
-			request.setAttribute("error","Error: Category list is null");
-//			request.setAttribute("categoryList","");
-//			request.removeAttribute("categoryList");
+//			request.setAttribute("error","List size: "+itemCtrl.getError());
+		}else if(itemCtrl.hasError()){
+			request.setAttribute("error","Error: "+itemCtrl.getError());
+
+		}
+		String categoryId = request.getParameter("id");
+		if(categoryId != null){
+			try{
+				long id = Long.parseLong(categoryId,10);
+				ArrayList<AttributeType> attributeTypes = itemCtrl.getCategoryAttributes(id);
+				if(attributeTypes != null){
+					request.setAttribute("attributes",attributeTypes);
+				}else if(itemCtrl.hasError()){
+					request.setAttribute("error","Error: "+itemCtrl.getError());	
+				}
+			}catch(NumberFormatException e){
+				request.setAttribute("error","Invalid category ID. Please try again.");
+			}
 		}	
 		request.getRequestDispatcher("/createItem.ftl").forward(request,response);
 	}
 
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException{
-		
+				
 			
 	}
 }

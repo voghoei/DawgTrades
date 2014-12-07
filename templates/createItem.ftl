@@ -37,9 +37,15 @@
 			<#else>
 			<p> No categories found</p>
 			</#if>
+			<#if attributes??>
+				<#list attributes as attribute>
+				<label for="attribute"></label>
+				<input type="text" class="form-control" name="attribute">
+				</#list>
+			</#if>
 
 		</div>
-		<button type="submit" class="btn btn-default"> Create Item</button>
+		<button type="submit" class="btn btn-default"> Submit </button>
 	</form>
 </div>
 </@default.mainLayout>

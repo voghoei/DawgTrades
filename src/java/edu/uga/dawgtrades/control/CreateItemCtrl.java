@@ -5,7 +5,7 @@ import edu.uga.dawgtrades.control.LoginControl;
 import edu.uga.dawgtrades.model.ObjectModel;
 import edu.uga.dawgtrades.model.RegisteredUser;
 import edu.uga.dawgtrades.model.Item;
-import edu.uga.dawgtrades.model.Attribute;
+import edu.uga.dawgtrades.model.AttributeType;
 import edu.uga.dawgtrades.model.Category;
 import edu.uga.dawgtrades.model.impl.CategoryImpl;
 import edu.uga.dawgtrades.model.impl.ObjectModelImpl;
@@ -71,12 +71,30 @@ public class CreateItemCtrl{
 			Category modelCategory = this.objectModel.createCategory();
 			Iterator<Category> categories = this.objectModel.findCategory(modelCategory);
 			ArrayList<Category> categoriesMap = new ArrayList<Category>();
-			while(categories.hasNext()){
-				error = "Entered loop";				
+			while(categories.hasNext()){				
 				categoriesMap.add(categories.next());
 			}
 //			error = Integer.toString(categoriesMap.size());		
 			return categoriesMap;	
+		}catch(DTException e){
+			error = e.getMessage();
+			hasError=true;
+			return null;
+		}finally{
+			this.close();
+		}
+	}
+	public ArrayList<Attribute> getCategoryAttributes(long id){
+		try{
+			this.connect();
+			AttributeType attrType = this.objectModel.createAttributeTypes();
+			attrType.setCategoryId(id);
+			Iterator<AttributeType> results = this.objectModel.findAttributeType(attrType);
+			ArrayList<AttributeType> attributeTypes = new ArrayList<AttributeType>();
+			while(results.hasNext()){
+				attributeTypes.add(results.next());
+			}
+			return attributeTypes;
 		}catch(DTException e){
 			error = e.getMessage();
 			hasError=true;

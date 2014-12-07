@@ -1,6 +1,16 @@
 <#import "default.ftl" as default>
 <@default.mainLayout "Create Auction">
 <h1> Create Auction </h1>
+
+	<#if error??>
+	<div class="row">
+		<div class="col-md-12 alert alert-danger" role="alert">
+                	<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                	<span class="sr-only">Error:</span>
+                	${error}
+        	</div>
+	</div>
+	</#if>
 <div class="row">
 	<#assign keys = categoryList?keys>
 	<form role="form" action="createItem" method="post">

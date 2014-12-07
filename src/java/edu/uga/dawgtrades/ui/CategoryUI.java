@@ -60,7 +60,7 @@ public class CategoryUI extends HttpServlet {
                         if(auctions != null) {
                             HashMap<Long, Bid> bids = catCtrl.getBidsForAuctions(auctions);
                             HashMap<Long, Item> items = catCtrl.getItemsForAuctions(auctions);
-                            if(bid != null && items != null) {
+                            if(bids != null && items != null) {
                                 request.setAttribute("categoryAuctions", auctions);
                                 request.setAttribute("categoryItems", items);
                                 request.setAttribute("auctionBids", bids);

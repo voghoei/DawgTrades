@@ -65,11 +65,11 @@ public class CreateItemCtrl{
 		// add attributes for this item				
 	}
 	public ArrayList<Category> getCategoryList(){
-		ArrayList<Category> categoriesMap = new ArrayList<Category>();
 		try{
-			connect();
+			this.connect();
 			Category modelCategory = this.objectModel.createCategory();
 			Iterator<Category> categories = this.objectModel.findCategory(modelCategory);
+			ArrayList<Category> categoriesMap = new ArrayList<Category>();
 			while(categories.hasNext()){
 				modelCategory = categories.next();
 				categoriesMap.add(modelCategory);
@@ -79,7 +79,7 @@ public class CreateItemCtrl{
 		}catch(DTException e){
 			error = e.getMessage();
 		}finally{
-			close();
+			this.close();
 		}
 	}	
 }

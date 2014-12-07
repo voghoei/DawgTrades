@@ -34,7 +34,7 @@ public class CreateItemUI extends HttpServlet{
 		ArrayList<Category> categories = itemCtrl.getCategoryList();
 		if(categories != null){	
 			request.setAttribute("categoryList",categories);
-			request.setAttribute("error","List size: "+categories.size());
+			request.setAttribute("error","List size: "+itemCtrl.getError());
 		}else{
 			request.setAttribute("error","Error: Category list is null");
 //			request.setAttribute("categoryList","");

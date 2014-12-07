@@ -25,6 +25,7 @@ public class CreateItemCtrl{
 	private ObjectModel objectModel = null;
 	private Persistence persistence = null;
 	private String error="Error Unknown";
+	private boolean hasError = false;
 	private LoginControl ctrl = new LoginControl();
 	private void connect() throws DTException{
 		conn = DbUtils.connect();
@@ -74,13 +75,20 @@ public class CreateItemCtrl{
 				
 				categoriesMap.add(categories.next());
 			}
-					
+			error = new Integer(categoriesMap).toString();		
 			return categoriesMap;	
 		}catch(DTException e){
 			error = e.getMessage();
+			hasError=true;
 			return null;
 		}finally{
 			this.close();
 		}
+	}
+	public String getError(){
+		return error;
 	}	
+	public boolean hasError(){
+		return hasError;
+	}
 }

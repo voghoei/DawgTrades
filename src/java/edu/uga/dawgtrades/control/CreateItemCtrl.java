@@ -75,7 +75,7 @@ public class CreateItemCtrl{
 				
 				categoriesMap.add(categories.next());
 			}
-			error = new Integer(categoriesMap).toString();		
+			error = Integer.toString(categoriesMap.size());		
 			return categoriesMap;	
 		}catch(DTException e){
 			error = e.getMessage();

@@ -24,3 +24,7 @@ a#createItemLink {
   text-decoration: underline;
   color:black;
 }
+
+.lead-no-bottom-margin {
+  margin-bottom: 0 !important;
+}

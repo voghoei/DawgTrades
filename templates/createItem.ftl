@@ -27,7 +27,7 @@
 		<div class="form-group">
 			<label for="category"> Category </label>
 			<#if categoryList??>
-			<form name="categoryForm" action="categorySelect" method="POST">
+			<form name="categoryForm" action="createItem" method="POST">
 				<select id="category" name="category" onchange="document.categoryForm.submit();">
 					<option value="#" disabled>Select Category</option>
 					<#list categoryList as category><option value="${category.getId()}">${category.getName()}</option>

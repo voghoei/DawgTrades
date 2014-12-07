@@ -64,16 +64,16 @@ public class CreateItemCtrl{
 	private void addAttributes(Set<Attribute> attributes){	
 		// add attributes for this item				
 	}
-	public Map<String,String> getCategoryList(){
-		Map<String,String> categoriesMap = new LinkedHashMap<String,String>();
+	public ArrayList<Category> getCategoryList(){
+		ArrayList<Category> categoriesMap = new ArrayList<Category>();
 		try{
 			connect();
 			Category modelCategory = objectModel.createCategory();
-			Category category = null;
+			//Category category = null;
 			Iterator<Category> categories = objectModel.findCategory(modelCategory);
 			while(categories.hasNext()){
-				category = categories.next();
-				categoriesMap.put(new Long(category.getId()).toString(),category.getName().toString());
+				modelCategory = categories.next();
+				categoriesMap.add(modelCategory);
 			}
 					
 			

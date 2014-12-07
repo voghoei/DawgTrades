@@ -30,9 +30,9 @@ public class CreateItemUI extends HttpServlet{
 			request.setAttribute("loggedInUser",currentUser);
 		}
 		CreateItemCtrl itemCtrl = new CreateItemCtrl();
-		Map<String,String> categories = itemCtrl.getCategoryList();
+		ArrayList<Category> categories = itemCtrl.getCategoryList();
 		if(categories != null){	
-		request.setAttribute("categoryList",categories);
+			request.setAttribute("categoryList",categories);
 		}else{
 			request.setAttribute("error","Error: Category list is null");
 			request.setAttribute("categoryList","");

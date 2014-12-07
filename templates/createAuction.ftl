@@ -18,7 +18,7 @@
 			<label for="minPrice"> Minimum Price for Auction Item </label>
 			<input type="number" class="form-control" name="minPrice">
 		</div>
-		<button type="submit" class="btn btn-default"> Create an Auction</button>
+		<button type="submit" class="btn btn-default"> Create Auction</button>
 	</form>
 </div>
 </@default.mainLayout>

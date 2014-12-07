@@ -36,8 +36,8 @@ public class CreateItemUI extends HttpServlet{
 			request.setAttribute("categoryList",categories);
 		}else{
 			request.setAttribute("error","Error: Category list is null");
-			request.setAttribute("categoryList","");
-			request.removeAttribute("categoryList");
+//			request.setAttribute("categoryList","");
+//			request.removeAttribute("categoryList");
 		}	
 		request.getRequestDispatcher("/createItem.ftl").forward(request,response);
 	}

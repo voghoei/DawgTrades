@@ -22,8 +22,8 @@ public class CategoryManager {
 
     public void save(Category category)
             throws DTException {
-        String insertCategorySql = "insert into Category ( category_id, Name ) values ( ?, ? )";
-        String updateCategorySql = "update Category set category_id = ?, Name = ? where id = ?";
+        String insertCategorySql = "insert into Category ( Category_id, name ) values ( ?, ? )";
+        String updateCategorySql = "update Category set Category_id = ?, name = ? where id = ?";
         PreparedStatement stmt = null;
         int inscnt;
         long categoryId;
@@ -91,7 +91,7 @@ public class CategoryManager {
 
     public Iterator<Category> restore(Category category)
             throws DTException {
-        String selectCategorySql = "select id,category_id, Name from Category";
+        String selectCategorySql = "select id,Category_id, name from Category";
         Statement stmt = null;
         StringBuffer query = new StringBuffer(100);
         StringBuffer condition = new StringBuffer(100);
@@ -108,7 +108,7 @@ public class CategoryManager {
                 query.append(" where name = '" + category.getName() + "'");
             } else {
                 if (category.getParentId() != 0) {
-                    condition.append(" category_id = '" + category.getParentId() + "'");
+                    condition.append(" Category_id = '" + category.getParentId() + "'");
                 }
 
                 if (condition.length() > 0) {

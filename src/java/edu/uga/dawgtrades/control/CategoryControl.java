@@ -131,8 +131,8 @@ public class CategoryControl {
         }
     }
 
-    public HashMap<Long, Bid> getBidsForAuctions(ArrayList<Auction> auctions) {
-        HashMap<Long, Bid> bids = new HashMap<Long, Bid>();
+    public HashMap<String, Bid> getBidsForAuctions(ArrayList<Auction> auctions) {
+        HashMap<String, Bid> bids = new HashMap<String, Bid>();
         try {
             this.connect();
             for(Auction auction : auctions) {
@@ -151,7 +151,7 @@ public class CategoryControl {
                     }
                 }
                 if(candidate != null) {
-                    bids.put(Long.valueOf(auction.getId()), candidate);
+                    bids.put(Long.valueOf(auction.getId()).toString(), candidate);
                 }
             }
             return bids;
@@ -166,8 +166,8 @@ public class CategoryControl {
         }
     }
 
-    public HashMap<Long, Item> getItemsForAuctions(ArrayList<Auction> auctions) {
-        HashMap<Long, Item> items = new HashMap<Long, Item>();
+    public HashMap<String, Item> getItemsForAuctions(ArrayList<Auction> auctions) {
+        HashMap<String, Item> items = new HashMap<String, Item>();
         try {
             this.connect();
             for(Auction auction : auctions) {
@@ -175,7 +175,7 @@ public class CategoryControl {
                 toFind.setId(auction.getItemId());
                 Iterator<Item> results = this.objectModel.findItem(toFind);
                 if (results.hasNext()) {
-                    items.put(Long.valueOf(auction.getId()), results.next());
+                    items.put(Long.valueOf(auction.getId()).toString(), results.next());
                 } else {
                     throw new DTException("An auction with an invalid item was found.");
                 }
@@ -230,7 +230,7 @@ public class CategoryControl {
                     return null;
                 }
             }else{
-                ArrayList<Category> subCats = this.getCategoriesWithParentID(0);
+                ArrayList<Category> subCats = this.getCategoriesWithParentID(0≈);
                 for(Category cat : subCats) {
                     ArrayList<Auction> subAuctions = this.getCategoryAuctions(cat.getId());
                     if(subAuctions != null) {

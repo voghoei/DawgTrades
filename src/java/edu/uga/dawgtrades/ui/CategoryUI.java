@@ -65,8 +65,8 @@ public class CategoryUI extends HttpServlet {
                     }
                     ArrayList<Auction> auctions = catCtrl.getCategoryAuctions(id);
                     if(auctions != null) {
-                        HashMap<Long, Bid> bids = catCtrl.getBidsForAuctions(auctions);
-                        HashMap<Long, Item> items = catCtrl.getItemsForAuctions(auctions);
+                        HashMap<String, Bid> bids = catCtrl.getBidsForAuctions(auctions);
+                        HashMap<String, Item> items = catCtrl.getItemsForAuctions(auctions);
                         if(bids != null && items != null) {
                             request.setAttribute("categoryAuctions", auctions);
                             request.setAttribute("categoryItems", items);
@@ -112,8 +112,8 @@ public class CategoryUI extends HttpServlet {
             request.setAttribute("subCategoryCounts", counts);
             ArrayList<Auction> auctions = catCtrl.getCategoryAuctions(0);
             if(auctions != null) {
-                HashMap<Long, Bid> bids = catCtrl.getBidsForAuctions(auctions);
-                HashMap<Long, Item> items = catCtrl.getItemsForAuctions(auctions);
+                HashMap<String, Bid> bids = catCtrl.getBidsForAuctions(auctions);
+                HashMap<String, Item> items = catCtrl.getItemsForAuctions(auctions);
                 if(bids != null && items != null) {
                     request.setAttribute("categoryAuctions", auctions);
                     request.setAttribute("categoryItems", items);

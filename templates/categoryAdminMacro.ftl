@@ -1,6 +1,6 @@
 <#macro categoryRow categoryMap categoryID="0">
 <#list categoryMap[categoryID] as category>
-	<li class="list-group-item category-list-item">
+	<li class="list-group-item category-list-item clearfix">
 		<a href="/admin/editCategory?id=${category.getId()}">${category.getName()}</a>
 		<a class="btn btn-default pull-right" href="/admin/deleteCategory?id=${category.getId()}">Delete</a>
 		<#assign stringID="${category.getId()}">

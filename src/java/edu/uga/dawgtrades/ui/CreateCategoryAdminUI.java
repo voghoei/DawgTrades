@@ -67,7 +67,52 @@ public class CreateCategoryAdminUI extends HttpServlet {
             }
             request.setAttribute("loggedInUser",currentUser);
         }
-        response.sendRedirect("/admin/categories");
+        String name = request.getParameter("name");
+        String parentID = request.getParameter("category");
+        if(parentID != null && name != null) {
+            if(name.isEmpty()) {
+                request.setAttrubute("error", "Name is required.");
+                HashMap<String, ArrayList> children = catCtrl.populateHashmapWithCategories(0);
+                request.setAttribute("categoriesMap", children);
+                request.getRequestDispatcher("/categoryCreateAdmin.ftl").forward(request, response);
+                return;
+            }
+            try {
+                long id = Long.parseLong(categoryID, 10);
+                if(catCtrl.categoryExists(id) || id == 0) {
+                    if(catCtrl.createCategoryWithParent(name, id)) {
+                        response.sendRedirect("/admin/categories");
+                    }else{
+                        if(catCtrl.hasError()) {
+                            request.setAttrubute("error", "Error: " + catCtrl.getError());
+                            HashMap<String, ArrayList> children = catCtrl.populateHashmapWithCategories(0);
+                            request.setAttribute("categoriesMap", children);
+                            request.getRequestDispatcher("/categoryCreateAdmin.ftl").forward(request, response);
+                            return;
+                        }else{
+                            request.setAttrubute("error", "An unknown error occurred.");
+                            HashMap<String, ArrayList> children = catCtrl.populateHashmapWithCategories(0);
+                            request.setAttribute("categoriesMap", children);
+                            request.getRequestDispatcher("/categoryCreateAdmin.ftl").forward(request, response);
+                            return;
+                        }
+                    }
+                }
+            }
+            catch(NumberFormatException e) {
+                request.setAttrubute("error", "Invalid parent category given: Not a number.");
+                HashMap<String, ArrayList> children = catCtrl.populateHashmapWithCategories(0);
+                request.setAttribute("categoriesMap", children);
+                request.getRequestDispatcher("/categoryCreateAdmin.ftl").forward(request, response);
+                return;
+            }
+        }else{
+            request.setAttrubute("error", "Insufficient parameters given.");
+            HashMap<String, ArrayList> children = catCtrl.populateHashmapWithCategories(0);
+            request.setAttribute("categoriesMap", children);
+            request.getRequestDispatcher("/categoryCreateAdmin.ftl").forward(request, response);
+            return;
+        }
     }
 
     @Override

@@ -285,4 +285,47 @@ public class CategoryControl {
 
     }
 
+    public boolean categoryExists(long id) {
+        long count = 0;
+        try {
+            this.connect();
+            Category toFind = this.objectModel.createCategory();
+            toFind.setId(id);
+            Iterator<Category> results = this.objectModel.findCategory(toFind);
+            if(results.hasNext()) {
+                return true;
+            }else{
+                return false;
+            }
+        }
+        catch(DTException e) {
+            this.hasError = true;
+            this.error = e.getMessage();
+            return false;
+        }
+        finally {
+            this.close();
+        }
+    }
+
+    public boolean createCategoryWithParent(String name, long id) {
+        long count = 0;
+        try {
+            this.connect();
+            Category toMake = this.objectModel.createCategory();
+            toMake.setName(name);
+            toMake.setParentId(id);
+            this.objectModel.storeCategory(toMake);
+            return true;
+        }
+        catch(DTException e) {
+            this.hasError = true;
+            this.error = e.getMessage();
+            return false;
+        }
+        finally {
+            this.close();
+        }
+    }
+
 }

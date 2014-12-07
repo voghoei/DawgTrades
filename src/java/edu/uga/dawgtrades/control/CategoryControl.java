@@ -198,12 +198,16 @@ public class CategoryControl {
         try {
             this.connect();
             Category toFind = this.objectModel.createCategory();
-            toFind.setId(id);
+            if(id != 0) {
+                toFind.setId(id);
+            }
             Iterator<Category> results = this.objectModel.findCategory(toFind);
             if(results.hasNext()) {
                 toFind = results.next();
                 Item itemSearch = this.objectModel.createItem();
-                itemSearch.setCategoryId(toFind.getId());
+                if(id != 0) {
+                    itemSearch.setCategoryId(toFind.getId());
+                }
                 ItemIterator items = (ItemIterator) this.objectModel.findItem(itemSearch);
                 while(items.hasNext()) {
                     Item item = items.next();

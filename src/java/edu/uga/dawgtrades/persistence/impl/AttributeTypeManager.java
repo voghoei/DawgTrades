@@ -26,8 +26,8 @@ class AttributeTypeManager  {
     public void save(AttributeType attributeType)
             throws DTException {
 
-        String insertAttributeTypeSql = "insert into AttributeType (category_id, name ) values ( ?, ? )";
-        String updateAttributeTypeSql = "update AttributeType set category_id = ?, name = ? where id = ?";
+        String insertAttributeTypeSql = "insert into AttributeType (category_id, name, isString ) values ( ?, ?, ? )";
+        String updateAttributeTypeSql = "update AttributeType set category_id = ?, name = ?, isString = ? where id = ?";
         PreparedStatement stmt = null;
         int inscnt;
         long attributeTypeId;
@@ -50,9 +50,10 @@ class AttributeTypeManager  {
             } else {
                 throw new DTException("AttributeTypeManager.save: can't save a AttributeType: Name undefined");
             }
+            stmt.setBoolean(3, attributeType.getIsString());
 
             if( attributeType.isPersistent() )
-                stmt.setLong( 3, attributeType.getId() );
+                stmt.setLong( 4, attributeType.getId() );
             
             inscnt = stmt.executeUpdate();
 
@@ -86,7 +87,7 @@ class AttributeTypeManager  {
     public Iterator<AttributeType> restore(Category category)
             throws DTException {
 
-        String selectAttributeTypeSql = "select att.id, att.category_id, att.name FROM AttributeType att , Category as cat ";
+        String selectAttributeTypeSql = "select att.id, att.category_id, att.name, att.isString FROM AttributeType att , Category as cat ";
 
         Statement stmt = null;
         StringBuffer query = new StringBuffer(100);
@@ -128,7 +129,7 @@ class AttributeTypeManager  {
 
         if (attribute != null) {
             if (attribute.isPersistent()) {
-                String selectAttributeTypeSql = "select att.id, att.category_id, att.name "
+                String selectAttributeTypeSql = "select att.id, att.category_id, att.name, att.isString "
                         + "FROM AttributeType att  , Arrtibute at "
                         + "where at.attributeType_id = att.id and at.id = " + attribute.getId();
 
@@ -145,7 +146,7 @@ class AttributeTypeManager  {
                         Category category = objectModel.createCategory(null, null);
                         category.setId(r.getLong(2));
 
-                        attributeType = objectModel.createAttributeType(category, r.getString(3));
+                        attributeType = objectModel.createAttributeType(category, r.getString(3), r.getBoolean(4));
                         attributeType.setId(r.getLong(1));
                         return attributeType;
                     }

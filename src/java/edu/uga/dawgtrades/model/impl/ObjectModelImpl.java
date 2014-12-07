@@ -53,10 +53,10 @@ public class ObjectModelImpl extends Persistent implements ObjectModel {
     }
 
     // Attribute Type --------------------------------------------------------------------------------------------
-    public AttributeType createAttributeType(Category category, String name) throws DTException {
+    public AttributeType createAttributeType(Category category, String name, boolean isString) throws DTException {
         AttributeType attributeType = null;
         if (category.isPersistent()) {
-            attributeType = new AttributeTypeImpl(category.getId(), name);
+            attributeType = new AttributeTypeImpl(category.getId(), name, isString);
         }
         return attributeType;
     }

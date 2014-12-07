@@ -9,13 +9,15 @@ public class AttributeTypeImpl extends Persistent implements AttributeType {
     
     private long categoryId;
     private String name;
+    private boolean isString = false;
 
     public AttributeTypeImpl() {
     }
 
-    public AttributeTypeImpl(long categoryId, String name) {
+    public AttributeTypeImpl(long categoryId, String name, boolean isString) {
         this.categoryId = categoryId;
         this.name = name;
+        this.isString = isString;
     }
 
     
@@ -33,6 +35,14 @@ public class AttributeTypeImpl extends Persistent implements AttributeType {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public boolean getIsString() {
+        return this.isString;
+    }
+
+    public void setIsString(boolean isString) {
+        this.isString = isString;
     }
 
     public String toString() {

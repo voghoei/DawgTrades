@@ -84,11 +84,11 @@ public class InsertDowg {
             System.out.println("Entity objects Category sahar'Item created and saved.");
 
             //AttributeType
-            modelAttType = objectModel.createAttributeType(appleCat, "Model");
+            modelAttType = objectModel.createAttributeType(appleCat, "Model", true);
             objectModel.storeAttributeType(modelAttType);
             System.out.println("Entity objects AttType Model  created and saved.");
 
-            connectivityAttType = objectModel.createAttributeType(appleCat, "Connectivity");
+            connectivityAttType = objectModel.createAttributeType(appleCat, "Connectivity", true);
             objectModel.storeAttributeType(connectivityAttType);
             System.out.println("Entity objects AttType Connectivity  created and saved.");
 
@@ -97,7 +97,7 @@ public class InsertDowg {
             objectModel.storeAttribute(iPadAtt);
             System.out.println("Entity objects Att ipad  created and saved.");
 
-            verivonAtt = objectModel.createAttribute(connectivityAttType, sahatTab, "Verivon");
+            verivonAtt = objectModel.createAttribute(connectivityAttType, sahatTab, "Verizon");
             objectModel.storeAttribute(verivonAtt);
             System.out.println("Entity objects Att Verivon  created and saved.");
 

@@ -7,6 +7,10 @@ public interface AttributeType
 
     void setName(String name);
 
+    boolean getIsString();
+
+    void setIsString(boolean isString);
+
     long getCategoryId();
 
     void setCategoryId(long categoryId);

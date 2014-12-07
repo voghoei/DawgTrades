@@ -25,7 +25,7 @@
 	<#if categoriesMap??>
 		<div class="row">
 			<div class="col-md-12 clearfix">
-				<a class="btn btn-primary pull-right" href="/admin/categories/create"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Create Category</a>
+				<a class="btn btn-primary pull-right margin-bottom" href="/admin/categories/create"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Create Category</a>
 			</div>
 		</div>
 		<ul class="list-group">

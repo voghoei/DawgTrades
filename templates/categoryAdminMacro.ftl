@@ -7,7 +7,7 @@
 			<a class="btn btn-danger pull-right" href="/admin/deleteCategory?id=${category.getId()}"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Delete</a>
 		</div>
 	<#if categoryMap[stringID]??>
-		<ul class="list-group list-group-item-text">
+		<ul class="list-group list-group-item-text lead-no-bottom-margin">
 			<@categoryRow categoryMap=categoryMap categoryID=stringID />
 		</ul>
 	</#if>

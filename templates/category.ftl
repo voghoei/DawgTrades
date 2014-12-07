@@ -57,11 +57,15 @@
 		</div>
 	</div>
 	<div class="col-md-9">
-		<#if categoryAuctions??>
+		<div class="panel panel-default">
+		  <div class="panel-heading">
+		  	Auctions
+		  </div>
+			<#if categoryAuctions??>
 
-		<#else>
-			<p class="lead text-centered">No open auctions found.</p>
-		</#if>
+			<#else>
+				<p class="lead text-center">No open auctions found.</p>
+			</#if>
 	</div>
 </div>
 </@default.mainLayout>

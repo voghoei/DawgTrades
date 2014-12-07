@@ -98,7 +98,7 @@ class AttributeManager {
             throws DTException {
 
         String selectAttributeSql = "select att.id,att.attributeType_id, att.item_id, att.value, "
-                + "attype.Category_id, attype.name, "
+                + "attype.Category_id, attype.name, attype.isString, "
                 + "it.user_id, it.code, it.name itemName,it.description "
                 + "from attribute att, attributetype attype, item it "
                 + "where attype.id = att.attributeType_id and it.id = att.item_id ";

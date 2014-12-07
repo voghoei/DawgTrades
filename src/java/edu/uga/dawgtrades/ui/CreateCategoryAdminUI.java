@@ -23,7 +23,7 @@ import edu.uga.dawgtrades.model.RegisteredUser;
  *
  * @author sahar
  */
-public class CategoryAdminUI extends HttpServlet {
+public class CreateCategoryAdminUI extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -45,13 +45,29 @@ public class CategoryAdminUI extends HttpServlet {
         }
         HashMap<String, ArrayList> children = catCtrl.populateHashmapWithCategories(0);
         request.setAttribute("categoriesMap", children);
-        request.getRequestDispatcher("/categoryAdmin.ftl").forward(request, response);
+        request.getRequestDispatcher("/categoryCreateAdmin.ftl").forward(request, response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        doGet(request, response);
+        
+        // Get current session
+        HttpSession session = request.getSession(true);
+        LoginControl loginCtrl = new LoginControl();
+        CategoryControl catCtrl = new CategoryControl();
+        if(!loginCtrl.checkIsLoggedIn(session)){
+            response.sendRedirect("/login");
+            return;
+        }else{
+            RegisteredUser currentUser = (RegisteredUser)session.getAttribute("currentSessionUser");
+            if(!currentUser.getIsAdmin()) {
+                response.sendRedirect("/");
+                return;
+            }
+            request.setAttribute("loggedInUser",currentUser);
+        }
+        response.sendRedirect("/admin/categories")
     }
 
     @Override

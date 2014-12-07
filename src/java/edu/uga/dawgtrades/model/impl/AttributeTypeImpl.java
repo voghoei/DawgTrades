@@ -37,7 +37,7 @@ public class AttributeTypeImpl extends Persistent implements AttributeType {
         this.name = name;
     }
 
-    public String getIsString() {
+    public boolean getIsString() {
         return this.isString;
     }
 

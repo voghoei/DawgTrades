@@ -182,6 +182,7 @@ public class ObjectModelImpl extends Persistent implements ObjectModel {
     public Category createCategory() {
         Category category = new CategoryImpl();
         category.setId(-1);
+        category.setParentId(-1);
         return category;
 
     }

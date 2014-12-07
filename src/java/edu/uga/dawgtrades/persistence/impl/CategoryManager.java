@@ -107,7 +107,7 @@ public class CategoryManager {
             {
                 query.append(" where name = '" + category.getName() + "'");
             } else {
-                if (category.getParentId() != 0) {
+                if (category.getParentId() >= 0) {
                     condition.append(" Category_id = '" + category.getParentId() + "'");
                 }
 

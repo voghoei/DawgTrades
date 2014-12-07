@@ -63,7 +63,19 @@
 		  </div>
 		  <div class="panel-body">
 			<#if categoryAuctions??>
-
+				<#list categoryAuctions?chunk(3) as auctionRow>
+					<div class="row">
+						<#list auctionRow as auction>
+						<#assign itemID = auction.getItemId()>
+							<div class="col-md-4">
+								<h5><a href="/auction?id=${auction.getId()}">${categoryItems[itemID].getName()}</a></h5>
+								<p>Ends on ${auction.getExpiration()}</p>
+								<p>Minimum bid: $${auction.getMinPrice()}</p>
+								<p>Current bid: <#if auctionBids[auction.getId()]??>$${auctionBids[auction.getId()].getAmount()}<#else>None</#if></p>
+							</div>
+						</#list>
+					</div>
+				</#list>
 			<#else>
 				<p class="lead lead-no-bottom-margin text-center">No open auctions found.</p>
 			</#if>

@@ -132,6 +132,68 @@ public class CategoryControl {
         }
     }
 
+    public HashMap<Long, Bid> getBidsForAuctions(ArrayList<Auction> auctions) {
+        HashMap<Long, Bid> bids = new HashMap<Long, Bid>();
+        try {
+            this.connect();
+            for(Auction auction : auctions) {
+                Bid bidFind = this.objectModel.createBid();
+                bidFind.setAuction(auction);
+                Iterator<Bid> results = this.objectModel.findBid(bidFind);
+                Bid candidate = null;
+                while(results.hasNext()) {
+                    Bid current = results.next();
+                    if(candidate == null) {
+                        candidate = current;
+                    } else {
+                        if(candidate.getAmount() > current.getAmount()) {
+                            candidate = current;
+                        }
+                    }
+                }
+                if(candidate != null) {
+                    bids.put(Long.valueOf(auction.getId()), candidate);
+                }
+            }
+            return bids;
+        }
+        catch(DTException e) {
+            this.hasError = true;
+            this.error = e.getMessage();
+            return null;
+        }
+        finally {
+            this.close();
+        }
+    }
+
+    public HashMap<Long, Item> getItemsForAuctions(ArrayList<Auction> auctions) {
+        HashMap<Long, Item> items = new HashMap<Long, Item>();
+        try {
+            this.connect();
+            for(Auction auction : auctions) {
+                Item toFind = this.objectModel.createItem();
+                toFind.setId(auction.getItemId());
+                Iterator<Item> results = this.objectModel.findItem(toFind);
+                if (results.hasNext()) {
+                    items.put(Long.valueOf(auction.getId()), results.next());
+                } else {
+                    throw new DTException("An auction with an invalid item was found.");
+                }
+            }
+            return items;
+        }
+        catch(DTException e) {
+            this.hasError = true;
+            this.error = e.getMessage();
+            return null;
+        }
+        finally {
+            this.close();
+        }
+        
+    }
+
     public ArrayList<Auction> getCategoryAuctions(long id) {
         ArrayList<Auction> auctions = new ArrayList<Auction>();
         try {

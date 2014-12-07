@@ -56,37 +56,75 @@ public class CategoryUI extends HttpServlet {
                         }
                         request.setAttribute("subCategories", subCats);
                         request.setAttribute("subCategoryCounts", counts);
+                        ArrayList<Auction> auctions = catCtrl.getCategoryAuctions(0);
+                        if(auctions != null) {
+                            HashMap<Long, Bid> bids = catCtrl.getBidsForAuctions(auctions);
+                            HashMap<Long, Item> items = catCtrl.getItemsForAuctions(auctions);
+                            if(bid != null && items != null) {
+                                request.setAttribute("categoryAuctions", auctions);
+                                request.setAttribute("categoryItems", items);
+                                request.setAttribute("auctionBids", bids);
+
+                            }else {
+                            if(catCtrl.hasError()) {
+                                request.setAttribute("error", "Error while getting auction data: " + catCtrl.getError());
+                            }
+                        }else{
+                            if(catCtrl.hasError()) {
+                                request.setAttribute("error", "Error while getting auctions: " + catCtrl.getError());   
+                        }
                     } else if(subCats == null) {
                         if(catCtrl.hasError()) {
                             request.setAttribute("error", "Error while getting subcategories: " + catCtrl.getError());
                         }
                     }
+                    request.getRequestDispatcher("/category.ftl").forward(request, response);
+                    return;
                 }else{
                     if(catCtrl.hasError()) {
                         request.setAttribute("error", catCtrl.getError());
                     }else{
-                        request.setAttribute("error", "An unknown error occurred.");
+                        request.setAttribute("error", "Category does not exist.");
                     }
                 }
             }
             catch(NumberFormatException e) {
                 request.setAttribute("error", "Invalid category ID. Please try again.");
             }
-        } else {
-            ArrayList<Category> subCats = catCtrl.getCategoriesWithParentID(0);
-            if(subCats != null && !subCats.isEmpty()) {
-                ArrayList<Long> counts = new ArrayList<Long>();
-                for(Category cat : subCats) {
-                    counts.add(new Long(catCtrl.getCategoryItemCount(cat.getId())));
-                }
-                request.setAttribute("subCategories", subCats);
-                request.setAttribute("subCategoryCounts", counts);
-            } else if(subCats == null) {
+        }
+
+        // Fall through to this if error'd.
+        ArrayList<Category> subCats = catCtrl.getCategoriesWithParentID(0);
+        if(subCats != null && !subCats.isEmpty()) {
+            ArrayList<Long> counts = new ArrayList<Long>();
+            for(Category cat : subCats) {
+                counts.add(new Long(catCtrl.getCategoryItemCount(cat.getId())));
+            }
+            request.setAttribute("subCategories", subCats);
+            request.setAttribute("subCategoryCounts", counts);
+            ArrayList<Auction> auctions = catCtrl.getCategoryAuctions(0);
+            if(auctions != null) {
+                HashMap<Long, Bid> bids = catCtrl.getBidsForAuctions(auctions);
+                HashMap<Long, Item> items = catCtrl.getItemsForAuctions(auctions);
+                if(bid != null && items != null) {
+                    request.setAttribute("categoryAuctions", auctions);
+                    request.setAttribute("categoryItems", items);
+                    request.setAttribute("auctionBids", bids);
+
+                }else {
                 if(catCtrl.hasError()) {
-                    request.setAttribute("error", "Error while getting categories: " + catCtrl.getError());
+                    request.setAttribute("error", "Error while getting auction data: " + catCtrl.getError());
                 }
+            }else{
+                if(catCtrl.hasError()) {
+                    request.setAttribute("error", "Error while getting auctions: " + catCtrl.getError());   
+            }
+        } else if(subCats == null) {
+            if(catCtrl.hasError()) {
+                request.setAttribute("error", "Error while getting categories: " + catCtrl.getError());
             }
         }
+        
         request.getRequestDispatcher("/category.ftl").forward(request, response);
     }
 

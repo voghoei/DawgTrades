@@ -68,16 +68,22 @@ public class CategoryUI extends HttpServlet {
                             }else {
                                 if(catCtrl.hasError()) {
                                     request.setAttribute("error", "Error while getting auction data: " + catCtrl.getError());
+                                }else{
+                                    request.setAttribute("error", "Unknown error while getting auction data");
                                 }
                             }
                         }else{
                             if(catCtrl.hasError()) {
                                 request.setAttribute("error", "Error while getting auctions: " + catCtrl.getError());   
-                            }
+                            }else{
+                                request.setAttribute("error", "Unknown error while getting auctions");
+                            }   
                         }
                     } else if(subCats == null) {
                         if(catCtrl.hasError()) {
                             request.setAttribute("error", "Error while getting subcategories: " + catCtrl.getError());
+                        }else{
+                            request.setAttribute("error", "Unknown error while getting subcategories");
                         }
                     }
                     request.getRequestDispatcher("/category.ftl").forward(request, response);
@@ -116,16 +122,22 @@ public class CategoryUI extends HttpServlet {
                 }else {
                     if(catCtrl.hasError()) {
                         request.setAttribute("error", "Error while getting auction data: " + catCtrl.getError());
+                    }else{
+                        request.setAttribute("error", "Unknown error while getting auction data");
                     }
                 }
             }else{
                 if(catCtrl.hasError()) {
                     request.setAttribute("error", "Error while getting auctions: " + catCtrl.getError());  
-                }
+                }else{
+                request.setAttribute("error", "Unknown error while getting auctions");
+            }
             }
         } else if(subCats == null) {
             if(catCtrl.hasError()) {
                 request.setAttribute("error", "Error while getting categories: " + catCtrl.getError());
+            }else{
+                request.setAttribute("error", "Unknown error while categories");
             }
         }
         

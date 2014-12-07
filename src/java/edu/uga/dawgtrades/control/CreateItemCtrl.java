@@ -71,8 +71,8 @@ public class CreateItemCtrl{
 			Iterator<Category> categories = this.objectModel.findCategory(modelCategory);
 			ArrayList<Category> categoriesMap = new ArrayList<Category>();
 			while(categories.hasNext()){
-				modelCategory = categories.next();
-				categoriesMap.add(modelCategory);
+				
+				categoriesMap.add(categories.next());
 			}
 					
 			return categoriesMap;	

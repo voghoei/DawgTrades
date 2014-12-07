@@ -87,13 +87,13 @@ public class ObjectModelImpl extends Persistent implements ObjectModel {
     public Attribute createAttribute(AttributeType attributeType, Item item, String value) throws DTException {
         Attribute attribute = null;
         if (attributeType.isPersistent() && item.isPersistent()) {
-            attribute = new AttributelImpl(attributeType.getId(), item.getId(), value);
+            attribute = new AttributeImpl(attributeType.getId(), item.getId(), value);
         }
         return attribute;
     }
 
     public Attribute createAttribute() {
-        Attribute attribute = new AttributelImpl();
+        Attribute attribute = new AttributeImpl();
         attribute.setId(-1);
         return attribute;
     }

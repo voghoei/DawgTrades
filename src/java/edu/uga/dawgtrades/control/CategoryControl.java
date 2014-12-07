@@ -230,7 +230,7 @@ public class CategoryControl {
                     return null;
                 }
             }else{
-                ArrayList<Category> subCats = this.getCategoriesWithParentID(0≈);
+                ArrayList<Category> subCats = this.getCategoriesWithParentID(0);
                 for(Category cat : subCats) {
                     ArrayList<Auction> subAuctions = this.getCategoryAuctions(cat.getId());
                     if(subAuctions != null) {

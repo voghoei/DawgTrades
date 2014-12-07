@@ -38,11 +38,11 @@ public class AttributeTypeImpl extends Persistent implements AttributeType {
     }
 
     public String getIsString() {
-        return this.name;
+        return this.isString;
     }
 
-    public void setIsString(String name) {
-        this.name = name;
+    public void setIsString(boolean isString) {
+        this.isString = isString;
     }
 
     public String toString() {

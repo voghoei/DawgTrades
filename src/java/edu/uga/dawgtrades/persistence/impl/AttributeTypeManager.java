@@ -50,7 +50,7 @@ class AttributeTypeManager  {
             } else {
                 throw new DTException("AttributeTypeManager.save: can't save a AttributeType: Name undefined");
             }
-            stmt.setBool(3, attributeType.getIsString());
+            stmt.setBoolean(3, attributeType.getIsString());
 
             if( attributeType.isPersistent() )
                 stmt.setLong( 4, attributeType.getId() );

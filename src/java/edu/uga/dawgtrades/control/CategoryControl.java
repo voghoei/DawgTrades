@@ -136,31 +136,12 @@ public class CategoryControl {
         long count = 0;
         try {
             this.connect();
-            Category toFind = this.objectModel.createCategory();
-            toFind.setId(id);
-            Iterator<Category> results = this.objectModel.findCategory(toFind);
-            if(results.hasNext()) {
-                toFind = results.next();
-                Item itemSearch = this.objectModel.createItem();
-                itemSearch.setCategoryId(toFind.getId());
-                ItemIterator items = (ItemIterator) this.objectModel.findItem(itemSearch);
-                count += items.getCount();
-                ArrayList<Category> subCats = this.getCategoriesWithParentID(toFind.getId());
-                for(Category cat : subCats) {
-                    long catCount = this.getCategoryItemCount(cat.getId());
-                    if(catCount > 0) {
-                        count += catCount;
-                    }
-                }
-                return count;
-            }else{
-                return -1;
-            }
+            return null;
         }
         catch(DTException e) {
             this.hasError = true;
             this.error = e.getMessage();
-            return -1;
+            return null;
         }
         finally {
             this.close();

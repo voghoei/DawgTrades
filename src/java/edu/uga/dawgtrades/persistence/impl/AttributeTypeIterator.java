@@ -38,6 +38,7 @@ public class AttributeTypeIterator implements Iterator<AttributeType> {
         long id;
         long category_id;
         String name;
+        boolean isString;
         Category category = null;
 
         if (more) {
@@ -46,6 +47,7 @@ public class AttributeTypeIterator implements Iterator<AttributeType> {
                 id = rs.getLong(1);
                 category_id = rs.getLong(2);
                 name = rs.getString(3);
+                isString = rs.getBoolean(4);
                 more = rs.next();
             } catch (Exception e) {      // just in case...
                 throw new NoSuchElementException("PersonIterator: No next Person object; root cause: " + e);
@@ -55,7 +57,7 @@ public class AttributeTypeIterator implements Iterator<AttributeType> {
             try {
                 category = modelFactory.createCategory(null, null);
                 category.setId(category_id);
-                attributeType = modelFactory.createAttributeType(category, name);
+                attributeType = modelFactory.createAttributeType(category, name, isString);
                 attributeType.setId(id);
 
             } catch (DTException ce) {

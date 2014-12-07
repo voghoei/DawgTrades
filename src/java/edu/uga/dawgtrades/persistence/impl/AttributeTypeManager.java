@@ -146,7 +146,7 @@ class AttributeTypeManager  {
                         Category category = objectModel.createCategory(null, null);
                         category.setId(r.getLong(2));
 
-                        attributeType = objectModel.createAttributeType(category, r.getString(3));
+                        attributeType = objectModel.createAttributeType(category, r.getString(3), r.getBoolean(4));
                         attributeType.setId(r.getLong(1));
                         return attributeType;
                     }

@@ -72,10 +72,10 @@ public class CreateItemCtrl{
 			Iterator<Category> categories = this.objectModel.findCategory(modelCategory);
 			ArrayList<Category> categoriesMap = new ArrayList<Category>();
 			while(categories.hasNext()){
-				
+				error = "Entered loop";				
 				categoriesMap.add(categories.next());
 			}
-			error = Integer.toString(categoriesMap.size());		
+//			error = Integer.toString(categoriesMap.size());		
 			return categoriesMap;	
 		}catch(DTException e){
 			error = e.getMessage();

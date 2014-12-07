@@ -61,11 +61,13 @@
 		  <div class="panel-heading">
 		  	Auctions
 		  </div>
+		  <div class="panel-body">
 			<#if categoryAuctions??>
 
 			<#else>
 				<p class="lead text-center">No open auctions found.</p>
 			</#if>
+		  </div>
 	</div>
 </div>
 </@default.mainLayout>

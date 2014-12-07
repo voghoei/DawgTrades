@@ -133,7 +133,6 @@ public class CategoryControl {
     }
 
     public ArrayList<Auction> getCategoryAuctions(long id) {
-        long count = 0;
         ArrayList<Auction> auctions = new ArrayList<Auction>();
         try {
             this.connect();

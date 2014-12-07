@@ -3,6 +3,7 @@ package edu.uga.dawgtrades.ui;
 import edu.uga.dawgtrades.DTException;
 import edu.uga.dawgtrades.control.LoginControl;
 import edu.uga.dawgtrades.model.RegisteredUser;
+import edu.uga.dawgtrades.model.Category;
 import edu.uga.dawgtrades.control.CreateItemCtrl;
 import java.io.IOException;
 import java.io.PrintWriter;

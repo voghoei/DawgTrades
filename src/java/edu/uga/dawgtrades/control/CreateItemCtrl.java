@@ -41,6 +41,8 @@ public class CreateItemCtrl{
 	}
 	
 	public boolean attemptItemCreate(HttpSession session,Set<Attribute> attributes,Set<Category> categories,String name, String code, String description)throws DTException, ServletException,IOException{
+
+		boolean created=true;
 		try{
 			connect();
 			Item item = objectModel.createItem();
@@ -52,11 +54,11 @@ public class CreateItemCtrl{
 			//objectModel.storeItem(item);
 		}catch(DTException e){
 			error = e.getMessage();
-			return false;
+			created = false;
 		}finally{
 			close();
 		}
-		return true;
+		return created;
 	}
 	
 	private void addAttributes(Set<Attribute> attributes){	
@@ -66,7 +68,7 @@ public class CreateItemCtrl{
 		Map<String,String> categoriesMap = new LinkedHashMap<String,String>();
 		try{
 			connect();
-			Category modelCategory = new CategoryImpl();
+			Category modelCategory = objectModel.createCategory();
 			Category category = new CategoryImpl();
 			Iterator<Category> categories = objectModel.findCategory(modelCategory);
 			while(categories.hasNext()){

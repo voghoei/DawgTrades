@@ -46,6 +46,18 @@ public class CategoryControl {
         return err;
     }
 
+    protected HashMap<String, ArrayList> populateHashmapWithCategories(long id) {
+        ArrayList<Category> subCats = this.getCategoriesWithParentID(id);
+        HashMap<String, ArrayList> children = new HashMap<String, ArrayList>();
+        if(subCats != null && !subCats.isEmpty()) {
+            children.put(Long.valueOf(id).toString(), subCats);
+            for(Category cat : subCats) {
+                children.putAll(this.populateHashmapWithCategories(cat.getId()));
+            }
+        }
+        return children;
+    }
+
     private void connect() throws DTException{
             this.close();
             this.conn = DbUtils.connect();

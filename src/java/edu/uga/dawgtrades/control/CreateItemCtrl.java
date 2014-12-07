@@ -68,7 +68,7 @@ public class CreateItemCtrl{
 			connect();
 			Category modelCategory = new CategoryImpl();
 			Category category = new CategoryImpl();
-			Iterator<Category> categories = objectModel.findCategory(category);
+			Iterator<Category> categories = objectModel.findCategory(modelCategory);
 			while(categories.hasNext()){
 				category = categories.next();
 				categoriesMap.put(new Long(category.getId()).toString(),category.getName().toString());

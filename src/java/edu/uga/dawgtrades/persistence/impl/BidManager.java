@@ -115,7 +115,7 @@ public class BidManager {
                 }
             }
             // Convenience: make things go in descending order by amount.
-            query.append(" ORDER BY amount DESCENDING");
+            query.append(" ORDER BY amount DESC");
         }
         try {
             stmt = conn.createStatement();

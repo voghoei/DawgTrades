@@ -59,34 +59,90 @@ public class CategoryUI extends HttpServlet {
                     } else if(subCats == null) {
                         if(catCtrl.hasError()) {
                             request.setAttribute("error", "Error while getting subcategories: " + catCtrl.getError());
+                        }else{
+                            request.setAttribute("error", "Unknown error while getting subcategories");
                         }
                     }
+                    ArrayList<Auction> auctions = catCtrl.getCategoryAuctions(id);
+                    if(auctions != null) {
+                        HashMap<String, Bid> bids = catCtrl.getBidsForAuctions(auctions);
+                        HashMap<String, Item> items = catCtrl.getItemsForAuctions(auctions);
+                        if(bids != null && items != null) {
+                            if(!auctions.isEmpty()) {
+                                request.setAttribute("categoryAuctions", auctions);
+                                request.setAttribute("categoryItems", items);
+                                request.setAttribute("auctionBids", bids);
+                            }
+                        }else {
+                            if(catCtrl.hasError()) {
+                                request.setAttribute("error", "Error while getting auction data: " + catCtrl.getError());
+                            }else{
+                                request.setAttribute("error", "Unknown error while getting auction data");
+                            }
+                        }
+                    }else{
+                        if(catCtrl.hasError()) {
+                            request.setAttribute("error", "Error while getting auctions: " + catCtrl.getError());   
+                        }else{
+                            request.setAttribute("error", "Unknown error while getting auctions");
+                        }   
+                    }
+                    request.getRequestDispatcher("/category.ftl").forward(request, response);
+                    return;
                 }else{
                     if(catCtrl.hasError()) {
                         request.setAttribute("error", catCtrl.getError());
                     }else{
-                        request.setAttribute("error", "An unknown error occurred.");
+                        request.setAttribute("error", "Category does not exist.");
                     }
                 }
             }
             catch(NumberFormatException e) {
                 request.setAttribute("error", "Invalid category ID. Please try again.");
             }
-        } else {
-            ArrayList<Category> subCats = catCtrl.getCategoriesWithParentID(0);
-            if(subCats != null && !subCats.isEmpty()) {
-                ArrayList<Long> counts = new ArrayList<Long>();
-                for(Category cat : subCats) {
-                    counts.add(new Long(catCtrl.getCategoryItemCount(cat.getId())));
+        }
+        // Fall through to this if error'd.
+        ArrayList<Category> subCats = catCtrl.getCategoriesWithParentID(0);
+        if(subCats != null && !subCats.isEmpty()) {
+            ArrayList<Long> counts = new ArrayList<Long>();
+            for(Category cat : subCats) {
+                counts.add(new Long(catCtrl.getCategoryItemCount(cat.getId())));
+            }
+            request.setAttribute("subCategories", subCats);
+            request.setAttribute("subCategoryCounts", counts);
+            ArrayList<Auction> auctions = catCtrl.getCategoryAuctions(0);
+            if(auctions != null) {
+                HashMap<String, Bid> bids = catCtrl.getBidsForAuctions(auctions);
+                HashMap<String, Item> items = catCtrl.getItemsForAuctions(auctions);
+                if(bids != null && items != null) {
+                    if(!auctions.isEmpty()) {
+                        request.setAttribute("categoryAuctions", auctions);
+                        request.setAttribute("categoryItems", items);
+                        request.setAttribute("auctionBids", bids);
+                    }
+
+                }else {
+                    if(catCtrl.hasError()) {
+                        request.setAttribute("error", "Error while getting auction data: " + catCtrl.getError());
+                    }else{
+                        request.setAttribute("error", "Unknown error while getting auction data");
+                    }
                 }
-                request.setAttribute("subCategories", subCats);
-                request.setAttribute("subCategoryCounts", counts);
-            } else if(subCats == null) {
+            }else{
                 if(catCtrl.hasError()) {
-                    request.setAttribute("error", "Error while getting categories: " + catCtrl.getError());
+                    request.setAttribute("error", "Error while getting auctions: " + catCtrl.getError());  
+                }else{
+                    request.setAttribute("error", "Unknown error while getting auctions");
                 }
             }
+        } else if(subCats == null) {
+            if(catCtrl.hasError()) {
+                request.setAttribute("error", "Error while getting categories: " + catCtrl.getError());
+            }else{
+                request.setAttribute("error", "Unknown error while categories");
+            }
         }
+        
         request.getRequestDispatcher("/category.ftl").forward(request, response);
     }
 

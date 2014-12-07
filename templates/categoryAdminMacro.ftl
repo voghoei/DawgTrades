@@ -6,7 +6,7 @@
 		<#assign stringID="${category.getId()}">
 		<#if categoryMap[stringID]??>
 			<ul class="list-group">
-				<@categoryRow categoryMap=categoryMap categoryId=stringID />
+				<@categoryRow categoryMap=categoryMap categoryID=stringID />
 			</ul>
 		</#if>
 	</li>

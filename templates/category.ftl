@@ -65,7 +65,7 @@
 			<#if categoryAuctions??>
 
 			<#else>
-				<p class="lead text-center">No open auctions found.</p>
+				<p class="lead lead-no-bottom-margin text-center">No open auctions found.</p>
 			</#if>
 		  </div>
 	</div>

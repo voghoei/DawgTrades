@@ -7,7 +7,7 @@ public interface AttributeType
 
     void setName(String name);
 
-    String getIsString();
+    boolean getIsString();
 
     void setIsString(boolean isString);
 

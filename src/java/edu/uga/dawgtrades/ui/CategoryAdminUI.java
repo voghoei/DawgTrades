@@ -44,7 +44,7 @@ public class CategoryAdminUI extends HttpServlet {
         // Get current session
         HttpSession session = request.getSession(true);
         LoginControl loginCtrl = new LoginControl();
-        if(!ctrl.checkIsLoggedIn(session)){
+        if(!loginCtrl.checkIsLoggedIn(session)){
             response.sendRedirect("/login");
             return;
         }else{

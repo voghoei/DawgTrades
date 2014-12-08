@@ -72,7 +72,10 @@ public class PersistenceImpl
     }
 
     public Iterator<AttributeType> restoreAttributeTypebyCategory(Category category) throws DTException {
-        return attributeTypeManager.restore(category);
+        AttributeType attr = new AttributeType();
+        attr.setId(-1);
+        attr.setCategoryId(category.getId());
+        return attributeTypeManager.restore(attr);
     }
 
     public AttributeType restoreAttributeTypebyAttribute(Attribute attribute) throws DTException {

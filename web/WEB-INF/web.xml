@@ -97,6 +97,14 @@
         <servlet-name>CategoryAdminPanelDeleteServlet</servlet-name>
         <url-pattern>/admin/categories/delete</url-pattern>
      </servlet-mapping>
+    <servlet>
+        <servlet-name>CategoryAdminPanelEditServlet</servlet-name>
+        <servlet-class>edu.uga.dawgtrades.ui.EditCategoryAdminUI</servlet-class>
+     </servlet>
+     <servlet-mapping>
+        <servlet-name>CategoryAdminPanelEditServlet</servlet-name>
+        <url-pattern>/admin/categories/edit</url-pattern>
+     </servlet-mapping>
 
     <servlet>
         <servlet-name>CreateAuctionServlet</servlet-name>

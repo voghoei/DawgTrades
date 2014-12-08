@@ -21,9 +21,9 @@ import edu.uga.dawgtrades.model.RegisteredUser;
 
 /**
  *
- * @author sahar
+ * @author reanimus
  */
-public class EditCategoryAdminUI extends HttpServlet {
+public class EditAttributeAdminUI extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

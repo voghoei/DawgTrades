@@ -87,7 +87,7 @@ class AttributeTypeManager  {
     public Iterator<AttributeType> restore(Category category)
             throws DTException {
 
-        String selectAttributeTypeSql = "select att.id, att.category_id, att.name, att.isString FROM AttributeType att , Category as cat ";
+        String selectAttributeTypeSql = "select att.id, att.category_id, att.name, att.isString FROM AttributeType att ";
 
         Statement stmt = null;
         StringBuffer query = new StringBuffer(100);
@@ -130,7 +130,7 @@ class AttributeTypeManager  {
         if (attribute != null) {
             if (attribute.isPersistent()) {
                 String selectAttributeTypeSql = "select att.id, att.category_id, att.name, att.isString "
-                        + "FROM AttributeType att  , Arrtibute at "
+                        + "FROM AttributeType att  , Attribute at "
                         + "where at.attributeType_id = att.id and at.id = " + attribute.getId();
 
                 Statement stmt = null;

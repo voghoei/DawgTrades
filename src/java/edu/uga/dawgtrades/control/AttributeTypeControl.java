@@ -136,6 +136,29 @@ public class AttributeTypeControl {
         }
     }
 
+    public String getName(long id) {
+        try {
+            this.connect();
+            AttributeType type = this.objectModel.createAttributeType();
+            type.setId(id);
+            Iterator<AttributeType> results = this.objectModel.findAttributeType(type);
+            if(results.hasNext()) {
+                type = results.next();
+                return type.getName();
+            }else{
+                return null;
+            }
+        }
+        catch(DTException e) {
+            this.hasError = true;
+            this.error = e.getMessage();
+            return null;
+        }
+        finally {
+            this.close();
+        }
+    }
+
     public boolean deleteAttributeType(long id) {
         try {
             this.connect();

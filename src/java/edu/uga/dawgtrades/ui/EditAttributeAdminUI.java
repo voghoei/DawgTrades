@@ -52,6 +52,7 @@ public class EditAttributeAdminUI extends HttpServlet {
                     request.setAttribute("myID", Long.valueOf(id).toString());
                     request.setAttribute("parent", catCtrl.getCategoryWithID(attrTypeCtrl.getCategoryIDForAttributeTypeID(id)).getName());
                     request.setAttribute("isString", attrTypeCtrl.getIsString(id) == 1);
+                    request.setAttribute("name", attrTypeCtrl.getName(id));
                     request.getRequestDispatcher("/attributeEditAdmin.ftl").forward(request, response);
                 }else{
                     request.setAttribute("error", "Attribute doesn't exist.");

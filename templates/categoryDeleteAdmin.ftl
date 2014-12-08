@@ -20,12 +20,11 @@
 	</div>
 </div>
 </#if>
-<div class="row">
-	<div class="col-md-12">
+<#include "adminNav.ftl">
 		<p>Are you sure you want to delete this category?</p>
-		<form role="form" action="delete" method="post">
+		<form role="form" action="delete" method="post" class="clearfix">
 			<input type="hidden" name="id" id="id" value="${toDelete}" />
-			<div class="form-group">
+			<div class="form-group pull-right">
 				<a class="button btn-default" href="/admin/categories">Cancel</a> <button type="submit" class="btn btn-danger">Confirm</button>
 			</div>
 		</form>

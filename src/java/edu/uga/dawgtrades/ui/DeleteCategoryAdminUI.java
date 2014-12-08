@@ -47,9 +47,25 @@ public class DeleteCategoryAdminUI extends HttpServlet {
         if(categoryID != null) {
             try {
                 long id = Long.parseLong(categoryID, 10);
-                if(catCtrl.categoryExists(id) || id == 0) {
+                if(catCtrl.categoryExists(id)) {
+                    if(catCtrl.getCategoryItemCount(id) > 0) {
+                        request.setAttribute("error", "Category isn't empty.");
+                        request.setAttribute("returnTo", "/admin/categories");
+                        request.getRequestDispatcher("/genericError.ftl").forward(request, response);
+                        return; 
+                    }else if(!catCtrl.getCategoriesWithParentID(id).isEmpty()) {
+                        request.setAttribute("error", "Category has subcategories.");
+                        request.setAttribute("returnTo", "/admin/categories");
+                        request.getRequestDispatcher("/genericError.ftl").forward(request, response);
+                        return; 
+                    }
                     request.setAttribute("toDelete", categoryID);
                     request.getRequestDispatcher("/categoryDeleteAdmin.ftl").forward(request, response);
+                }else{
+                    request.setAttribute("error", "Category doesn't exist.");
+                    request.setAttribute("returnTo", "/admin/categories");
+                    request.getRequestDispatcher("/genericError.ftl").forward(request, response);
+                    return; 
                 }
             }
             catch(NumberFormatException e) {
@@ -87,7 +103,7 @@ public class DeleteCategoryAdminUI extends HttpServlet {
         if(categoryID != null) {
             try {
                 long id = Long.parseLong(categoryID, 10);
-                if(catCtrl.categoryExists(id) || id == 0) {
+                if(catCtrl.categoryExists(id)) {
                     if(catCtrl.deleteCategory(id)) {
                         response.sendRedirect("/admin/categories");
                     }else{

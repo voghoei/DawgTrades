@@ -33,7 +33,6 @@
 					<#list categoryList as category><option name="id" value="${category.getId()}">${category.getName()}</option>
 					</#list>
 				</select>
-				<input id="submit" type="submit"/>
 			</form>
 			<#else>
 			<p> No categories found</p>

@@ -90,10 +90,10 @@ public class AttributeTypeControl {
         try {
             this.connect();
             AttributeType type = this.objectModel.createAttributeType();
-            type.setId(id)
+            type.setId(id);
             Iterator<AttributeType> results = this.objectModel.findAttributeType(type);
             if(results.hasNext()) {
-                type = results.next()
+                type = results.next();
                 return type.getCategoryId();
             }else{
                 return -1;
@@ -113,7 +113,7 @@ public class AttributeTypeControl {
         try {
             this.connect();
             AttributeType type = this.objectModel.createAttributeType();
-            type.setId(id)
+            type.setId(id);
             this.objectModel.deleteAttributeType(type);
             return true;
         }
@@ -131,7 +131,7 @@ public class AttributeTypeControl {
         try {
             this.connect();
             AttributeType type = this.objectModel.createAttributeType();
-            type.setId(id)
+            type.setId(id);
             Iterator<AttributeType> results = this.objectModel.findAttributeType(type);
             if(results.hasNext()) {
                 return true;

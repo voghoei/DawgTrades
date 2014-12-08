@@ -8,7 +8,7 @@ public abstract class DbAccessConfig
     
     /** The database name
      */
-    static final String DB_NAME        = "team6";//"dawgtrades";
+    static final String DB_NAME        = "dawgtrades";
     
     /** The database server name for the connection pool
      */

@@ -36,6 +36,8 @@ public interface ObjectModel {
 
     public void deleteAttributeType(AttributeType attributeType) throws DTException;
 
+    public java.util.Iterator<AttributeType> findAttributeType(AttributeType modelAttributeType) throws DTException;
+
     public java.util.Iterator<AttributeType> getAttributeType(Category category) throws DTException;
 
     public AttributeType getAttributeType(Attribute attribute) throws DTException;

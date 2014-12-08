@@ -120,7 +120,7 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>MembershipUI</servlet-name>
-        <url-pattern>/MembershipUI</url-pattern>
+        <url-pattern>/membership</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>30</session-timeout>

@@ -9,7 +9,7 @@
         </div>
 </#if>
 <div class="row">
-	<form role="form" action="MembershipUI" method="post">
+	<form role="form" action="membership" method="post">
 		<!-- create item stuff goes here -->
 		
 		<div class="form-group">

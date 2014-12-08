@@ -1,19 +1,12 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package edu.uga.dawgtrades.ui;
 
 import edu.uga.dawgtrades.DTException;
-import edu.uga.dawgtrades.control.CreateItemCtrl;
 import edu.uga.dawgtrades.control.LoginControl;
 import edu.uga.dawgtrades.control.MembershipControl;
-import edu.uga.dawgtrades.model.Category;
 import edu.uga.dawgtrades.model.Membership;
 import edu.uga.dawgtrades.model.RegisteredUser;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -23,15 +16,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-/**
- *
- * @author sahar
- */
+
 public class MembershipUI extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        System.out.println("**********************");
+        
        HttpSession session = request.getSession(true);
         LoginControl ctrl = new LoginControl();
         if (!ctrl.checkIsLoggedIn(session)) {
@@ -48,17 +38,7 @@ public class MembershipUI extends HttpServlet {
         ArrayList<Membership> membership;
 
         String price = request.getParameter("price");
-        
-//        ArrayList<String> list = new ArrayList<String>();
-//        list.add("sahar");
-//        list.add("arash");
-//        if ( price != null)
-//            list.add(price);
-//        request.setAttribute("membershipList", list);
-        
-        
-
-        try {
+                try {
 
             if (price != null) {
                 if (!membershipCtrl.attemptToCreateMembership(Float.valueOf(price))) {

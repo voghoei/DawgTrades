@@ -34,6 +34,7 @@
 			<#else>
 			<option value="#" disabled> No Categories </option>
 			</#if>
+			</select>
 			<#if attributes??>
 				<div class="form-group">
 					<#list attributes as attribute>

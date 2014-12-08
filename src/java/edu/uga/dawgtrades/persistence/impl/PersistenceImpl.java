@@ -52,6 +52,10 @@ public class PersistenceImpl
             throws DTException {
         return membershipManager.restore();
     }
+    
+    public Iterator<Membership> restoreMembership(Membership membership) throws DTException {
+        return membershipManager.restore(membership);
+    }
 
  
     public void deleteMembership(Membership membership) throws DTException {

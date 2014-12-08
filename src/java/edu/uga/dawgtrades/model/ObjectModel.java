@@ -128,6 +128,8 @@ public interface ObjectModel {
     public Membership createMembership();
 
     public Membership findMembership() throws DTException;
+    
+    public Iterator<Membership> findMembership(Membership membership) throws DTException;
 
     public void storeMembership(Membership membership) throws DTException;
     

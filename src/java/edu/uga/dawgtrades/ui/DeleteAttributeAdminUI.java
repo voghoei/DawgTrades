@@ -49,7 +49,7 @@ public class DeleteAttributeAdminUI extends HttpServlet {
                 long id = Long.parseLong(attributeID, 10);
                 if(attrTypeCtrl.attributeTypeExists(id)) {
                     request.setAttribute("toDelete", attributeID);
-                    request.getRequestDispatcher("/categoryDeleteAdmin.ftl").forward(request, response);
+                    request.getRequestDispatcher("/attributeDeleteAdmin.ftl").forward(request, response);
                 }else{
                     request.setAttribute("error", "Attribute Type doesn't exist.");
                     request.setAttribute("returnTo", "/admin/categories");

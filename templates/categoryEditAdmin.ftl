@@ -54,7 +54,7 @@
 	    				<li class="list-group-item">No attributes.</li>
 					</ul>
 				</#if>
-				<div class="pull-right"><a class="btn btn-primary" href="/admin/attributes/create?category=${myID}"
+				<div class="pull-right"><a class="btn btn-primary" href="/admin/attributes/create?category=${myID}">Add Attribute</a></div>
 			</div>
 		</div>
 		<button type="submit" class="btn btn-default"> Save</button>

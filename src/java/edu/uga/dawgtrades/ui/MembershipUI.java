@@ -32,17 +32,17 @@ public class MembershipUI extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         System.out.println("**********************");
-//        HttpSession session = request.getSession(true);
+       HttpSession session = request.getSession(true);
         LoginControl ctrl = new LoginControl();
-//        if (!ctrl.checkIsLoggedIn(session)) {
-//            response.sendRedirect("/login");
-//            request.setAttribute("loggedInUser", "");
-//            request.removeAttribute("loggedInUser");
-//            return;
-//        } else {
-//            RegisteredUser currentUser = (RegisteredUser) session.getAttribute("currentSessionUser");
-//            request.setAttribute("loggedInUser", currentUser);
-//        }
+        if (!ctrl.checkIsLoggedIn(session)) {
+            response.sendRedirect("/login");
+            request.setAttribute("loggedInUser", "");
+            request.removeAttribute("loggedInUser");
+            return;
+        } else {
+            RegisteredUser currentUser = (RegisteredUser) session.getAttribute("currentSessionUser");
+            request.setAttribute("loggedInUser", currentUser);
+        }
 
         MembershipControl membershipCtrl = new MembershipControl();
         ArrayList<Membership> membership;

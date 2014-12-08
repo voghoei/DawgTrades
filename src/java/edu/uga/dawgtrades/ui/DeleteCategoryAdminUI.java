@@ -104,6 +104,17 @@ public class DeleteCategoryAdminUI extends HttpServlet {
             try {
                 long id = Long.parseLong(categoryID, 10);
                 if(catCtrl.categoryExists(id)) {
+                    if(catCtrl.getCategoryItemCount(id) > 0) {
+                        request.setAttribute("error", "Category isn't empty.");
+                        request.setAttribute("returnTo", "/admin/categories");
+                        request.getRequestDispatcher("/genericError.ftl").forward(request, response);
+                        return; 
+                    }else if(!catCtrl.getCategoriesWithParentID(id).isEmpty()) {
+                        request.setAttribute("error", "Category has subcategories.");
+                        request.setAttribute("returnTo", "/admin/categories");
+                        request.getRequestDispatcher("/genericError.ftl").forward(request, response);
+                        return; 
+                    }
                     if(catCtrl.deleteCategory(id)) {
                         response.sendRedirect("/admin/categories");
                     }else{

@@ -328,8 +328,33 @@ public class CategoryControl {
         }
     }
 
-    public boolean deleteCategory(long id) {
+    public boolean updateCategory(String name, long id) {
         long count = 0;
+        try {
+            this.connect();
+            Category toEdit = this.objectModel.createCategory();
+            toEdit.setId(id);
+            Iterator<Category> results = this.objectModel.findCategory(toEdit);
+            if(results.hasNext()) {
+                toEdit = results.next();
+                toEdit.setName(name);
+                this.objectModel.storeCategory(toEdit);
+                return true;
+            }else{
+                return false;
+            }
+        }
+        catch(DTException e) {
+            this.hasError = true;
+            this.error = e.getMessage();
+            return false;
+        }
+        finally {
+            this.close();
+        }
+    }
+
+    public boolean deleteCategory(long id) {
         try {
             this.connect();
             Category toDelete = this.objectModel.createCategory();
@@ -345,6 +370,50 @@ public class CategoryControl {
         finally {
             this.close();
         }
+    }
+
+    public long getParentCategoryIDForID(long id) {
+        try {
+            this.connect();
+            Category toFind = this.objectModel.createCategory();
+            toFind.setId(id);
+            Iterator<Category> results = this.objectModel.findCategory(toFind);
+            if(results.hasNext()) {
+                toFind = results.next();
+                return toFind.getParentId();
+            }
+            return -1;
+        }
+        catch(DTException e) {
+            this.hasError = true;
+            this.error = e.getMessage();
+            return -1;
+        }
+        finally {
+            this.close();
+        }
+
+    }
+
+    public ArrayList<AttributeType> getAttributesForCategory(long id) {
+        Category toGet = this.getCategoryWithID(id);
+        ArrayList<AttributeType> out = new ArrayList<AttributeType>();
+        if(toGet != null) {
+            try {
+                this.connect();
+                Iterator<AttributeType> results = this.objectModel.getAttributeType(toGet);
+                while(results.hasNext()) {
+                    out.add(results.next());
+                }
+                return out;
+            }
+            catch(DTException e) {
+                this.hasError = true;
+                this.error = e.getMessage();
+                return null;
+            }
+        }
+        return null;
     }
 
 }

@@ -1,11 +1,8 @@
 package edu.uga.dawgtrades.control;
 
 import edu.uga.dawgtrades.DTException;
-import edu.uga.dawgtrades.model.Category;
-import edu.uga.dawgtrades.model.ExperienceReport;
 import edu.uga.dawgtrades.model.Membership;
 import edu.uga.dawgtrades.model.ObjectModel;
-import edu.uga.dawgtrades.model.RegisteredUser;
 import edu.uga.dawgtrades.model.impl.ObjectModelImpl;
 import edu.uga.dawgtrades.persistence.Persistence;
 import edu.uga.dawgtrades.persistence.impl.DbUtils;
@@ -14,7 +11,6 @@ import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
-import javax.servlet.http.HttpSession;
 
 public class MembershipControl {
 
@@ -43,6 +39,7 @@ public class MembershipControl {
     }
 
     public ArrayList<Membership> getAllMembershipPrices() throws DTException {
+        
         Iterator<Membership> membershipIter = null;
         ArrayList<Membership> membershipMap = new ArrayList<Membership>();
         try {

@@ -84,10 +84,10 @@ class AttributeTypeManager  {
         }
     }
 
-    public Iterator<AttributeType> restore(Category category)
+    public Iterator<AttributeType> restore(AttributeType attrType)
             throws DTException {
 
-        String selectAttributeTypeSql = "select att.id, att.category_id, att.name, att.isString FROM AttributeType att , Category as cat ";
+        String selectAttributeTypeSql = "select att.id, att.category_id, att.name, att.isString FROM AttributeType att ";
 
         Statement stmt = null;
         StringBuffer query = new StringBuffer(100);
@@ -95,15 +95,12 @@ class AttributeTypeManager  {
         // form the query based on the given Club object instance
         query.append(selectAttributeTypeSql);
 
-        if (category != null) {
-            if (category.isPersistent()) // id is unique, so it is sufficient to get a membership
+        if (attrType != null) {
+            if(attrType.getId() >= 0) {
+                query.append(" where att.id = " + attrType.getId());
+            } else if (attrType.getCategoryId() > 0) // id is unique, so it is sufficient to get a membership
             {
-                query.append(" where att.category_id = " + category.getId());
-            } else {
-
-                if (category.getName() != null) {
-                    query.append(" WHERE att.category_id = cat.id and cat.name = " + category.getName());
-                }
+                query.append(" where att.category_id = " + attrType.getCategoryId());
             }
         }
 
@@ -130,7 +127,7 @@ class AttributeTypeManager  {
         if (attribute != null) {
             if (attribute.isPersistent()) {
                 String selectAttributeTypeSql = "select att.id, att.category_id, att.name, att.isString "
-                        + "FROM AttributeType att  , Arrtibute at "
+                        + "FROM AttributeType att  , Attribute at "
                         + "where at.attributeType_id = att.id and at.id = " + attribute.getId();
 
                 Statement stmt = null;

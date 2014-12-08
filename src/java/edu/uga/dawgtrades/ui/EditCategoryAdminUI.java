@@ -49,7 +49,7 @@ public class EditCategoryAdminUI extends HttpServlet {
                 long id = Long.parseLong(categoryID, 10);
                 if(catCtrl.categoryExists(id)) {
                     request.setAttribute("myID", Long.valueOf(id).toString());
-                    request.setAttribute("parent", catCtrl.getParentCategoryIDForID(id).getName());
+                    request.setAttribute("parent", catCtrl.getCategoryWithID(catCtrl.getParentCategoryIDForID(id)).getName());
                     request.setAttribute("toEdit", catCtrl.getCategoryWithID(id));
                     request.setAttribute("attributes", catCtrl.getAttributesForCategory(id));
                     request.getRequestDispatcher("/categoryEditAdmin.ftl").forward(request, response);
@@ -94,7 +94,7 @@ public class EditCategoryAdminUI extends HttpServlet {
         }
         String name = request.getParameter("name");
         String categoryID = request.getParameter("id");
-        if(parentID != null && name != null) {
+        if(categoryID != null && name != null) {
             if(name.isEmpty()) {
                 request.setAttribute("error", "Name is required.");
                 this.doGet(request, response);

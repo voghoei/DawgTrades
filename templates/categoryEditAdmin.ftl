@@ -35,8 +35,8 @@
 			<label for="parent"> Parent Category </label>
 			<p>${parent}</p>
 		</div>
-		<div class="form-group">
-			<div class="panel panel-default clearfix">
+		<div class="form-group clearfix">
+			<div class="panel panel-default">
 				<div class="panel-heading">
 					Attributes
 				</div>
@@ -54,8 +54,8 @@
 	    				<li class="list-group-item">No attributes.</li>
 					</ul>
 				</#if>
-				<div class="pull-right"><a class="btn btn-primary" href="/admin/attributes/create?category=${myID}">Add Attribute</a></div>
 			</div>
+			<div class="pull-right"><a class="btn btn-primary" href="/admin/attributes/create?category=${myID}">Add Attribute</a></div>
 		</div>
 		<button type="submit" class="btn btn-default"> Save</button>
 	</form>

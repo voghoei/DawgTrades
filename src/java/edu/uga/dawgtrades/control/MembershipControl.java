@@ -22,6 +22,8 @@ public class MembershipControl {
     private ObjectModel objectModel = null;
     private Persistence persistence = null;
     private String error = "Error Unknown";
+    private boolean hasError = false;
+    
 
     private void connect() throws DTException {
 
@@ -52,6 +54,7 @@ public class MembershipControl {
 			}
 
         } catch (DTException e) {
+            hasError = true;
             error = e.getMessage();
 
         } finally {
@@ -60,8 +63,39 @@ public class MembershipControl {
         return membershipMap;	
     }
 
+    public boolean attemptToCreateMembership(float price) throws DTException {
+        Membership modelMembership = null;
+        try {
+
+            connect();
+
+            modelMembership = objectModel.createMembership(price,new Date());
+
+            objectModel.storeMembership(modelMembership);
+
+            return true;
+        } catch (DTException e) {
+            error = e.getMessage();
+            return false;
+        } finally {
+            close();
+        }
+
+    }
+
+    
     public String getError() {
-        return error;
+        String err = null;
+        if (this.hasError) {
+            err = this.error;
+            this.error = null;
+            this.hasError = false;
+        }
+        return err;
+    }
+    
+    public boolean hasError() {
+        return this.hasError;
     }
 
 }

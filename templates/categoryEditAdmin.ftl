@@ -40,7 +40,7 @@
 				<div class="panel-heading">
 					Attributes
 				</div>
-				<#if attributes?? && !attributes.isEmpty()>
+				<#if attributes??>
 					<ul class="list-group">
 						<#list attributes as attribute>
 							<li class="list-group-item">

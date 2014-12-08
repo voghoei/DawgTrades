@@ -51,7 +51,10 @@ public class EditCategoryAdminUI extends HttpServlet {
                     request.setAttribute("myID", Long.valueOf(id).toString());
                     request.setAttribute("parent", catCtrl.getCategoryWithID(catCtrl.getParentCategoryIDForID(id)).getName());
                     request.setAttribute("toEdit", catCtrl.getCategoryWithID(id));
-                    request.setAttribute("attributes", catCtrl.getAttributesForCategory(id));
+                    ArrayList<AttributeType> attributes = catCtrl.getAttributesForCategory(id);
+                    if(attributes != null && !attributes.isEmpty()) {
+                        request.setAttribute("attributes", attributes);
+                    }
                     request.getRequestDispatcher("/categoryEditAdmin.ftl").forward(request, response);
                 }else{
                     request.setAttribute("error", "Category doesn't exist.");

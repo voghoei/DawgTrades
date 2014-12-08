@@ -27,21 +27,19 @@
 		<div class="form-group">
 			<label for="category"> Category </label>
 			<#if categoryList??>
-		
-				
-					
-					<#list categoryList as category><a href="/createItem?id=${category.getId()}">${category.getName()}</a>
+			<select onChange="window.location.href=this.value">			
+					<#list categoryList as category><option value="/createItem?id=${category.getId()}">${category.getName()}</option>
 					</#list>
-			
-			
 			<#else>
 			<p> No categories found</p>
 			</#if>
 			<#if attributes??>
 				<#list attributes as attribute>
-				<label for="attribute"></label>
+				<label for="attribute">${attribute.getName()}</label>
 				<input type="text" class="form-control" name="attribute">
 				</#list>
+			<#else>
+				<p> No Attributes </p>
 			</#if>
 
 		</div>

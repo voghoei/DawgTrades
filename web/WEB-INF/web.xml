@@ -125,6 +125,14 @@
         <servlet-name>AttributeAdminPanelDeleteServlet</servlet-name>
         <url-pattern>/admin/attributes/delete</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>AttributeAdminPanelEditServlet</servlet-name>
+        <servlet-class>edu.uga.dawgtrades.ui.EditAttributeAdminUI</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AttributeAdminPanelEditServlet</servlet-name>
+        <url-pattern>/admin/attributes/edit</url-pattern>
+    </servlet-mapping>
 
 
     <servlet>

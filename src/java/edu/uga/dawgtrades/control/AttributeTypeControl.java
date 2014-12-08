@@ -109,6 +109,33 @@ public class AttributeTypeControl {
         }
     }
 
+    public int getIsString(long id) {
+        try {
+            this.connect();
+            AttributeType type = this.objectModel.createAttributeType();
+            type.setId(id);
+            Iterator<AttributeType> results = this.objectModel.findAttributeType(type);
+            if(results.hasNext()) {
+                type = results.next();
+                if(type.getIsString()) {
+                    return 1;
+                }else{
+                    return 0;
+                }
+            }else{
+                return -1;
+            }
+        }
+        catch(DTException e) {
+            this.hasError = true;
+            this.error = e.getMessage();
+            return -1;
+        }
+        finally {
+            this.close();
+        }
+    }
+
     public boolean deleteAttributeType(long id) {
         try {
             this.connect();
@@ -116,6 +143,32 @@ public class AttributeTypeControl {
             type.setId(id);
             this.objectModel.deleteAttributeType(type);
             return true;
+        }
+        catch(DTException e) {
+            this.hasError = true;
+            this.error = e.getMessage();
+            return false;
+        }
+        finally {
+            this.close();
+        }
+
+    }
+
+    public boolean updateAttributeType(String name, long id) {
+        try {
+            this.connect();
+            AttributeType type = this.objectModel.createAttributeType();
+            type.setId(id);
+            Iterator<AttributeType> results = this.objectModel.findAttributeType(type);
+            if(results.hasNext()) {
+                type = results.next();
+                type.setName(name);
+                this.objectModel.storeAttributeType(type);
+                return true;
+            }else{
+                return false;
+            }
         }
         catch(DTException e) {
             this.hasError = true;

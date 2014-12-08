@@ -6,6 +6,7 @@ import edu.uga.dawgtrades.model.RegisteredUser;
 import edu.uga.dawgtrades.model.Category;
 import edu.uga.dawgtrades.model.AttributeType;
 import edu.uga.dawgtrades.control.CreateItemCtrl;
+import edu.uga.dawgtrades.control.CategoryControl;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.*;
@@ -44,6 +45,9 @@ public class CreateItemUI extends HttpServlet{
 		if(categoryId != null){
 			try{
 				long id = Long.parseLong(categoryId,10);
+				CategoryControl catCtrl = new CategoryControl();
+				Category category = catCtrl.getCategoryWithID(id);
+				request.setAttribute("category",category);
 				ArrayList<AttributeType> attributeTypes = itemCtrl.getCategoryAttributes(id);
 				if(attributeTypes != null){
 					request.setAttribute("attributes",attributeTypes);

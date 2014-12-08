@@ -25,6 +25,10 @@
 			<input type="textarea" class="form-control" name="desc">
 		</div>
 		<div class="form-group">
+			<#if categoryChosen??>
+			<label for="category"> Category:</label>
+				<p class="form-control-static"> ${categoryChosen.getName()}</p>
+			<#else>
 			<label for="category"> Category </label>
 			<select class="form-control" onChange="window.location.href=this.value">
 			<option value="#"> Select a Category </option>
@@ -35,15 +39,14 @@
 			<option value="#" disabled> No Categories </option>
 			</#if>
 			</select>
+			</#if>
 			<#if attributes??>
 				<div class="form-group">
 					<#list attributes as attribute>
 					<label class="control-label" for="attribute">${attribute.getName()}</label>
 					<input type="text" class="form-control" name="attribute">
-				</#list>
+					</#list>
 				</div>
-			<#else>
-				<p> No Attributes </p>
 			</#if>
 
 		</div>

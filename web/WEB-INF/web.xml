@@ -92,19 +92,19 @@
     <servlet>
         <servlet-name>CategoryAdminPanelDeleteServlet</servlet-name>
         <servlet-class>edu.uga.dawgtrades.ui.DeleteCategoryAdminUI</servlet-class>
-     </servlet>
-     <servlet-mapping>
+    </servlet>
+    <servlet-mapping>
         <servlet-name>CategoryAdminPanelDeleteServlet</servlet-name>
         <url-pattern>/admin/categories/delete</url-pattern>
-     </servlet-mapping>
+    </servlet-mapping>
     <servlet>
         <servlet-name>CategoryAdminPanelEditServlet</servlet-name>
         <servlet-class>edu.uga.dawgtrades.ui.EditCategoryAdminUI</servlet-class>
-     </servlet>
-     <servlet-mapping>
+    </servlet>
+    <servlet-mapping>
         <servlet-name>CategoryAdminPanelEditServlet</servlet-name>
         <url-pattern>/admin/categories/edit</url-pattern>
-     </servlet-mapping>
+    </servlet-mapping>
 
     <servlet>
         <servlet-name>CreateAuctionServlet</servlet-name>
@@ -130,6 +130,15 @@
         <servlet-name>MembershipUI</servlet-name>
         <url-pattern>/membership</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>ExperienceReportUI</servlet-name>
+        <servlet-class>edu.uga.dawgtrades.ui.ExperienceReportUI</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ExperienceReportUI</servlet-name>
+        <url-pattern>/experience</url-pattern>
+    </servlet-mapping>
+
     <session-config>
         <session-timeout>30</session-timeout>
     </session-config>

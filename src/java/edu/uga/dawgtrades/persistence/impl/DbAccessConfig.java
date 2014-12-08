@@ -8,7 +8,7 @@ public abstract class DbAccessConfig
     
     /** The database name
      */
-    static final String DB_NAME        = "dawgtrades";
+    static final String DB_NAME        = "team6";//"dawgtrades";
     
     /** The database server name for the connection pool
      */
@@ -16,7 +16,7 @@ public abstract class DbAccessConfig
 
     /** The JDBC connection string/URL.
      */
-    static final String DB_CONNECTION_URL = "jdbc:mysql://localhost:3306/dawgtrades";
+    static final String DB_CONNECTION_URL ="jdbc:mysql://localhost:3306/dawgtrades";
 
 
     /** The database user name.

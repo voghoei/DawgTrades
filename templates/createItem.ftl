@@ -26,12 +26,13 @@
 		</div>
 		<div class="form-group">
 			<label for="category"> Category </label>
-			<#if categoryList??>
-			<select onChange="window.location.href=this.value">			
+			<select onChange="window.location.href=this.value">
+			<option value="#" disabled> Select a Category </option>
+			<#if categoryList??>					
 					<#list categoryList as category><option value="/createItem?id=${category.getId()}">${category.getName()}</option>
 					</#list>
 			<#else>
-			<p> No categories found</p>
+			<option value="#" disabled> No Categories </option>
 			</#if>
 			<#if attributes??>
 				<#list attributes as attribute>

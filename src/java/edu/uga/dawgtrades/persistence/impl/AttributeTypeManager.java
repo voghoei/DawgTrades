@@ -96,7 +96,7 @@ class AttributeTypeManager  {
         query.append(selectAttributeTypeSql);
 
         if (attrType != null) {
-            if(attrType.getCategoryId() >= 0) {
+            if(attrType.getId() >= 0) {
                 query.append(" where att.id = " + attrType.getId());
             } else if (attrType.getCategoryId() > 0) // id is unique, so it is sufficient to get a membership
             {

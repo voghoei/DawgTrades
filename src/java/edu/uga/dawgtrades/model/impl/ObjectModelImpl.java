@@ -85,7 +85,9 @@ public class ObjectModelImpl extends Persistent implements ObjectModel {
 
 
     public Iterator<AttributeType> getAttributeType(Category category) throws DTException {
-        return persistence.restoreAttributeTypebyCategory(category);
+        AttributeType attr = this.createAttributeType();
+        attr.setCategoryId(category.getId());
+        return persistence.restoreAttributeType(attr);
     }
 
     public AttributeType getAttributeType(Attribute attribute) throws DTException {

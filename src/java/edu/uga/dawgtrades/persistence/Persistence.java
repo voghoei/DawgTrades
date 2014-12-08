@@ -29,8 +29,6 @@ public interface Persistence {
 
     public Iterator<AttributeType> restoreAttributeType(AttributeType attributeType) throws DTException;
 
-    public Iterator<AttributeType> restoreAttributeTypebyCategory(Category category) throws DTException;
-
     public AttributeType restoreAttributeTypebyAttribute(Attribute attribute) throws DTException;
 
     public void deleteAttributeType(AttributeType attributeType) throws DTException;

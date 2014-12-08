@@ -43,6 +43,7 @@ public class MembershipControl {
     }
 
     public ArrayList<Membership> getAllMembershipPrices() throws DTException {
+        
         Iterator<Membership> membershipIter = null;
         ArrayList<Membership> membershipMap = new ArrayList<Membership>();
         try {

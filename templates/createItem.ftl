@@ -26,8 +26,8 @@
 		</div>
 		<div class="form-group">
 			<label for="category"> Category </label>
-			<select onChange="window.location.href=this.value">
-			<option value="#" disabled> Select a Category </option>
+			<select class="form-control" onChange="window.location.href=this.value">
+			<option value="#"> Select a Category </option>
 			<#if categoryList??>					
 					<#list categoryList as category><option value="/createItem?id=${category.getId()}">${category.getName()}</option>
 					</#list>
@@ -35,10 +35,12 @@
 			<option value="#" disabled> No Categories </option>
 			</#if>
 			<#if attributes??>
-				<#list attributes as attribute>
-				<label for="attribute">${attribute.getName()}</label>
-				<input type="text" class="form-control" name="attribute">
+				<div class="form-group">
+					<#list attributes as attribute>
+					<label class="control-label" for="attribute">${attribute.getName()}</label>
+					<input type="text" class="form-control" name="attribute">
 				</#list>
+				</div>
 			<#else>
 				<p> No Attributes </p>
 			</#if>

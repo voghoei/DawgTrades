@@ -328,4 +328,23 @@ public class CategoryControl {
         }
     }
 
+    public boolean deleteCategory(long id) {
+        long count = 0;
+        try {
+            this.connect();
+            Category toDelete = this.objectModel.createCategory();
+            toDelete.setId(id);
+            this.objectModel.deleteCategory(toDelete);
+            return true;
+        }
+        catch(DTException e) {
+            this.hasError = true;
+            this.error = e.getMessage();
+            return false;
+        }
+        finally {
+            this.close();
+        }
+    }
+
 }

@@ -7,7 +7,9 @@ import java.sql.Statement;
 import edu.uga.dawgtrades.DTException;
 import edu.uga.dawgtrades.model.Membership;
 import edu.uga.dawgtrades.model.ObjectModel;
+import edu.uga.dawgtrades.model.RegisteredUser;
 import java.sql.PreparedStatement;
+import java.util.Iterator;
 
 
 class MembershipManager {
@@ -85,6 +87,61 @@ class MembershipManager {
         throw new DTException("MembershipManager.restore: Could not restore persistent Membership object");
     }
 
+    public Iterator<Membership> restore(Membership membership) throws DTException {
+        String selectMembershipSql = "select id, price, date from membership order by id DESC";
+        Statement stmt = null;
+        StringBuffer query = new StringBuffer(100);
+        StringBuffer condition = new StringBuffer(100);
+
+        condition.setLength(0);
+
+        // form the query based on the given Person object instance
+        query.append(selectMembershipSql);
+
+        if (membership != null) {
+            if (membership.getId() >= 0) // id is unique, so it is sufficient to get a person
+            {
+                query.append(" where id = " + membership.getId());
+            } else {
+                if (membership.getDate() != null) // userName is unique, so it is sufficient to get a person
+                {
+                    condition.append(" date = " + membership.getDate());
+                }
+                if (membership.getDate() != null) // userName is unique, so it is sufficient to get a person
+                {
+                    if (condition.length() > 0) {
+                            condition.append(" and");
+                        }
+                    condition.append(" date = " + membership.getDate());
+                }
+                
+                if (condition.length() > 0) {
+                        query.append(" where ");
+                        query.append(condition);
+                    }
+            
+            }
+        }
+        
+
+        try {
+
+            stmt = conn.createStatement();
+
+            // retrieve the persistent Person object
+            //
+            if (stmt.execute(query.toString())) { // statement returned a result
+                ResultSet r = stmt.getResultSet();
+                return new MembershipIterator(r, objectModel);
+            }
+        } catch (Exception e) {      // just in case...
+            e.printStackTrace();
+            throw new DTException("MembershipManager.restore: Could not restore persistent Membership object; Root cause: " + e);
+        }
+
+        throw new DTException("MembershipManager.restore: Could not restore persistent Membership object");
+    }
+    
     public void delete(Membership membership)
             throws DTException {
         String deleteMembershipSql = "delete from Membership where id = ?";

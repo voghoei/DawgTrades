@@ -1,7 +1,6 @@
 <#import "default.ftl" as default>
-<#import "categoryAdminMacro.ftl" as catAdmin>
 <@default.mainLayout "DawgTrades: Admin Panel - Categories">
-<h1>Category Admin</h1>
+<h1>Delete Category</h1>
 <#if error??>
 <div class="row">
 	<div class="col-md-12 alert alert-danger" role="alert">
@@ -22,16 +21,13 @@
 </div>
 </#if>
 <#include "adminNav.ftl">
-	<#if categoriesMap??>
-		<div class="row">
-			<div class="col-md-12 clearfix">
-				<a class="btn btn-primary pull-right margin-bottom" href="/admin/categories/create"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Create Category</a>
+		<p>Are you sure you want to delete this category?</p>
+		<form role="form" action="delete" method="post" class="clearfix">
+			<input type="hidden" name="id" id="id" value="${toDelete}" />
+			<div class="form-group pull-right">
+				<a class="btn btn-default" href="/admin/categories">Cancel</a> <button type="submit" class="btn btn-danger">Confirm</button>
 			</div>
-		</div>
-		<ul class="list-group">
-			<@catAdmin.categoryRow categoryMap=categoriesMap categoryID="0" />
-		</ul>
-	</#if>
+		</form>
 	</div>
 </div>
 </@default.mainLayout>

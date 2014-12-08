@@ -53,7 +53,7 @@ public class EditCategoryAdminUI extends HttpServlet {
                     request.setAttribute("toEdit", catCtrl.getCategoryWithID(id));
                     ArrayList<AttributeType> attributes = catCtrl.getAttributesForCategory(id);
                     if(attributes != null && !attributes.isEmpty()) {
-                        request.setAttribute("error", "Length: " + attributes.size())
+                        request.setAttribute("error", "Length: " + attributes.size());
                         request.setAttribute("attributes", attributes);
                     }
                     request.getRequestDispatcher("/categoryEditAdmin.ftl").forward(request, response);

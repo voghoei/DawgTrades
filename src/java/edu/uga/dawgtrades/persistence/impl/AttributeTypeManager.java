@@ -87,7 +87,7 @@ class AttributeTypeManager  {
     public Iterator<AttributeType> restore(Category category)
             throws DTException {
 
-        String selectAttributeTypeSql = "select att.id, att.category_id, att.name, att.isString FROM AttributeType att ";
+        String selectAttributeTypeSql = "select att.id, att.category_id, att.name, att.isString FROM AttributeType att, Category cat ";
 
         Statement stmt = null;
         StringBuffer query = new StringBuffer(100);
@@ -104,6 +104,41 @@ class AttributeTypeManager  {
                 if (category.getName() != null) {
                     query.append(" WHERE att.category_id = cat.id and cat.name = " + category.getName());
                 }
+            }
+        }
+
+        try {
+            stmt = conn.createStatement();
+
+            // retrieve the persistent Person object
+            //
+            if (stmt.execute(query.toString())) { // statement returned a result
+                ResultSet r = stmt.getResultSet();
+                return new AttributeTypeIterator(r, objectModel);
+            }
+        } catch (Exception e) {      // just in case...
+            throw new DTException("AttributeTypeManager.restore: Could not restore persistent AttributeType object; Root cause: " + e);
+        }
+
+        // if we reach this point, it's an error
+        throw new DTException("AttributeTypeManager.restore: Could not restore persistent AttributeType object");
+    }
+
+    public Iterator<AttributeType> restore(AttributeType attrType)
+            throws DTException {
+
+        String selectAttributeTypeSql = "select att.id, att.category_id, att.name, att.isString FROM AttributeType att ";
+
+        Statement stmt = null;
+        StringBuffer query = new StringBuffer(100);
+
+        // form the query based on the given Club object instance
+        query.append(selectAttributeTypeSql);
+
+        if (attrType != null) {
+            if (attrType.getCategoryId() > 0) // id is unique, so it is sufficient to get a membership
+            {
+                query.append(" where att.category_id = " + attrType.getCategoryId());
             }
         }
 

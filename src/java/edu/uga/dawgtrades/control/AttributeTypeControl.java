@@ -86,4 +86,67 @@ public class AttributeTypeControl {
         }
     }
 
+    public long getCategoryIDForAttributeTypeID(long id) {
+        try {
+            this.connect();
+            AttributeType type = this.objectModel.createAttributeType();
+            type.setId(id)
+            Iterator<AttributeType> results = this.objectModel.findAttributeType(type);
+            if(results.hasNext()) {
+                type = results.next()
+                return type.getCategoryId();
+            }else{
+                return -1;
+            }
+        }
+        catch(DTException e) {
+            this.hasError = true;
+            this.error = e.getMessage();
+            return -1;
+        }
+        finally {
+            this.close();
+        }
+    }
+
+    public boolean deleteAttributeType(long id) {
+        try {
+            this.connect();
+            AttributeType type = this.objectModel.createAttributeType();
+            type.setId(id)
+            this.objectModel.deleteAttributeType(type);
+            return true;
+        }
+        catch(DTException e) {
+            this.hasError = true;
+            this.error = e.getMessage();
+            return false;
+        }
+        finally {
+            this.close();
+        }
+
+    }
+    public boolean attributeTypeExists(long id) {
+        try {
+            this.connect();
+            AttributeType type = this.objectModel.createAttributeType();
+            type.setId(id)
+            Iterator<AttributeType> results = this.objectModel.findAttributeType(type);
+            if(results.hasNext()) {
+                return true;
+            }else{
+                return false;
+            }
+        }
+        catch(DTException e) {
+            this.hasError = true;
+            this.error = e.getMessage();
+            return false;
+        }
+        finally {
+            this.close();
+        }
+    }
+
 }

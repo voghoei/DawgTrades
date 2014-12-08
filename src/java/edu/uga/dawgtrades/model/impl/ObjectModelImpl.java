@@ -79,6 +79,11 @@ public class ObjectModelImpl extends Persistent implements ObjectModel {
         persistence.deleteAttributeType(attributeType);
     }
 
+    public java.util.Iterator<AttributeType> findAttributeType(AttributeType modelAttributeType) throws DTException {
+        return persistence.restoreAttributeType(modelAttributeType);
+    }
+
+
     public Iterator<AttributeType> getAttributeType(Category category) throws DTException {
         return persistence.restoreAttributeTypebyCategory(category);
     }

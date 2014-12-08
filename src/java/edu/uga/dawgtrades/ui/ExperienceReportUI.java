@@ -25,6 +25,8 @@ public class ExperienceReportUI extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        String value = request.getParameter("listId");
+        request.setAttribute("value", value);
 
         MembershipControl membershipCtrl = new MembershipControl();
         ArrayList<Membership> membership;
@@ -37,15 +39,6 @@ public class ExperienceReportUI extends HttpServlet {
             } else if (membershipCtrl.hasError()) {
                 request.setAttribute("error", "Error: " + membershipCtrl.getError());
             }
-
-            String value = request.getParameter("listId");
-
-            if (value != null) {
-
-                request.setAttribute("value", value);
-
-            }
-
         } catch (DTException ex) {
             Logger.getLogger(MembershipUI.class.getName()).log(Level.SEVERE, null, ex);
         }

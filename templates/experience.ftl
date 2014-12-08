@@ -1,33 +1,22 @@
 <#import "default.ftl" as default>
 <@default.mainLayout "Settings">
 <h1>Experience Report</h1>
-<#if error??>
-        <div class="col-md-12 alert alert-danger" role="alert">
-                <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-                <span class="sr-only"> Error: </span>
-                ${error}
-        </div>
-</#if>
-<div class="row">
-	<form role="form" action="experience" method="post">
-		<!-- create item stuff goes here -->
-		
-		<div class="form-group">
-                        <#if value??>
-			<label for="value"> ${value} </label>
-                        </#if>
-			
-		</div>
-                <button type="submit" class="btn btn-default"> Submit </button>
-        </form>
- </br></br>
+<form role="form" action="experience" method="post">
+
 <div class="form-group">
-<h4>Membership History</h4>
-  
+    <#if value??>
+	<label for="value">  value = ${value} </label>
+    <#else>
+        <label for="value">  value =  </label>
+    </#if>
+</div>
+    <button type="submit" > Submit </button>
+</div>
+<div class="form-group">
     <#if mlist??>   
-        <select name = "listId" class="form-control">
+        <select id = "listId" name = "listId" class="form-control">
         <#list mlist as membership>            
-                <option>${membership.getPrice()}</option>
+                <option value=${membership.getId()}>${membership.getPrice()}</option>
             
         </#list>
         </select>
@@ -35,5 +24,5 @@
   
 </div>
 
-</div>
+</form>
 </@default.mainLayout>

@@ -31,7 +31,8 @@ public class MembershipUI extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession(true);
+        System.out.println("**********************");
+       HttpSession session = request.getSession(true);
         LoginControl ctrl = new LoginControl();
         if (!ctrl.checkIsLoggedIn(session)) {
             response.sendRedirect("/login");
@@ -47,10 +48,19 @@ public class MembershipUI extends HttpServlet {
         ArrayList<Membership> membership;
 
         String price = request.getParameter("price");
+        
+//        ArrayList<String> list = new ArrayList<String>();
+//        list.add("sahar");
+//        list.add("arash");
+//        if ( price != null)
+//            list.add(price);
+//        request.setAttribute("membershipList", list);
+        
+        
 
         try {
 
-            if (!price.isEmpty()) {
+            if (price != null) {
                 if (!membershipCtrl.attemptToCreateMembership(Float.valueOf(price))) {
                     request.setAttribute("error", "Error: " + membershipCtrl.getError());
                 }

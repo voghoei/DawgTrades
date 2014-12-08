@@ -57,7 +57,9 @@
 			</div>
 			<div class="pull-right"><a class="btn btn-primary" href="/admin/attributes/create?category=${myID}">Add Attribute</a></div>
 		</div>
-		<button type="submit" class="btn btn-default"> Save</button>
+		<div class="clearfix">
+			<button type="submit" class="btn btn-primary pull-right">Save</button>
+		</div>
 	</form>
 </div>
 </@default.mainLayout>

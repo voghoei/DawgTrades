@@ -70,6 +70,19 @@ public class MyBidsUI extends HttpServlet{
 
 		 request.getRequestDispatcher("/myBids.ftl").forward(request,response);
 
+		}else{
+	        if(myBidsCtrl.hasError()) {
+	            request.setAttribute("error", "Error: " + myBidsCtrl.getError());
+	            request.setAttribute("returnTo", "./");
+	            request.getRequestDispatcher("/genericError.ftl").forward(request, response);
+	            return;
+	        }else{
+	            request.setAttribute("error", "An unknown error occurred.");
+	            request.setAttribute("returnTo", "./");
+	            request.getRequestDispatcher("/genericError.ftl").forward(request, response);
+	            return;
+	        }
+		}
 	}
 
 	

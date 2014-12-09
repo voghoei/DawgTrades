@@ -51,7 +51,7 @@ public class CreateItemCtrl{
 			item.setDescription(parameters.get("desc")[0]);
 			//RegisteredUser currentUser = ctrl.getLoggedInUser(session);
 			item.setOwnerId(userId);
-			long categoryId = Long.parseLong(parameters.get("catId")[0].substring(15));			
+			long categoryId = Long.parseLong(parameters.get("catId")[0]);			
 			item.setCategoryId(categoryId);
 			objectModel.storeItem(item);
 			long itemId = item.getId();

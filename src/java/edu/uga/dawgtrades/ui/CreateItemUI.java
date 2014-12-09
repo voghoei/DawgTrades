@@ -68,22 +68,31 @@ public class CreateItemUI extends HttpServlet{
 		}
 		String itemName = request.getParameter("name");
 		String desc = request.getParameter("desc");
+		String catID = request.getParameter("catId");
 		if(itemName != null){
-			//send the itemName, Item Desc, attributes, and category to the control
-			RegisteredUser currentUser = (RegisteredUser)session.getAttribute("currentSessionUser");
-			long itemId = itemCtrl.attemptItemCreate(request.getParameterMap(),currentUser.getId());	
-			if(itemId<0){
-				if(itemCtrl.hasError()){
-					error = itemCtrl.getError();
+			if(itemName.isEmpty()) {
+				request.setAttribute("error","Name is required.");
+			}else if(desc == null || desc.isEmpty() {
+				request.setAttribute("error","Description is required.");
+			}else if(catID == null || Long.parseLong(catID) <= 0) {
+				request.setAttribute("error","Category is invalid.");
+			}else{
+				//send the itemName, Item Desc, attributes, and category to the control
+				RegisteredUser currentUser = (RegisteredUser)session.getAttribute("currentSessionUser");
+				long itemId = itemCtrl.attemptItemCreate(request.getParameterMap(),currentUser.getId());	
+				if(itemId<0){
+					if(itemCtrl.hasError()){
+						error = itemCtrl.getError();
+					}
+					request.setAttribute("error","error: "+error);
+					request.getRequestDispatcher("/createItem.ftl").forward(request,response);
+					//response.sendRedirect("/createAuction?id="+error);
+					return;	
 				}
-				request.setAttribute("error","error: "+error);
-				request.getRequestDispatcher("/createItem.ftl").forward(request,response);
-				//response.sendRedirect("/createAuction?id="+error);
-				return;	
+				
+				response.sendRedirect("createAuction?id="+itemId);
+				return;
 			}
-			
-			response.sendRedirect("createAuction?id="+itemId);
-			return;
 		}
 		
 		request.getRequestDispatcher("/createItem.ftl").forward(request,response);

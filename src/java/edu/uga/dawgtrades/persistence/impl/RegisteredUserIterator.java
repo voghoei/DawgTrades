@@ -40,6 +40,7 @@ public class RegisteredUserIterator implements Iterator<RegisteredUser> {
         String Email;
         String Phone;
         boolean CanText;
+        boolean IsApproved;
 
         if (more) {
 
@@ -53,6 +54,7 @@ public class RegisteredUserIterator implements Iterator<RegisteredUser> {
                 Email = rs.getString(6);
                 Phone = rs.getString(7);
                 CanText = rs.getBoolean(8);
+                IsApproved = rs.getBoolean(10);
 
                 more = rs.next();
             } catch (Exception e) {	// just in case...
@@ -61,7 +63,7 @@ public class RegisteredUserIterator implements Iterator<RegisteredUser> {
 
             RegisteredUser registeredUser = null;
             try {
-                registeredUser = objectModel.createRegisteredUser(FirstName, LastName, Name, Password, Email, Phone, CanText, IsAdmin);
+                registeredUser = objectModel.createRegisteredUser(FirstName, LastName, Name, Password, Email, Phone, CanText, IsAdmin, IsApproved);
                 registeredUser.setId(id);
 
             } catch (DTException ce) {

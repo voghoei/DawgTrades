@@ -20,7 +20,7 @@
 		<div class="form-group">
 			<#if categoryChosen??>
 				<label for="category"> Category:</label>
- 				<select class="form-control" onChange="window.location.href=this.value" required>
+ 				<select name="catId" class="form-control" onChange="window.location.href=this.value" required>
                         	<option value="#"> Select a Category </option>
                         	<#if categoryList??>
                                         <#list categoryList as category>

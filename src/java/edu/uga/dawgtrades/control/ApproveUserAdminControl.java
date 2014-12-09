@@ -24,7 +24,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author reanimus
  */
-public class BidControl {
+public class ApproveUserAdminControl {
 
     private Connection conn = null;
     private ObjectModel objectModel = null;
@@ -65,41 +65,56 @@ public class BidControl {
         }
     }
 
-    public boolean placeBid(long auctionID, double amount, long userID) {
-        AuctionControl auctionCtrl = new AuctionControl();
-        Auction auction = auctionCtrl.getAuctionWithID(auctionID);
-        if(auction != null) {
-            try {
-                this.connect();
-                RegisteredUser user = this.objectModel.createRegisteredUser();
-                user.setId(userID);
-                Iterator<RegisteredUser> results = this.objectModel.findRegisteredUser(user);
-                if (results.hasNext()) {
-                    user = results.next();
-                    Bid bid = this.objectModel.createBid(auction, user, amount);
-                    this.objectModel.storeBid(bid);
-                    return true;
-                }else{
-                    this.hasError = true;
-                    this.error = "User placing bid is invalid.";
-                    return false;
+    public ArrayList<RegisteredUser> getUnapprovedUsers() {
+        ArrayList<RegisteredUser> out = new ArrayList<RegisteredUser>();
+        try {
+            this.connect();
+            RegisteredUser modelUser = this.objectModel.createRegisteredUser();
+            Iterator<RegisteredUser> userIter = this.objectModel.findRegisteredUser(modelUser);
+            while (userIter.hasNext()) {
+                RegisteredUser user = userIter.next();
+                if(!user.getIsApproved()) {
+                    out.add(user);
                 }
             }
-            catch(DTException e) {
-                this.hasError = true;
-                this.error = e.getMessage();
-                return false;
-            }
-            finally {
-                this.close();
-            }
-        }else{
-            if(auctionCtrl.hasError()) {
-                this.hasError = true;
-                this.error = auctionCtrl.getError();
-            }
+            return out;
+
         }
-        return false;
+        catch(DTException e) {
+            this.hasError = true;
+            this.error = e.getMessage();
+            return null;
+        }
+        finally {
+            this.close();
+        }
+    }
+
+    public boolean approve(long id) {
+        ArrayList<RegisteredUser> out = new ArrayList<RegisteredUser>();
+        try {
+            this.connect();
+            RegisteredUser modelUser = this.objectModel.createRegisteredUser();
+            modelUser.setId(id);
+            Iterator<RegisteredUser> userIter = this.objectModel.findRegisteredUser(modelUser);
+            if (userIter.hasNext()) {
+                RegisteredUser user = userIter.next();
+                user.setIsApproved(true);
+                this.objectModel.storeRegisteredUser(user);
+                return true;
+            }
+            this.hasError = true;
+            this.error = "User not found.";
+            return false;
+        }
+        catch(DTException e) {
+            this.hasError = true;
+            this.error = e.getMessage();
+            return false;
+        }
+        finally {
+            this.close();
+        }
     }
 
 }

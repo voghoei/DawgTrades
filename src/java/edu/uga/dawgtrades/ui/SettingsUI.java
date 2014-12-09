@@ -30,7 +30,14 @@ public class SettingsUI extends HttpServlet{
 			RegisteredUser currentUser = (RegisteredUser)session.getAttribute("currentSessionUser");
 			request.setAttribute("loggedInUser",currentUser);
 		}
-		
+		String page = request.getParameter("id");
+		if(page == null){
+			request.setAttribute("profile"," ");
+		}else if(page.equals("password")){
+			request.setAttribute("password"," ");
+		} else if(page.equals( "other")){
+			request.setAttribute("other"," ");
+		}
 		request.getRequestDispatcher("/settings.ftl").forward(request,response);
 
 	}

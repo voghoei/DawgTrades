@@ -26,12 +26,14 @@ public class MembershipUI extends HttpServlet {
         LoginControl ctrl = new LoginControl();
         if (!ctrl.checkIsLoggedIn(session)) {
             response.sendRedirect("/login");
-            request.setAttribute("loggedInUser", "");
-            request.removeAttribute("loggedInUser");
             return;
         } else {
-            RegisteredUser currentUser = (RegisteredUser) session.getAttribute("currentSessionUser");
-            request.setAttribute("loggedInUser", currentUser);
+            RegisteredUser currentUser = (RegisteredUser)session.getAttribute("currentSessionUser");
+            if(!currentUser.getIsAdmin()) {
+                response.sendRedirect("/");
+                return;
+            }
+            request.setAttribute("loggedInUser",currentUser);
         }
 
         MembershipControl membershipCtrl = new MembershipControl();
@@ -40,8 +42,8 @@ public class MembershipUI extends HttpServlet {
         String price = request.getParameter("price");
         try {
 
-            if (price != null) {
-                if (!membershipCtrl.attemptToCreateMembership(Float.valueOf(price))) {
+            if (price != null && !price.isEmpty()) {
+                if (!membershipCtrl.attemptToCreateMembership(Double.valueOf(price))) {
                     request.setAttribute("error", "Error: " + membershipCtrl.getError());
                 }
             }
@@ -50,12 +52,16 @@ public class MembershipUI extends HttpServlet {
                 request.setAttribute("membershipList", membership);
             } else if (membershipCtrl.hasError()) {
                 request.setAttribute("error", "Error: " + membershipCtrl.getError());
+            }else{
+                request.setAttribute("error", "Unknown error.");
+
             }
 
         } catch (DTException ex) {
             Logger.getLogger(MembershipUI.class.getName()).log(Level.SEVERE, null, ex);
+            request.setAttribute("error", "Error: " + ex.getMessage());
         }
-        request.getRequestDispatcher("/membership.ftl").forward(request, response);
+        request.getRequestDispatcher("/membershipAdmin.ftl").forward(request, response);
 
     }
 

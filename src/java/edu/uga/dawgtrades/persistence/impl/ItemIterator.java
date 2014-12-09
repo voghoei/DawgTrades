@@ -52,9 +52,8 @@ public class ItemIterator implements Iterator<Item> {
                 nextItem.setId(rs.getLong(1));
                 nextItem.setOwnerId(rs.getLong(2));
                 nextItem.setCategoryId(rs.getLong(3));
-                nextItem.setCode(rs.getString(4));
-                nextItem.setName(rs.getString(5));
-                nextItem.setDescription(rs.getString(6));
+                nextItem.setName(rs.getString(4));
+                nextItem.setDescription(rs.getString(5));
                 this.more = rs.next();
                 return nextItem;
             } catch (Exception e) {

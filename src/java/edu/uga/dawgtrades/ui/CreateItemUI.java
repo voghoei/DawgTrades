@@ -64,15 +64,21 @@ public class CreateItemUI extends HttpServlet{
 		if(itemName != null){
 			//send the itemName, Item Desc, attributes, and category to the control
 			RegisteredUser currentUser = (RegisteredUser)session.getAttribute("currentSessionUser");
-			
-			if(!itemCtrl.attemptItemCreate(request.getParameterMap(),currentUser.getId())){
+			long itemId = itemCtrl.attemptItemCreate(request.getParameterMap(),currentUser.getId());	
+			if(itemId<0){
 				if(itemCtrl.hasError()){
 					error = itemCtrl.getError();
 				}
-				request.setAttribute("error", "An error occurred"+error);	
+				request.setAttribute("error","error: "+error);
+				request.getRequestDispatcher("/createItem.ftl").forward(request,response);
+				//response.sendRedirect("/createAuction?id="+error);
+				return;	
 			}
-		}
 			
+			response.sendRedirect("/createAuction?id="+itemId);
+			return;
+		}
+		
 		request.getRequestDispatcher("/createItem.ftl").forward(request,response);
 		
 	}

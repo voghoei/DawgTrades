@@ -43,23 +43,21 @@ public class MembershipControl {
         ArrayList<Membership> membershipMap = new ArrayList<Membership>();
         try {
             connect();
-            Membership modelMembership = objectModel.createMembership();
-            membershipIter = objectModel.findMembership(modelMembership);
+            membershipIter = objectModel.findMembership(null);
             while (membershipIter.hasNext()) {
                 membershipMap.add(membershipIter.next());
             }
-
+            return membershipMap;
         } catch (DTException e) {
             this.hasError = true;
             this.error = e.getMessage();
-
+            return null;
         } finally {
             close();
         }
-        return membershipMap;
     }
 
-    public boolean attemptToCreateMembership(float price) throws DTException {
+    public boolean attemptToCreateMembership(double price) throws DTException {
         Membership modelMembership = null;
         try {
 

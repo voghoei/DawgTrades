@@ -24,7 +24,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author reanimus
  */
-public class BidControl {
+public class ViewUserControl {
 
     private Connection conn = null;
     private ObjectModel objectModel = null;
@@ -65,41 +65,50 @@ public class BidControl {
         }
     }
 
-    public boolean placeBid(long auctionID, double amount, long userID) {
-        AuctionControl auctionCtrl = new AuctionControl();
-        Auction auction = auctionCtrl.getAuctionWithID(auctionID);
-        if(auction != null) {
-            try {
-                this.connect();
-                RegisteredUser user = this.objectModel.createRegisteredUser();
-                user.setId(userID);
-                Iterator<RegisteredUser> results = this.objectModel.findRegisteredUser(user);
-                if (results.hasNext()) {
-                    user = results.next();
-                    Bid bid = this.objectModel.createBid(auction, user, amount);
-                    this.objectModel.storeBid(bid);
-                    return true;
-                }else{
-                    this.hasError = true;
-                    this.error = "User placing bid is invalid.";
-                    return false;
-                }
-            }
-            catch(DTException e) {
+    public RegisteredUser getUserWithID(long id) {
+        try {
+            this.connect();
+            RegisteredUser user = this.objectModel.createRegisteredUser();
+            user.setId(id);
+            Iterator<RegisteredUser> results = this.objectModel.findRegisteredUser(user);
+            if (results.hasNext()) {
+                return results.next();
+            }else{
                 this.hasError = true;
-                this.error = e.getMessage();
-                return false;
-            }
-            finally {
-                this.close();
-            }
-        }else{
-            if(auctionCtrl.hasError()) {
-                this.hasError = true;
-                this.error = auctionCtrl.getError();
+                this.error = "User doesn't exist.";
+                return null;
             }
         }
-        return false;
+        catch(DTException e) {
+            this.hasError = true;
+            this.error = e.getMessage();
+            return null;
+        }
+        finally {
+            this.close();
+        }
+    }
+
+    public ArrayList<Auction> getAuctionsForUser(RegisteredUser user) {
+        ArrayList<Auction> out = new ArrayList();
+        try {
+            this.connect();
+            Iterator<Item> results = this.objectModel.getItem(user);
+            while (results.hasNext()) {
+                Item item = results.next();
+                out.add(this.objectModel.getAuction(item));
+            }
+            return out;
+        }
+        catch(DTException e) {
+            this.hasError = true;
+            this.error = e.getMessage();
+            return null;
+        }
+        finally {
+            this.close();
+        }
+
     }
 
 }

@@ -43,7 +43,7 @@ public interface ObjectModel {
     public AttributeType getAttributeType(Attribute attribute) throws DTException;
 
     //Item
-    public Item createItem(Category category, RegisteredUser user, String identifier, String name, String description) throws DTException;
+    public Item createItem(Category category, RegisteredUser user, String name, String description) throws DTException;
 
     public Item createItem();
 
@@ -73,7 +73,7 @@ public interface ObjectModel {
     public java.util.Iterator<Attribute> getAttribute(Item item) throws DTException;
 
     //Auction
-    public Auction createAuction(Item item, float minPrice, java.util.Date expiration) throws DTException;
+    public Auction createAuction(Item item, double minPrice, java.util.Date expiration) throws DTException;
 
     public Auction createAuction();
 
@@ -87,7 +87,7 @@ public interface ObjectModel {
 
     //Registered User
     public RegisteredUser createRegisteredUser(String firstName, String lastName, String name, String password,
-            String email, String phone, boolean canText, boolean isAdmin) throws DTException;
+            String email, String phone, boolean canText, boolean isAdmin, boolean isApproved) throws DTException;
 
     public RegisteredUser createRegisteredUser();
 
@@ -102,7 +102,7 @@ public interface ObjectModel {
     
 
     //Bid
-    public Bid createBid(Auction auction, RegisteredUser user, float price) throws DTException;
+    public Bid createBid(Auction auction, RegisteredUser user, double price) throws DTException;
 
     public Bid createBid();
 
@@ -125,7 +125,7 @@ public interface ObjectModel {
     public void deleteExperienceReport(ExperienceReport experienceReport) throws DTException;
 
     //Membership
-    public Membership createMembership(float price, java.util.Date date) throws DTException;
+    public Membership createMembership(double price, java.util.Date date) throws DTException;
 
     public Membership createMembership();
 

@@ -46,7 +46,7 @@ public class AuctionManager {
             stmt.setLong(1, auction.getItemId());
             if (auction.getMinPrice() != 0.0) {
 
-                stmt.setFloat(2, auction.getMinPrice());
+                stmt.setDouble(2, auction.getMinPrice());
             } else {
                 throw new DTException("AuctionManager.save: Can't save auction. Price undefined");
             }

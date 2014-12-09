@@ -23,8 +23,8 @@ public class RegisteredUserManager {
 
     public void save(RegisteredUser registeredUser)
             throws DTException {
-        String insertRegisteredUserSql = "insert into RegisteredUser ( name, firstName, lastName, password, isAdmin, email, phone, canText ) values ( ?, ?, ?, ?, ?, ?, ?, ? )";
-        String updateREgisteredUserSql = "update RegisteredUser  set name = ?, firstName = ?, lastName = ?, password = ?, isAdmin = ?, email = ?, phone = ?, canText = ? where id = ?";
+        String insertRegisteredUserSql = "insert into RegisteredUser ( name, firstName, lastName, password, isAdmin, email, phone, canText, isApproved ) values ( ?, ?, ?, ?, ?, ?, ?, ?, ? )";
+        String updateREgisteredUserSql = "update RegisteredUser  set name = ?, firstName = ?, lastName = ?, password = ?, isAdmin = ?, email = ?, phone = ?, canText = ?, isApproved = ? where id = ?";
         PreparedStatement stmt;
         int inscnt;
         long registeredUserId;
@@ -76,9 +76,10 @@ public class RegisteredUserManager {
             }
 
             stmt.setBoolean(8, registeredUser.getCanText());
+            stmt.setBoolean(9, registeredUser.getIsApproved());
 
             if (registeredUser.isPersistent()) {
-                stmt.setLong(9, registeredUser.getId());
+                stmt.setLong(10, registeredUser.getId());
             }
 
             inscnt = stmt.executeUpdate();
@@ -115,7 +116,7 @@ public class RegisteredUserManager {
 
     public Iterator<RegisteredUser> restore(RegisteredUser registeredUser)
             throws DTException {
-        String selectPersonSql = "select id, firstName, lastName, name, password, email, phone, canText, isAdmin from RegisteredUser";
+        String selectPersonSql = "select id, firstName, lastName, name, password, email, phone, canText, isAdmin, isApproved from RegisteredUser";
         Statement stmt = null;
         StringBuffer query = new StringBuffer(100);
         StringBuffer condition = new StringBuffer(100);
@@ -159,6 +160,13 @@ public class RegisteredUserManager {
                             condition.append(" and");
                         }
                         condition.append(" isAdmin = " + registeredUser.getIsAdmin());
+                    }
+
+                    if (registeredUser.getIsApproved() != false) {
+                        if (condition.length() > 0) {
+                            condition.append(" and");
+                        }
+                        condition.append(" isApproved = " + registeredUser.getIsApproved());
                     }
 
                     if (registeredUser.getEmail() != null) {

@@ -4,6 +4,12 @@
     <description>
         DawgTrades: the place to buy and sell stuff at UGA.
     </description>
+
+    <!-- Background worker -->
+    <listener>
+       <listener-class>edu.uga.dawgtrades.DawgTradesContextListener</listener-class>
+    </listener>
+
     <!--{ Static resources }-->
     <servlet>
         <servlet-name>fileServlet</servlet-name>
@@ -136,6 +142,16 @@
 
 
     <servlet>
+        <servlet-name>ApproveUserAdminUI</servlet-name>
+        <servlet-class>edu.uga.dawgtrades.ui.ApproveUserAdminUI</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ApproveUserAdminUI</servlet-name>
+        <url-pattern>/admin/users/approve</url-pattern>
+    </servlet-mapping>
+
+
+    <servlet>
         <servlet-name>CreateAuctionServlet</servlet-name>
         <servlet-class>edu.uga.dawgtrades.ui.CreateAuctionUI</servlet-class>
     </servlet>
@@ -157,7 +173,7 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>MembershipUI</servlet-name>
-        <url-pattern>/membership</url-pattern>
+        <url-pattern>/admin/membership</url-pattern>
     </servlet-mapping>
     <servlet>
         <servlet-name>ExperienceReportUI</servlet-name>
@@ -178,12 +194,39 @@
     </servlet-mapping>
 
     <servlet>
+        <servlet-name>ViewUserUI</servlet-name>
+        <servlet-class>edu.uga.dawgtrades.ui.ViewUserUI</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ViewUserUI</servlet-name>
+        <url-pattern>/user</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
         <servlet-name>BidUI</servlet-name>
         <servlet-class>edu.uga.dawgtrades.ui.BidUI</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>BidUI</servlet-name>
         <url-pattern>/bid</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>SearchUI</servlet-name>
+        <servlet-class>edu.uga.dawgtrades.ui.SearchUI</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>SearchUI</servlet-name>
+        <url-pattern>/search</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>MyAuctions</servlet-name>
+        <servlet-class>edu.uga.dawgtrades.ui.MyAuctionsUI</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>MyAuctions</servlet-name>
+        <url-pattern>/myAuctions</url-pattern>
     </servlet-mapping>
 
 

@@ -23,14 +23,14 @@ public class ItemImpl extends Persistent implements Item {
         this.description = "";
     }
 
-    public ItemImpl(long categoryId, long ownerId, String code, String name) {
+    public ItemImpl(long categoryId, long ownerId, String name) {
         this.categoryId = categoryId;
         this.ownerId = ownerId;
         this.code = code;
         this.name = name;
     }
 
-    public ItemImpl(long categoryId, long ownerId, String code, String name, String description) {
+    public ItemImpl(long categoryId, long ownerId, String name, String description) {
         this.categoryId = categoryId;
         this.ownerId = ownerId;
         this.code = code;
@@ -38,15 +38,7 @@ public class ItemImpl extends Persistent implements Item {
         this.description = description;
 
     }
-
-    public String getCode() {
-        return this.code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
-    }
-
+    
     public String getName() {
         return this.name;
     }

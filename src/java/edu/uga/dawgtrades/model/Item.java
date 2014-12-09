@@ -3,10 +3,6 @@ package edu.uga.dawgtrades.model;
 public interface Item
         extends Persistable {
 
-    public String getCode();
-
-    public void setCode(String code);
-
     public String getName();
 
     public void setName(String name);

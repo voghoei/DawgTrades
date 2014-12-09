@@ -21,7 +21,6 @@ import java.util.*;
 import javax.servlet.*;
 import javax.servlet.http.HttpSession;
 public class CreateItemCtrl{
-	
 	private Connection conn = null;
 	private ObjectModel objectModel = null;
 	private Persistence persistence = null;
@@ -41,8 +40,8 @@ public class CreateItemCtrl{
 			System.err.println("Exception: "+e);
 		}
 	}
-	
-	public boolean attemptItemCreate(Map<String,String[]> parameters, long userId){
+
+	public long attemptItemCreate(Map<String,String[]> parameters, long userId){
 
 		boolean created=true;
 		try{
@@ -52,10 +51,11 @@ public class CreateItemCtrl{
 			item.setDescription(parameters.get("desc")[0]);
 			//RegisteredUser currentUser = ctrl.getLoggedInUser(session);
 			item.setOwnerId(userId);
+			long categoryId = Long.parseLong(parameters.get("catId")[0].substring(15));			
+			item.setCategoryId(categoryId);
 			objectModel.storeItem(item);
 			long itemId = item.getId();
-			long categoryId = Long.parseLong(parameters.get("id")[0]);
-			Iterator<AttributeType> attributeTypes = this.getCategoryAttributes(categoryId).iterator();
+			Iterator<AttributeType> attributeTypes = this.getCategoryAttributesWithExistingConnection(categoryId).iterator();
 			AttributeType attrType = null;
 			while(attributeTypes.hasNext()){
 				attrType = attributeTypes.next();
@@ -64,18 +64,19 @@ public class CreateItemCtrl{
 				attribute.setAttributeTypeId(attrType.getId());
 				attribute.setValue(value);
 				attribute.setItemId(itemId);
+				this.objectModel.storeAttribute(attribute);
 			}
 			
-			
+			return itemId;	
 				
 		}catch(DTException e){
 			error = e.getMessage();
 			hasError = true;
-			created = false;
+			return -1;
 		}finally{
 			close();
 		}
-		return created;
+	
 	}
 	
 	private void addAttributes(Set<Attribute> attributes){	
@@ -119,6 +120,18 @@ public class CreateItemCtrl{
 		}finally{
 			this.close();
 		}
+	}
+	private ArrayList<AttributeType> getCategoryAttributesWithExistingConnection(long id)
+		throws DTException{
+		AttributeType attrType = this.objectModel.createAttributeType();
+		Category category = this.objectModel.createCategory();
+		category.setId(id);
+		Iterator<AttributeType> results = this.objectModel.getAttributeType(category);
+		ArrayList<AttributeType> attributeTypes = new ArrayList<AttributeType>();
+		while(results.hasNext()){
+			attributeTypes.add(results.next());
+		}
+		return attributeTypes;
 	}
 	public String getError(){
 		return error;

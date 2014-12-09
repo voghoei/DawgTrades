@@ -41,17 +41,17 @@ class MembershipManager {
 
             if (membership.getPrice() != 0.0) // price is unique and non null
             {
-                stmt.setFloat(1, membership.getPrice());
+                stmt.setDouble(1, membership.getPrice());
             } else {
                 throw new DTException("MembershipManager.save: can't save a Membership: price undefined");
             }
 
             if (membership.getDate() != null) {
                 mDate = membership.getDate();
-                java.sql.Date sDate = new java.sql.Date(mDate.getTime());
-                stmt.setDate(2, sDate);
+                java.sql.Timestamp ts = new java.sql.Timestamp(mDate.getTime());
+                stmt.setTimestamp(2, ts);
             } else {
-                stmt.setNull(2, java.sql.Types.DATE);
+                stmt.setNull(2, java.sql.Types.TIMESTAMP);
             }
 
             inscnt = stmt.executeUpdate();
@@ -64,7 +64,7 @@ class MembershipManager {
 
     public Membership restore()
             throws DTException {
-        String selectMembershipSql = "select id, price, date from membership where date = (select Max(date) from membership)";
+        String selectMembershipSql = "SELECT id, price, date FROM Membership WHERE date = (SELECT Max(date) FROM Membership)";
         Statement stmt = null;
         Membership membership = null;
 
@@ -75,7 +75,7 @@ class MembershipManager {
             if (stmt.execute(selectMembershipSql)) {
                 ResultSet r = stmt.getResultSet();
                 r.next();
-                membership = objectModel.createMembership(r.getFloat(2), r.getDate(3));
+                membership = objectModel.createMembership(r.getDouble(2), r.getDate(3));
                 membership.setId(r.getLong(1));
                 return membership;
             }
@@ -88,7 +88,7 @@ class MembershipManager {
     }
 
     public Iterator<Membership> restore(Membership membership) throws DTException {
-        String selectMembershipSql = "select id, price, date from membership order by id DESC";
+        String selectMembershipSql = "select id, price, date from Membership order by id DESC";
         Statement stmt = null;
         StringBuffer query = new StringBuffer(100);
         StringBuffer condition = new StringBuffer(100);

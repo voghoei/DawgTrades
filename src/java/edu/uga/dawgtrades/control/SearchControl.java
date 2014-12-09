@@ -24,7 +24,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author reanimus
  */
-public class BidControl {
+public class SearchControl {
 
     private Connection conn = null;
     private ObjectModel objectModel = null;
@@ -65,41 +65,26 @@ public class BidControl {
         }
     }
 
-    public boolean placeBid(long auctionID, double amount, long userID) {
-        AuctionControl auctionCtrl = new AuctionControl();
-        Auction auction = auctionCtrl.getAuctionWithID(auctionID);
-        if(auction != null) {
+    public String getAttributeWithTypeForItem(AttributeType type, Item item) {
             try {
                 this.connect();
-                RegisteredUser user = this.objectModel.createRegisteredUser();
-                user.setId(userID);
-                Iterator<RegisteredUser> results = this.objectModel.findRegisteredUser(user);
-                if (results.hasNext()) {
-                    user = results.next();
-                    Bid bid = this.objectModel.createBid(auction, user, amount);
-                    this.objectModel.storeBid(bid);
-                    return true;
-                }else{
-                    this.hasError = true;
-                    this.error = "User placing bid is invalid.";
-                    return false;
+                Iterator<Attribute> results = this.objectModel.getAttribute(item);
+                while(results.hasNext()) {
+                    Attribute attr = results.next();
+                    if(attr.getAttributeTypeId() == type.getId()) {
+                        return attr.getValue();
+                    }
                 }
+                return null;
             }
             catch(DTException e) {
                 this.hasError = true;
                 this.error = e.getMessage();
-                return false;
+                return null;
             }
             finally {
                 this.close();
             }
-        }else{
-            if(auctionCtrl.hasError()) {
-                this.hasError = true;
-                this.error = auctionCtrl.getError();
-            }
-        }
-        return false;
     }
 
 }

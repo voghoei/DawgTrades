@@ -22,7 +22,7 @@ import java.text.*;
 
 /**
  *
- * @author sahar
+ * @author reanimus
  */
 public class BidUI extends HttpServlet {
     @Override

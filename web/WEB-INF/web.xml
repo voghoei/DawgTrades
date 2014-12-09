@@ -186,6 +186,15 @@
         <url-pattern>/bid</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>SearchUI</servlet-name>
+        <servlet-class>edu.uga.dawgtrades.ui.SearchUI</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>SearchUI</servlet-name>
+        <url-pattern>/search</url-pattern>
+    </servlet-mapping>
+
 
     <session-config>
         <session-timeout>30</session-timeout>

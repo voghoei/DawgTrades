@@ -33,7 +33,7 @@ public class MyBidsUI extends HttpServlet{
 		long userId = currentUser.getId();
 		MyBidsControl myBidsCtrl = new MyBidsControl();
         CategoryControl catCtrl = new CategoryControl();
-		ArrayList<Bid> myBids = myBidsCtrl.getBidsForID(userID);
+		ArrayList<Bid> myBids = myBidsCtrl.getBidsForID(userId);
 		if(myBids == null) {
 	        if(myBidsCtrl.hasError()) {
 	            request.setAttribute("error", "Error: " + myBidsCtrl.getError());

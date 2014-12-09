@@ -288,7 +288,7 @@ public class CategoryControl {
         }
     }
 
-    public ArrayList<Category> getCategoriesWithParentID(long id) {/
+    public ArrayList<Category> getCategoriesWithParentID(long id) {
         // Does what it says
         try {
             this.connect();

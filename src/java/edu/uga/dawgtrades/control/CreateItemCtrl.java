@@ -72,11 +72,11 @@ public class CreateItemCtrl{
 		}catch(DTException e){
 			error = e.getMessage();
 			hasError = true;
-			return null;
+			return -1;
 		}finally{
 			close();
 		}
-		return null;
+		return -1;
 	}
 	
 	private void addAttributes(Set<Attribute> attributes){	

@@ -42,20 +42,35 @@ public class CreateItemCtrl{
 		}
 	}
 	
-	public boolean attemptItemCreate(HttpSession session,Set<Attribute> attributes,Set<Category> categories,String name, String code, String description)throws DTException, ServletException,IOException{
+	public boolean attemptItemCreate(Map<String,String[]> parameters, long userId){
 
 		boolean created=true;
 		try{
 			connect();
 			Item item = objectModel.createItem();
-			item.setName(name);
-			item.setCode(code);
-			item.setDescription(description);
-			RegisteredUser currentUser = ctrl.getLoggedInUser(session);
-			item.setOwnerId(currentUser.getId());
-			//objectModel.storeItem(item);
+			item.setName(parameters.get("name")[0]);
+			item.setDescription(parameters.get("desc")[0]);
+			//RegisteredUser currentUser = ctrl.getLoggedInUser(session);
+			item.setOwnerId(userId);
+			objectModel.storeItem(item);
+			long itemId = item.getId();
+			long categoryId = Long.parseLong(parameters.get("id")[0]);
+			Iterator<AttributeType> attributeTypes = this.getCategoryAttributes(categoryId).iterator();
+			AttributeType attrType = null;
+			while(attributeTypes.hasNext()){
+				attrType = attributeTypes.next();
+				String value = parameters.get(Long.toString(attrType.getId()))[0];
+				Attribute attribute = objectModel.createAttribute();
+				attribute.setAttributeTypeId(attrType.getId());
+				attribute.setValue(value);
+				attribute.setItemId(itemId);
+			}
+			
+			
+				
 		}catch(DTException e){
 			error = e.getMessage();
+			hasError = true;
 			created = false;
 		}finally{
 			close();

@@ -8,7 +8,7 @@ import java.util.Iterator;
 import edu.uga.dawgtrades.DTException;
 import edu.uga.dawgtrades.model.Auction;
 import edu.uga.dawgtrades.model.ObjectModel;
-import java.sql.PreparedStatement;
+import java.sql.*;
 
 public class AuctionManager {
 
@@ -53,10 +53,10 @@ public class AuctionManager {
 
             if (auction.getExpiration() != null) {
                 expDate = auction.getExpiration();
-                java.sql.Date sDate = new java.sql.Date(expDate.getTime());
-                stmt.setDate(3, sDate);
+                java.sql.Timestamp ts = new java.sql.Timestamp(expDate.getTime());
+                stmt.setTimestamp(3, ts);
             } else {
-                stmt.setNull(3, java.sql.Types.DATE);
+                stmt.setNull(3, java.sql.Types.TIMESTAMP);
             }
 
             if( auction.isPersistent() )

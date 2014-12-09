@@ -53,7 +53,11 @@ public class BidIterator implements Iterator<Bid> {
                 auction.setId(rs.getLong(3));
                 bid.setAuction(auction);
                 bid.setAmount(rs.getFloat(4));
-                bid.setDate(rs.getDate(5));
+                java.sql.Timestamp timestamp = rs.getTimestamp(5);
+                if(timestamp == null) {
+                    throw new DTException("BidIterator: Failed to retrieve timestamp from DB.");
+                }
+                bid.setDate(new java.util.Date(timestamp.getTime()));
                 bid.setId(rs.getLong(1));
                 more = rs.next();
                 return bid;

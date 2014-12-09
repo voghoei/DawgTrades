@@ -69,7 +69,7 @@
 						<#assign auctionID = "${auction.getId()}">
 							<div class="col-md-4">
 								<h5><a href="/auction?id=${auction.getId()}">${categoryItems[auctionID].getName()}</a></h5>
-								<p>Ends on ${auction.getExpiration()}</p>
+								<p>Ends on ${auction.getExpiration()?datetime}</p>
 								<p>Minimum bid: $${auction.getMinPrice()}</p>
 								<p>Current bid: <#if auctionBids[auctionID]??>$${auctionBids[auctionID].getAmount()}<#else>None</#if></p>
 							</div>

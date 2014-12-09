@@ -50,8 +50,8 @@ public class MembershipControl {
             }
 
         } catch (DTException e) {
-            hasError = true;
-            error = e.getMessage();
+            this.hasError = true;
+            this.error = e.getMessage();
 
         } finally {
             close();
@@ -71,7 +71,8 @@ public class MembershipControl {
 
             return true;
         } catch (DTException e) {
-            error = e.getMessage();
+            this.hasError = true;
+            this.error = e.getMessage();
             return false;
         } finally {
             close();

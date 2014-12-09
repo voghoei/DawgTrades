@@ -100,17 +100,15 @@ class AttributeManager {
         String selectAttributeSql = "select att.id,att.attributeType_id, att.item_id, att.value, "
                 + "attype.Category_id, attype.name, attype.isString, "
                 + "it.user_id, it.code, it.name itemName,it.description "
-                + "from attribute att, attributetype attype, item it "
+                + "from Attribute att, AttributeType attype, Item it "
                 + "where attype.id = att.attributeType_id and it.id = att.item_id ";
 
         Statement stmt = null;
         StringBuffer query = new StringBuffer(100);
         StringBuffer condition = new StringBuffer(100);
 
-        if (attribute.getAttributeTypeId() != 0) {
-            throw new DTException("AttributeManager.restore: the argument attribute includes a non-persistent AttributeType object");
-        }
-        if (attribute.getItemId() != 0) {
+        // This is the only hard requirement we have
+        if (attribute.getItemId() <= 0) {
             throw new DTException("AttributeManager.restore: the argument attribute includes a non-persistent Item object");
         }
 

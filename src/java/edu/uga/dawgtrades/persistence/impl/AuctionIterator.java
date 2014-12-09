@@ -1,9 +1,7 @@
 package edu.uga.dawgtrades.persistence.impl;
 
 import java.sql.ResultSet;
-import java.util.Date;
-import java.util.Iterator;
-import java.util.NoSuchElementException;
+import java.util.*;
 
 import edu.uga.dawgtrades.DTException;
 import edu.uga.dawgtrades.model.Auction;
@@ -43,7 +41,11 @@ public class AuctionIterator implements Iterator<Auction> {
                 auction.setId(rs.getLong(1));
                 auction.setItemId(rs.getLong(2));
                 auction.setMinPrice(rs.getFloat(3));
-                auction.setExpiration(rs.getDate(4));
+                java.sql.Timestamp timestamp = rs.getTimestamp(4);
+                if(timestamp == null) {
+                    throw new DTException("AuctionIterator: Failed to retrieve expiration from DB.");
+                }
+                auction.setExpiration(new java.util.Date(timestamp.getTime()));
                 more = rs.next();
                 return auction;
             } catch (Exception e) {

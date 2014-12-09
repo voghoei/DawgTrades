@@ -5,7 +5,8 @@ package edu.uga.dawgtrades.ui;
  * and open the template in the editor.
  */
 import edu.uga.dawgtrades.DTException;
-import edu.uga.dawgtrades.control.LoginControl;
+import edu.uga.dawgtrades.control.*;
+import edu.uga.dawgtrades.ui.*;
 import java.io.IOException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
@@ -14,7 +15,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import edu.uga.dawgtrades.model.RegisteredUser;
+import edu.uga.dawgtrades.model.*;
+import java.util.*;
 
 
 /**

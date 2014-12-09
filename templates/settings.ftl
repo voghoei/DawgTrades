@@ -10,6 +10,7 @@
 </#if>
 <#include "sideNav.ftl">
 	<#if loggedInUser??>
+	<#if profile??>
 	<label> Username: </label><p> ${loggedInUser.getName()}</p>
 	<form role="form" id="settingsForm" action="settings" method="post">
 		<div class="form-group">
@@ -24,6 +25,20 @@
 
 
 	</form>
+	<#elseif password??>
+	<form role="form" id="settingsForm" action="settings" method="post">
+                <div classs="form-group">
+                        <label for="password">Enter a new password</label>
+                        <input type="password" class="form-control" placeholder="Password" name="password">
+                </div>
+                <div classs="form-group">
+                        <label for="passwordReEnter">Re-enter password</label>
+                        <input type="password" class="form-control" placeholder="Re-enter Password" name="passwordRe">
+                </div>
+	</form>
+	<#elseif other??>
+		<p> some text</p>
+	</#if>
 	</#if>
 	</div>
 </div>

@@ -14,9 +14,9 @@
         </div>
         <div class="navbar-collapse collapse sidebar-navbar-collapse">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="#">Edit Profile</a></li>
-            <li><a href="#">Change Password</a></li>
-            <li><a href="#">Other Menu Item</a></li>
+            <li <#if profile??>class="active"</#if>><a href="/settings">Edit Profile</a></li>
+            <li <#if password??>class="active"</#if>><a href="/settings?id=password">Change Password</a></li>
+            <li<#if other??>class="active"</#if>><a href="/settings?id=other">Other Menu Item</a></li>
          
           </ul>
         </div><!--/.nav-collapse -->

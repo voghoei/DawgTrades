@@ -2,7 +2,9 @@ package edu.uga.dawgtrades.ui;
 
 import edu.uga.dawgtrades.DTException;
 import edu.uga.dawgtrades.control.LoginControl;
+import edu.uga.dawgtrades.control.CreateAuctionCtrl;
 import edu.uga.dawgtrades.model.RegisteredUser;
+import edu.uga.dawgtrades.model.Item;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
@@ -18,6 +20,7 @@ public class CreateAuctionUI extends HttpServlet{
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException{
 		HttpSession session = request.getSession(true);
 		LoginControl ctrl = new LoginControl();
+		CreateAuctionCtrl auctionCtrl = new CreateAuctionCtrl();
 		if(!ctrl.checkIsLoggedIn(session)){
 			response.sendRedirect("/login");
 			request.setAttribute("loggedInUser","");
@@ -27,7 +30,11 @@ public class CreateAuctionUI extends HttpServlet{
 			RegisteredUser currentUser = (RegisteredUser)session.getAttribute("currentSessionUser");
 			request.setAttribute("loggedInUser",currentUser);
 		}
-
+		if(request.getParameter("id") != null){
+			long itemId = Long.parseLong(request.getParameter("id"));
+			Item item = auctionCtrl.getItem(itemId);
+			request.setAttribute("item",item);
+		}
 		
 		request.getRequestDispatcher("/createAuction.ftl").forward(request,response);
 	}

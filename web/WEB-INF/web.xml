@@ -167,7 +167,7 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>MembershipUI</servlet-name>
-        <url-pattern>/membership</url-pattern>
+        <url-pattern>/admin/membership</url-pattern>
     </servlet-mapping>
     <servlet>
         <servlet-name>ExperienceReportUI</servlet-name>

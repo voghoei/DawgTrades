@@ -1,11 +1,8 @@
 package edu.uga.dawgtrades.ui;
 
 import edu.uga.dawgtrades.DTException;
-import edu.uga.dawgtrades.control.LoginControl;
-import edu.uga.dawgtrades.control.MyAuctionsControl;
-import edu.uga.dawgtrades.model.Auction;
-import edu.uga.dawgtrades.model.Item;
-import edu.uga.dawgtrades.model.RegisteredUser;
+import edu.uga.dawgtrades.control.*;
+import edu.uga.dawgtrades.model.*;
 import java.util.*;
 import java.io.*;
 import javax.servlet.http.*;
@@ -36,7 +33,7 @@ public class MyBidsUI extends HttpServlet{
 		long userId = currentUser.getId();
 		MyBidsControl myBidsCtrl = new MyBidsControl();
         CategoryControl catCtrl = new CategoryControl();
-		ArrayList<Bid> myBids = myBidsCtrl.getBidsForID(userID);
+		ArrayList<Bid> myBids = myBidsCtrl.getBidsForID(userId);
 		if(myBids == null) {
 	        if(myBidsCtrl.hasError()) {
 	            request.setAttribute("error", "Error: " + myBidsCtrl.getError());

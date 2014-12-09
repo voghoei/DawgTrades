@@ -26,18 +26,18 @@
 		  <div class="panel-heading">
 				New Search
 			</div>
-			<form role="form" action="search" method="GET">
+			<form role="form" action="search" method="GET" class="panel-body">
 				<input type="hidden" name="searchCategory" value="${searchCategory.getId()}" />
 				<div class="form-group">
 					<label for="name">Name Contains</label>
 					<div class="input-group input-group">
-						<input type="text" class="form-control" name="name">
+						<input type="text" class="form-control" name="name"<#if currentName??> value="${currentName}"</#if> />
 					</div>
 				</div>
 				<div class="form-group">
 					<label for="description">Description Contains</label>
 					<div class="input-group input-group">
-						<input type="text" class="form-control" name="description">
+						<input type="text" class="form-control" name="description"<#if currentDescription??> value="${currentDescription}"</#if> />
 					</div>
 				</div>
 				<#list attributeTypes as attributeType>
@@ -80,13 +80,13 @@
 		  	Auctions
 		  </div>
 		  <div class="panel-body">
-			<#if searchResults??>
+			<#if searchResults?size gt 0>
 				<#list searchResults?chunk(3) as auctionRow>
 					<div class="row">
 						<#list auctionRow as auction>
 						<#assign auctionID = "${auction.getId()}">
 							<div class="col-md-4">
-								<h5><a href="/auction?id=${auction.getId()}">${categoryItems[auctionID].getName()}</a></h5>
+								<h5><a href="/auction?id=${auction.getId()}">${itemsForAuctions[auctionID].getName()}</a></h5>
 								<p>Ends on ${auction.getExpiration()?datetime}</p>
 								<p>Minimum bid: $${auction.getMinPrice()}</p>
 								<p>Current bid: <#if auctionBids[auctionID]??>$${auctionBids[auctionID].getAmount()}<#else>None</#if></p>

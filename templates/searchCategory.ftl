@@ -18,9 +18,9 @@
 				</div>
 			</div>
 			<#list attributeTypes as attributeType>
-				<#assign attrFormName = "attr_${attributeType.getName()}">
+				<#assign attrFormName = "attr_${attributeType.getId()}">
 
-				<#if attributeType.isString()>
+				<#if attributeType.getIsString()>
 					<div class="form-group">
 						<label for="${attrFormName}">${attributeType.getName()} Contains</label>
 						<div class="input-group input-group">

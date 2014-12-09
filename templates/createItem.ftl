@@ -1,6 +1,6 @@
-#import "default.ftl" as default>
-<@default.mainLayout "Create Auction">
-<h1> Create Auction </h1>
+<#import "default.ftl" as default>
+<@default.mainLayout "Create Item">
+<h1> Create Item </h1>
 
 	<#if error??>
 	<div class="row">
@@ -26,10 +26,10 @@
 		</div>
 		<div class="form-group">
 			<#if categoryChosen??>
-			<label for="category"> Category:</label>
- 			<select class="form-control" onChange="window.location.href=this.value">
-                        <option value="#"> Select a Category </option>
-                        <#if categoryList??>
+				<label for="category"> Category:</label>
+ 				<select class="form-control" onChange="window.location.href=this.value">
+                        	<option value="#"> Select a Category </option>
+                        	<#if categoryList??>
                                         <#list categoryList as category>
 					<#if category.getId() == categoryChosen.getId()>
 					<option value="/createItem?id=${category.getId()}" selected>${category.getName()}</option>
@@ -37,19 +37,19 @@
 					<option value="/createItem?id=${category.getId()}">${category.getName()}</option>
 					</#if>
                                         </#list>
-			</#if>
+				</#if>
 
 			<#else>
-			<label for="category"> Category </label>
-			<select class="form-control" onChange="window.location.href=this.value">
-			<option value="#"> Select a Category </option>
-			<#if categoryList??>					
+				<label for="category"> Category </label>
+				<select class="form-control" onChange="window.location.href=this.value">
+				<option value="#"> Select a Category </option>
+				<#if categoryList??>					
 					<#list categoryList as category><option value="/createItem?id=${category.getId()}">${category.getName()}</option>
 					</#list>
-			<#else>
-			<option value="#" disabled> No Categories </option>
-			</#if>
-			</select>
+				<#else>
+					<option value="#" disabled> No Categories </option>
+				</#if>
+				</select>
 			</#if>
 			<#if attributes??>
 				<div class="form-group">

@@ -1,6 +1,6 @@
 <#import "default.ftl" as default>
 <#import "categoryListMacro.ftl" as catList>
-<@default.mainLayout "DawgTrades">
+<@default.mainLayout "DawgTrades - Search">
 <h1>Search</h1>
 <div class="row">
 	<div class="col-md-12">

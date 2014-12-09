@@ -41,14 +41,52 @@ public class SearchUI extends HttpServlet {
             request.removeAttribute("loggedInUser");
         }
 
-        String chooseCategoryToSearch = request.getParameter("category");
-        String selectedCategoryToSearch = request.getParameter("searchCategory");
-        if(chooseCategoryToSearch != null) {
+        CategoryControl catCtrl = new CategoryControl();
 
-        }else if(selectedCategoryToSearch != null){
+        String chooseCategoryToSearch = request.getParameter("category");
+        String searchCategory = request.getParameter("searchCategory");
+        if(chooseCategoryToSearch != null) {
+            try {
+                long id = Long.parseLong(chooseCategoryToSearch, 10);
+                Category toSearch = catCtrl.getCategoryWithID(id);
+                if(toSearch != null) {
+                    request.setAttribute("searchCategory", toSearch);
+
+                    AuctionControl auctionCtrl = new AuctionControl();
+                    ArrayList<AttributeType> attributeTypes = auctionCtrl.getAttributeTypesForCategory(id);
+                    if(attributeTypes == null) {
+                        if(catCtrl.hasError()) {
+                            request.setAttribute("error", "Error fetching attributes: " + catCtrl.getError());
+                            request.setAttribute("returnTo", "/");
+                            request.getRequestDispatcher("/genericError.ftl").forward(request, response);
+                        }else{
+                            request.setAttribute("error", "Internal error while fetching attributes.");
+                            request.setAttribute("returnTo", "/");
+                            request.getRequestDispatcher("/genericError.ftl").forward(request, response);
+                        }
+                    }
+                    request.setAttribute("attributeTypes", attributeTypes);
+                    request.getRequestDispatcher("/searchCategory.ftl").forward(request, response);
+                    return;
+                }else{
+                    if(catCtrl.hasError()) {
+                        request.setAttribute("error", catCtrl.getError());
+                        request.setAttribute("returnTo", "/search");
+                        request.getRequestDispatcher("/genericError.ftl").forward(request, response);
+                    }else{
+                        request.setAttribute("error", "Category does not exist.");
+                        request.setAttribute("returnTo", "/search");
+                        request.getRequestDispatcher("/genericError.ftl").forward(request, response);
+                    }
+                }
+            }
+            catch(NumberFormatException e) {
+                request.setAttribute("error", "Invalid category ID. Please try again.");
+            }
+
+        }else if(searchCategory != null){
 
         }else{
-            CategoryControl catCtrl = new CategoryControl();
             HashMap<String, ArrayList> children = catCtrl.populateHashmapWithCategories(0);
             if(children != null) {
                 request.setAttribute("categoriesMap", children);

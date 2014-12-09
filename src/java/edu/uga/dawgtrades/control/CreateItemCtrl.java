@@ -110,6 +110,21 @@ public class CreateItemCtrl{
 		}
 		return out;
 	}
+	public void removeItem(long itemId){
+		try{
+			this.connect();
+			Item item = objectModel.createItem();
+			item.setId(itemId);
+			objectModel.deleteItem(item);
+		}catch(DTException e){
+                        error = e.getMessage();
+                        hasError=true;
+                //        return null;
+                }finally{
+                        this.close();
+                }
+
+	}
 	public String getError(){
 		return error;
 	}	

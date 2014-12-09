@@ -64,6 +64,7 @@ public class CreateAuctionCtrl{
 			auction.setMinPrice(minPrice);
 			auction.setExpiration(datetime);
 			auction.setItemId(itemId);
+			this.objectModel.storeAuction(auction);
 		}catch(DTException e){
 			this.error = e.getMessage();
 			this.hasError = true;

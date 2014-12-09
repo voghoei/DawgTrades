@@ -61,7 +61,11 @@ public class CreateItemUI extends HttpServlet{
 		String itemName = request.getParameter("name");
 		String desc = request.getParameter("desc");
 		if(itemName != null){
-			request.setAttribute("error","Name: "+itemName);
+			//send the itemName, Item Desc, attributes, and category to the control
+			
+			if(!itemCtrl.attemptItemCreate(request.getParameterMap())){
+				request.setAttribute("error", "An error occurred");	
+			}
 		}
 			
 		request.getRequestDispatcher("/createItem.ftl").forward(request,response);

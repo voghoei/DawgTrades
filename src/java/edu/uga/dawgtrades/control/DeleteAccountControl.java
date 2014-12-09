@@ -37,6 +37,7 @@ public class DeleteAccountControl{
         }
 	public boolean attemptDelete(long userId){
 		try{
+			this.connect();
 			RegisteredUser modelUser = this.objectModel.createRegisteredUser();
 			modelUser.setId(userId);
 			this.objectModel.deleteRegisteredUser(modelUser);

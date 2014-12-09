@@ -42,15 +42,16 @@ public class BidUI extends HttpServlet {
         if(!loginCtrl.checkIsLoggedIn(session)){
             response.sendRedirect("/login");
             return;
-        }else{
-            RegisteredUser currentUser = (RegisteredUser)session.getAttribute("currentSessionUser");
-            request.setAttribute("loggedInUser",currentUser);
         }
-        String auctionID = request.getParameter("auctionID");
-        String amount = request.getParameter("amount");
 
-        if(auctionID != null && amount != null) {
-            if(amount.isEmpty()) {
+        RegisteredUser currentUser = (RegisteredUser)session.getAttribute("currentSessionUser");
+        request.setAttribute("loggedInUser",currentUser);
+
+        String auctionID = request.getParameter("auctionID");
+        String amountString = request.getParameter("amount");
+
+        if(auctionID != null && amountString != null) {
+            if(amountString.isEmpty()) {
                 request.setAttribute("error", "An amount is required.");
                 request.setAttribute("returnTo", "/auction?id=" + auctionID);
                 request.getRequestDispatcher("/genericError.ftl").forward(request, response);
@@ -58,7 +59,7 @@ public class BidUI extends HttpServlet {
             }
             try {
                 long id = Long.parseLong(auctionID, 10);
-                float amount = Float.parseFloat(amount, 10);
+                float amount = Float.parseFloat(amountString, 10);
                 Auction auction = auctionCtrl.getAuctionWithID(id);
                 if(auction != null) {
                     RegisteredUser owner = auctionCtrl.getOwnerForAuctionID(id);
@@ -87,7 +88,7 @@ public class BidUI extends HttpServlet {
                         request.getRequestDispatcher("/genericError.ftl").forward(request, response);
                         return;
                     }
-                    ArrayList<Bids> currentBids = auctionCtrl.getBidsForAuctionID(id);
+                    ArrayList<Bid> currentBids = auctionCtrl.getBidsForAuctionID(id);
                     if(currentBids == null) {
                         if(auctionCtrl.hasError()) {
                             request.setAttribute("error", "Error getting bids: " + auctionCtrl.getError());

@@ -65,7 +65,7 @@ public class BidControl {
         }
     }
 
-    public long placeBid(long auctionID, float amount, long userID) {
+    public boolean placeBid(long auctionID, float amount, long userID) {
         AuctionControl auctionCtrl = new AuctionControl();
         Auction auction = auctionCtrl.getAuctionWithID(auctionID);
         if(auction != null) {
@@ -88,7 +88,7 @@ public class BidControl {
             catch(DTException e) {
                 this.hasError = true;
                 this.error = e.getMessage();
-                return galse;
+                return false;
             }
             finally {
                 this.close();

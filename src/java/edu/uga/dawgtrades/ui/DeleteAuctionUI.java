@@ -32,11 +32,12 @@ public class DeleteAuctionUI extends HttpServlet {
         HttpSession session = request.getSession(true);
         LoginControl loginCtrl = new LoginControl();
         AuctionControl auctionCtrl = new AuctionControl();
+        RegisteredUser currentUser = null;
         if(!loginCtrl.checkIsLoggedIn(session)){
             response.sendRedirect("/login");
             return;
         }else{
-            RegisteredUser currentUser = (RegisteredUser)session.getAttribute("currentSessionUser");
+            currentUser = (RegisteredUser)session.getAttribute("currentSessionUser");
             request.setAttribute("loggedInUser",currentUser);
         }
         String auctionID = request.getParameter("id");
@@ -78,12 +79,13 @@ public class DeleteAuctionUI extends HttpServlet {
         // Get current session
         HttpSession session = request.getSession(true);
         LoginControl loginCtrl = new LoginControl();
-        CategoryControl catCtrl = new CategoryControl();
+        AuctionControl auctionCtrl = new AuctionControl();
+        RegisteredUser currentUser = null;
         if(!loginCtrl.checkIsLoggedIn(session)){
             response.sendRedirect("/login");
             return;
         }else{
-            RegisteredUser currentUser = (RegisteredUser)session.getAttribute("currentSessionUser");
+            currentUser = (RegisteredUser)session.getAttribute("currentSessionUser");
             request.setAttribute("loggedInUser",currentUser);
         }
         String auctionID = request.getParameter("id");

@@ -39,6 +39,16 @@
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/login</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ResetPasswordUI</servlet-name>
+        <servlet-class>edu.uga.dawgtrades.ui.ResetPasswordUI</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ResetPasswordUI</servlet-name>
+        <url-pattern>/resetPassword</url-pattern>
+    </servlet-mapping>
+
     <servlet>
         <servlet-name>LogoutServlet</servlet-name>
         <servlet-class>edu.uga.dawgtrades.ui.LogoutUI</servlet-class>

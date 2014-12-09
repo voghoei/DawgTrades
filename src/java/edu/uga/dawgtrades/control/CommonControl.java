@@ -29,6 +29,10 @@ public class CommonControl{
         	"556961b3f4bbd252ff169bbf5502611444faa0de",
         	"Bid placed!"
     	);
+        infoMessages.put(
+        	"4b1b068d61f5815e55092a8af8fac6ed71936b42",
+        	"Reset email sent! Check your mail."
+    	);
     }
 	public boolean isAdmin(RegisteredUser user)throws ServletException, IOException,DTException{
 		Connection conn = null;

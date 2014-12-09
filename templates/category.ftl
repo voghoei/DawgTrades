@@ -31,6 +31,16 @@
 </#if>
 <div class="row">
 	<div class="col-md-3">
+		<#if specificCategory??>
+		<div class="panel panel-default">
+		  <div class="panel-heading">
+		  	Category Navigation
+		  </div>
+		  <div class="panel-body list-group">
+		  	<a href="category?id=${specificCategory.getParentId()}" class="list-group-item">Parent Category</a>
+		  </div>
+		</div>
+		</#if>
 		<div class="panel panel-default">
 		  <div class="panel-heading">
 			<#if specificCategory??>

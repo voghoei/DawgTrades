@@ -65,14 +65,14 @@ public class SearchControl {
         }
     }
 
-    public Attribute getAttributeWithTypeForItem(AttributeType type, Item item) {
+    public String getAttributeWithTypeForItem(AttributeType type, Item item) {
             try {
                 this.connect();
                 Iterator<Attribute> results = this.objectModel.getAttribute(item);
                 while(results.hasNext()) {
                     Attribute attr = results.next();
                     if(attr.getAttributeTypeId() == type.getId()) {
-                        return attr;
+                        return attr.getValue();
                     }
                 }
                 return null;

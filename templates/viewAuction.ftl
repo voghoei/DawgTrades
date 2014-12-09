@@ -82,6 +82,23 @@
 		<h3>Description</h3>
 		<p>${item.getDescription()}</p>
 		<h3>Attributes</h3>
+		<table class="table">
+			<thead>
+				<tr>
+					<th>Attribute</th>
+					<th>Value</th>
+				</tr>
+			</thead>
+			<tbody>
+				<#list attributeTypes as attType>
+				<#assign attID = "${attType.getId()}">
+					<tr>
+						<td>${attType.getName()}</td>
+						<td><#if attributeForType[attID]??>${attributeForType[attID].getValue()}<#else><em>None</em></#if></td>
+					</tr>
+				</#list>
+			</tbody>
+		</table>
 	</div>
 </div>
 </@default.mainLayout>

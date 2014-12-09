@@ -21,7 +21,7 @@
 			</div>
 			<div class="list-group">
 				<a class="list-group-item" href="createAuction">
-                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                     Create Auction
                 </a>
 			</div>

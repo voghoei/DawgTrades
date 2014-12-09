@@ -36,7 +36,11 @@ public class CreateAuctionUI extends HttpServlet{
 		if(request.getParameter("id") != null && request.getParameter("expiration") == null){
 			this.itemId = Long.parseLong(request.getParameter("id"));
 			Item item = auctionCtrl.getItem(itemId);
-			request.setAttribute("item",item);
+			if(!auctionCtrl.itemHasAuction(item)) {
+				request.setAttribute("item",item);
+			}else{
+				request.setAttribute("error", "Invalid item or item already has an auction associated with it.");
+			}
 		}
 		//if the form has been submitted
 		if(request.getParameter("expiration") != null){
@@ -44,6 +48,8 @@ public class CreateAuctionUI extends HttpServlet{
 			//send to database
 			if(!auctionCtrl.attemptAuctionCreate(parameters,this.itemId)){
 				request.setAttribute("error", "Error: "+auctionCtrl.getError());	
+			}else{
+				response.sendRedirect("/myAuctions");
 			}
 		}
 		

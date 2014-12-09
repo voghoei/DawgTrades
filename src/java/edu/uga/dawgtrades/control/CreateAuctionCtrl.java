@@ -100,6 +100,24 @@ public class CreateAuctionCtrl{
 		}
 	
 	}
+
+	public boolean itemHasAuction(Item item) {
+		try{
+			this.connect();
+			Auction auction = this.objectModel.getAuction(item);
+			return true;				
+		}catch(DTException e){
+			if(e.getMessage().equals("No auction found with this Item ID.")) {
+				return false;
+			}
+			this.error = e.getMessage();
+			this.hasError = true;
+			return false;
+		}finally{
+			this.close();
+		}
+
+	}
 	public boolean hasError(){
 		return hasError;
 	}

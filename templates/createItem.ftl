@@ -1,4 +1,4 @@
-<#import "default.ftl" as default>
+#import "default.ftl" as default>
 <@default.mainLayout "Create Auction">
 <h1> Create Auction </h1>
 
@@ -31,7 +31,7 @@
                         <option value="#"> Select a Category </option>
                         <#if categoryList??>
                                         <#list categoryList as category>
-					<#if ${category.getId()} == ${categoryChosen.getId()}>
+					<#if ${category.getId() == categoryChosen.getId()}>
 					<option value="/createItem?id=${category.getId()}" selected>${category.getName()}</option>
 					<#else>
 					<option value="/createItem?id=${category.getId()}">${category.getName()}</option>

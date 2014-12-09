@@ -169,13 +169,19 @@ public class SearchUI extends HttpServlet {
                     }
 
                     SearchControl searchCtrl = new SearchControl();
+
                     // Next, attributetypes...
+
+                    // Store the current values in a map for the page to use
+                    HashMap<String, String> searchVals = new HashMap<String, String>();
+
                     for(AttributeType attribute : attributeTypes) {
                         ArrayList<Auction> currentCandidates = new ArrayList<Auction>();
                         String attrValString = request.getParameter("attr_" + Long.valueOf(attribute.getId()).toString());
                         if(attrValString == null || attrValString == "") {
                             continue;
                         }else{
+                            searchVals.put("attr_" + Long.valueOf(attribute.getId()).toString(), attrValString);
                             if(attribute.getIsString()) {
                                 attrValString = attrValString.toLowerCase();
                                 for(Auction auction : candidates) {
@@ -221,6 +227,8 @@ public class SearchUI extends HttpServlet {
                                     // Got a search key without valid comparison operator, skip it.
                                     continue;
                                 }
+                                searchVals.put("attr_" + Long.valueOf(attribute.getId()).toString() + "_comparison", attrValComp);
+
                                 for(Auction auction : candidates) {
                                     Item item = itemsForAuctions.get(Long.valueOf(auction.getId()).toString());
                                     String itemValueString = searchCtrl.getAttributeWithTypeForItem(attribute, item);
@@ -283,8 +291,13 @@ public class SearchUI extends HttpServlet {
                         }
                     }
 
+                    // Save values
+                    request.setAttribute("currentValues", searchVals);
+
                     // candidates should now contain search results.
                     request.setAttribute("searchResults", candidates);
+
+                    // Get bids
                     HashMap<String, Bid> bids = catCtrl.getBidsForAuctions(candidates);
                     if(bids == null) {
                         if(catCtrl.hasError()) {

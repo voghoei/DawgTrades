@@ -6,7 +6,7 @@ import edu.uga.dawgtrades.model.ObjectModel;
 import edu.uga.dawgtrades.model.RegisteredUser;
 import edu.uga.dawgtrades.model.Item;
 import edu.uga.dawgtrades.model.Attribute;
-import edu.uga.dawgtrades.model.AttributeType;
+import edu.uga.dawgtrades.model.Auction;
 import edu.uga.dawgtrades.model.Category;
 import edu.uga.dawgtrades.model.impl.CategoryImpl;
 import edu.uga.dawgtrades.model.impl.ObjectModelImpl;

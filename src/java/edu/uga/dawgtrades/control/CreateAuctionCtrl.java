@@ -3,6 +3,7 @@ package edu.uga.dawgtrades.control;
 import edu.uga.dawgtrades.DTException;
 import edu.uga.dawgtrades.control.LoginControl;
 import edu.uga.dawgtrades.model.Item;
+import edu.uga.dawgtrades.model.Auction;
 import edu.uga.dawgtrades.model.ObjectModel;
 import edu.uga.dawgtrades.model.impl.ObjectModelImpl;
 import edu.uga.dawgtrades.persistence.Persistence;
@@ -60,9 +61,9 @@ public class CreateAuctionCtrl{
 			double minPrice = Double.parseDouble(parameters.get("minPrice")[0]);	
 			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");			
 			long itemId = Long.parseLong( parameters.get("id")[0]);
-			Date date = formatter.parse(datetime);
+			Date expDate = formatter.parse(datetime);
 			auction.setMinPrice(minPrice);
-			auction.setExpiration(datetime);
+			auction.setExpiration(expDate);
 			auction.setItemId(itemId);
 			this.objectModel.storeAuction(auction);
 		}catch(DTException e){

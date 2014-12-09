@@ -32,7 +32,7 @@
     
         <#list membershipList as membership>
             <tr>
-                <td>${membership.getPrice()}</td> <td>${membership.getDate()}</td>
+                <td>${membership.getPrice()}</td> <td>${membership.getDate()?datetime}</td>
             </tr>
         </#list>
     </#if>

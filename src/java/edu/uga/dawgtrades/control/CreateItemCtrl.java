@@ -64,6 +64,7 @@ public class CreateItemCtrl{
 				attribute.setAttributeTypeId(attrType.getId());
 				attribute.setValue(value);
 				attribute.setItemId(itemId);
+				this.objectModel.storeAttribute(attribute);
 			}
 			
 			return itemId;	

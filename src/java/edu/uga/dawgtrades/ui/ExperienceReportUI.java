@@ -22,9 +22,10 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 public class ExperienceReportUI extends HttpServlet {
-
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        String userId="";
 //        HttpSession session = request.getSession(true);
 //        LoginControl ctrl = new LoginControl();
 //        if (!ctrl.checkIsLoggedIn(session)) {
@@ -36,28 +37,19 @@ public class ExperienceReportUI extends HttpServlet {
 //            RegisteredUser currentUser = (RegisteredUser) session.getAttribute("currentSessionUser");
 //            request.setAttribute("loggedInUser", currentUser);
 //        }
-        ExperienceReportControl userCtrl = new ExperienceReportControl();
-        ArrayList<RegisteredUser> userList;
-
-        try {
-            userList = userCtrl.getAllUsers();
-            if (userList != null) {
-                request.setAttribute("users", userList);
-            } else if (userCtrl.hasError()) {
-                request.setAttribute("error", "Error: " + userCtrl.getError());
-            }
-
-        } catch (DTException ex) {
-            Logger.getLogger(ExperienceReportUI.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        fillUsersList(request);
+        
         if (request.getParameter("show") != null) {
-        String value = request.getParameter("listId");
-        request.setAttribute("value", value);
+            userId = request.getParameter("listId");
+            request.setAttribute("userselct", userId);
+            fillreportList(request,Long.parseLong(userId));  
+            
         }
-        if (request.getParameter("save") != null) {
-        String reportvalue = request.getParameter("report");
-        request.setAttribute("reportvalue", reportvalue);
-        }
+        
+//        if (request.getParameter("save") != null) {
+//        String reportvalue = request.getParameter("report");
+//        request.setAttribute("reportvalue", reportvalue);
+//        }
         
         request.getRequestDispatcher("/experience.ftl").forward(request, response);
 
@@ -119,7 +111,20 @@ public class ExperienceReportUI extends HttpServlet {
     }
 
     public void fillUsersList(HttpServletRequest request) {
+        ExperienceReportControl userCtrl = new ExperienceReportControl();
+        ArrayList<RegisteredUser> userList;
         
+        try {
+            userList = userCtrl.getAllUsers();
+            if (userList != null) {
+                request.setAttribute("users", userList);
+            } else if (userCtrl.hasError()) {
+                request.setAttribute("error", "Error: " + userCtrl.getError());
+            }
+
+        } catch (DTException ex) {
+            Logger.getLogger(ExperienceReportUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public void fillreportList(HttpServletRequest request, long user_id)
@@ -132,6 +137,7 @@ public class ExperienceReportUI extends HttpServlet {
             reportList = reportCtrl.getAllRepotsOfUser(user_id);
             if (reportList != null) {
                 request.setAttribute("reports", reportList);
+                
             } else if (reportCtrl.hasError()) {
                 request.setAttribute("error", "Error: " + reportCtrl.getError());
             }

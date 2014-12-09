@@ -42,12 +42,13 @@ public class ExperienceReportIterator implements Iterator<ExperienceReport> {
 
         if (more) {
             try {
-                RegisteredUser user = new RegisteredUserImpl();
+                RegisteredUser userReviewer = new RegisteredUserImpl();
+                RegisteredUser userReviewed = new RegisteredUserImpl();
                 er.setId(rs.getLong(1));
-                user.setId(rs.getLong(2));
-                er.setReviewer(user);
-                user.setId(rs.getLong(3));
-                er.setReviewed(user);
+                userReviewer.setId(rs.getLong(2));
+                er.setReviewer(userReviewer);
+                userReviewed.setId(rs.getLong(3));
+                er.setReviewed(userReviewed);
                 er.setRating(rs.getInt(4));
                 er.setReport(rs.getString(5));
                 er.setDate(rs.getDate(6));

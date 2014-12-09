@@ -74,7 +74,7 @@ public class ExperienceReportManager {
     }
 
     public Iterator<ExperienceReport> restore(ExperienceReport er) throws DTException {
-        String selectErSql = "select reviewer,reviewed,rating,report,date from ExperienceReport";
+        String selectErSql = "select id,reviewer_id,reviewed_id,rating,report,date from ExperienceReport";
         Statement stmt = null;
         StringBuffer query = new StringBuffer(100);
         StringBuffer condition = new StringBuffer(100);
@@ -85,13 +85,13 @@ public class ExperienceReportManager {
                 query.append(" where id=" + er.getId());
             } else {
                 if (er.getReviewer() != null) {
-                    condition.append(" reviewer = " + er.getReviewer().getId());
+                    condition.append(" reviewer_id = " + er.getReviewer().getId());
                 }
                 if (er.getReviewed() != null) {
                     if (condition.length() > 0) {
                         condition.append(" and");
                     }
-                    condition.append(" reviewed = " + er.getReviewed().getId());
+                    condition.append(" reviewed_id = " + er.getReviewed().getId());
                 }
                 if (er.getRating() > 0) {
                     if (condition.length() > 0) {
@@ -99,7 +99,7 @@ public class ExperienceReportManager {
                     }
                     condition.append(" rating = " + er.getRating());
                 }
-                if (er.getReviewed() != null) {
+                if (er.getDate() != null) {
                     if (condition.length() > 0) {
                         condition.append(" and");
                     }

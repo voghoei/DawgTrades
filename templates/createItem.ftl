@@ -38,7 +38,7 @@
 					</#if>
                                         </#list>
 				</#if>
-
+				</select>
 			<#else>
 				<label for="category"> Category </label>
 				<select class="form-control" onChange="window.location.href=this.value">

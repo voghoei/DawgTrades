@@ -64,10 +64,12 @@
 				</div>
 				<form class="panel-body" role="form" action="bid" method="POST">
 					<input type="hidden" name="auctionID" value="${auction.getId()}" />
-					<div class="input-group input-group-lg">
+					<div class="form-group">
 						<label class="control-label" for="amount"> Amount </label>
-						<span class="input-group-addon">$</span>
-						<input type="text" class="form-control" name="amount">
+						<div class="input-group input-group-lg">
+							<span class="input-group-addon">$</span>
+							<input type="text" class="form-control" name="amount">
+						</div>
 					</div>
 					<div class="input-group clearfix input-group-lg">
 						<button type="submit" class="btn btn-default pull-right"> Place Bid</button>

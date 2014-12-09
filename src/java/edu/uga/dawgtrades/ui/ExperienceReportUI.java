@@ -25,23 +25,40 @@ public class ExperienceReportUI extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String value = request.getParameter("listId");
-        request.setAttribute("value", value);
-
-        MembershipControl membershipCtrl = new MembershipControl();
-        ArrayList<Membership> membership;
+//        HttpSession session = request.getSession(true);
+//        LoginControl ctrl = new LoginControl();
+//        if (!ctrl.checkIsLoggedIn(session)) {
+//            response.sendRedirect("/login");
+//            request.setAttribute("loggedInUser", "");
+//            request.removeAttribute("loggedInUser");
+//            return;
+//        } else {
+//            RegisteredUser currentUser = (RegisteredUser) session.getAttribute("currentSessionUser");
+//            request.setAttribute("loggedInUser", currentUser);
+//        }
+        ExperienceReportControl userCtrl = new ExperienceReportControl();
+        ArrayList<RegisteredUser> userList;
 
         try {
-
-            membership = membershipCtrl.getAllMembershipPrices();
-            if (membership != null) {
-                request.setAttribute("mlist", membership);
-            } else if (membershipCtrl.hasError()) {
-                request.setAttribute("error", "Error: " + membershipCtrl.getError());
+            userList = userCtrl.getAllUsers();
+            if (userList != null) {
+                request.setAttribute("users", userList);
+            } else if (userCtrl.hasError()) {
+                request.setAttribute("error", "Error: " + userCtrl.getError());
             }
+
         } catch (DTException ex) {
-            Logger.getLogger(MembershipUI.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ExperienceReportUI.class.getName()).log(Level.SEVERE, null, ex);
         }
+        if (request.getParameter("show") != null) {
+        String value = request.getParameter("listId");
+        request.setAttribute("value", value);
+        }
+        if (request.getParameter("save") != null) {
+        String reportvalue = request.getParameter("report");
+        request.setAttribute("reportvalue", reportvalue);
+        }
+        
         request.getRequestDispatcher("/experience.ftl").forward(request, response);
 
     }
@@ -50,36 +67,6 @@ public class ExperienceReportUI extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-        // Get current session
-//        HttpSession session = request.getSession(true);
-//        LoginControl ctrl = new LoginControl();
-//        RegisteredUser runningUser = ctrl.getLoggedInUser(session);
-//
-//        ExperienceReportControl reportCtrl = new ExperienceReportControl();
-//
-//        if (runningUser == null) {
-//            request.setAttribute("error", "Session expired. Please login again. ");
-//            request.getRequestDispatcher("/login.ftl").forward(request, response);
-//        }
-//
-//        // Fill List of Users
-//        try {
-//
-//            Map<String, String> userList = new LinkedHashMap<String, String>();
-//
-//            Iterator<RegisteredUser> userIter = reportCtrl.getAllUsers();
-//
-//            while (userIter.hasNext()) {
-//                runningUser = userIter.next();
-//                userList.put(String.valueOf(runningUser.getId()), (runningUser.getFirstName() + " " + runningUser.getLastName()));
-//            }
-//            request.setAttribute("userList", userList);
-//            request.getRequestDispatcher("/report.ftl").forward(request, response);
-//
-//        } catch (DTException e) {
-//            request.setAttribute("error", "An exception occurred: " + e.getMessage());
-//            request.getRequestDispatcher("/report.ftl").forward(request, response);
-//        }
 
     }
 
@@ -131,28 +118,28 @@ public class ExperienceReportUI extends HttpServlet {
         return "Short description";
     }
 
-    public void fillreportList(HttpServletRequest request, HttpServletResponse response, long user_id)
+    public void fillUsersList(HttpServletRequest request) {
+        
+    }
+
+    public void fillreportList(HttpServletRequest request, long user_id)
             throws ServletException, IOException {
 
         ExperienceReportControl reportCtrl = new ExperienceReportControl();
-        ExperienceReport report = null;
-        Map parameters = request.getParameterMap();
+        ArrayList<ExperienceReport> reportList;
 
         try {
-            List<ExperienceReport> reportList = new ArrayList<ExperienceReport>();
-            Iterator<ExperienceReport> reportIter = reportCtrl.getAllRepotsOfUser(user_id);
-
-            while (reportIter.hasNext()) {
-                report = reportIter.next();
-                reportList.add(report);
+            reportList = reportCtrl.getAllRepotsOfUser(user_id);
+            if (reportList != null) {
+                request.setAttribute("reports", reportList);
+            } else if (reportCtrl.hasError()) {
+                request.setAttribute("error", "Error: " + reportCtrl.getError());
             }
-            request.setAttribute("userList", ((String[]) parameters.get("user"))[1]);
-            request.setAttribute("reportList", reportList);
-            request.getRequestDispatcher("/report.ftl").forward(request, response);
-        } catch (DTException e) {
-            request.setAttribute("error", "An exception occurred: " + e.getMessage());
-            request.getRequestDispatcher("/report.ftl").forward(request, response);
-        }
+
+        } catch (DTException ex) {
+            Logger.getLogger(ExperienceReportUI.class.getName()).log(Level.SEVERE, null, ex);
+        }        
+        
     }
 
 }

@@ -19,7 +19,6 @@ public class MembershipControl {
     private Persistence persistence = null;
     private String error = "Error Unknown";
     private boolean hasError = false;
-    
 
     private void connect() throws DTException {
 
@@ -39,16 +38,16 @@ public class MembershipControl {
     }
 
     public ArrayList<Membership> getAllMembershipPrices() throws DTException {
-        
+
         Iterator<Membership> membershipIter = null;
         ArrayList<Membership> membershipMap = new ArrayList<Membership>();
         try {
             connect();
             Membership modelMembership = objectModel.createMembership();
-            membershipIter = objectModel.findMembership(modelMembership);            
-			while(membershipIter.hasNext()){				
-				membershipMap.add(membershipIter.next());
-			}
+            membershipIter = objectModel.findMembership(modelMembership);
+            while (membershipIter.hasNext()) {
+                membershipMap.add(membershipIter.next());
+            }
 
         } catch (DTException e) {
             hasError = true;
@@ -57,7 +56,7 @@ public class MembershipControl {
         } finally {
             close();
         }
-        return membershipMap;	
+        return membershipMap;
     }
 
     public boolean attemptToCreateMembership(float price) throws DTException {
@@ -66,7 +65,7 @@ public class MembershipControl {
 
             connect();
 
-            modelMembership = objectModel.createMembership(price,new Date());
+            modelMembership = objectModel.createMembership(price, new Date());
 
             objectModel.storeMembership(modelMembership);
 
@@ -80,7 +79,6 @@ public class MembershipControl {
 
     }
 
-    
     public String getError() {
         String err = null;
         if (this.hasError) {
@@ -90,7 +88,7 @@ public class MembershipControl {
         }
         return err;
     }
-    
+
     public boolean hasError() {
         return this.hasError;
     }

@@ -2,6 +2,7 @@ package edu.uga.dawgtrades.control;
 
 import edu.uga.dawgtrades.DTException;
 import edu.uga.dawgtrades.model.ExperienceReport;
+import edu.uga.dawgtrades.model.Membership;
 import edu.uga.dawgtrades.model.ObjectModel;
 import edu.uga.dawgtrades.model.RegisteredUser;
 import edu.uga.dawgtrades.model.impl.ObjectModelImpl;
@@ -9,6 +10,7 @@ import edu.uga.dawgtrades.persistence.Persistence;
 import edu.uga.dawgtrades.persistence.impl.DbUtils;
 import edu.uga.dawgtrades.persistence.impl.PersistenceImpl;
 import java.sql.Connection;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import javax.servlet.http.HttpSession;
@@ -19,6 +21,7 @@ public class ExperienceReportControl {
     private ObjectModel objectModel = null;
     private Persistence persistence = null;
     private String error = "Error Unknown";
+    private boolean hasError = false;
 
     private void connect() throws DTException {
 
@@ -37,12 +40,17 @@ public class ExperienceReportControl {
         }
     }
 
-    public Iterator<RegisteredUser> getAllUsers() throws DTException {
+    public ArrayList<RegisteredUser> getAllUsers() throws DTException {
         Iterator<RegisteredUser> userIter = null;
+        ArrayList<RegisteredUser> userMap = new ArrayList<RegisteredUser>();
         try {
             connect();
             RegisteredUser modelUser = objectModel.createRegisteredUser();
             userIter = objectModel.findRegisteredUser(modelUser);
+            while (userIter.hasNext()) {
+                userMap.add(userIter.next());
+            }
+
 
         } catch (DTException e) {
             error = e.getMessage();
@@ -50,13 +58,14 @@ public class ExperienceReportControl {
         } finally {
             close();
         }
-        return userIter;
+        return userMap;
     }
 
-    public Iterator<ExperienceReport> getAllRepotsOfUser(long user_id) throws DTException {
+    public ArrayList<ExperienceReport> getAllRepotsOfUser(long user_id) throws DTException {
         Iterator<ExperienceReport> reportIter = null;
         Iterator<RegisteredUser> userIter = null;
         RegisteredUser runningUser = null;
+        ArrayList<ExperienceReport> userReportMap = new ArrayList<ExperienceReport>();
         try {
             connect();
 
@@ -69,6 +78,9 @@ public class ExperienceReportControl {
                 ExperienceReport modelReport = objectModel.createExperienceReport();
                 modelReport.setReviewed(runningUser);
                 reportIter = objectModel.findExperienceReport(modelReport);
+                while (reportIter.hasNext()) {
+                    userReportMap.add(reportIter.next());
+                }
 
             } else {
                 error = "user not found";
@@ -80,7 +92,7 @@ public class ExperienceReportControl {
         } finally {
             close();
         }
-        return reportIter;
+        return userReportMap;
     }
 
     public boolean attemptToWriteExperienceReport(RegisteredUser reviewer, RegisteredUser reviewed, int rate, String report) throws DTException {
@@ -104,7 +116,17 @@ public class ExperienceReportControl {
     }
 
     public String getError() {
-        return error;
+        String err = null;
+        if (this.hasError) {
+            err = this.error;
+            this.error = null;
+            this.hasError = false;
+        }
+        return err;
+    }
+
+    public boolean hasError() {
+        return this.hasError;
     }
 
 }

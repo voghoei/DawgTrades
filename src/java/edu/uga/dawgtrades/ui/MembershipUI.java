@@ -38,7 +38,7 @@ public class MembershipUI extends HttpServlet {
         ArrayList<Membership> membership;
 
         String price = request.getParameter("price");
-                try {
+        try {
 
             if (price != null) {
                 if (!membershipCtrl.attemptToCreateMembership(Float.valueOf(price))) {

@@ -47,7 +47,14 @@ public class CreateAuctionCtrl{
                         System.err.println("Exception: "+e);
                 }
         }
-	
+	public boolean dateIsValid(String date, String time){
+		String datetime = date+" "+time+":00";
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		Date expDate = formatter.parse(datetime);
+		Date now = new Date();
+		return expDate.after(now);
+
+	}	
 	public boolean attemptAuctionCreate(Map<String,String[]> parameters,long itemId){
 		boolean created = true;
 		try{

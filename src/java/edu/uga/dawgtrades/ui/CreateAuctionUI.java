@@ -95,22 +95,28 @@ public class CreateAuctionUI extends HttpServlet{
 				Map<String,String[]> parameters = request.getParameterMap();
                                 //send the itemName, Item Desc, attributes, and category to the control
                                 RegisteredUser currentUser = (RegisteredUser)session.getAttribute("currentSessionUser");
-                                if(!auctionCtrl.attemptAuctionCreate(parameters,this.itemId)){
-                                	request.setAttribute("error", "Error: "+auctionCtrl.getError());
-				}else{
+                                
+				
 					long itemId = itemCtrl.attemptItemCreate(request.getParameterMap(),currentUser.getId());
                                 	if(itemId<0){
                                         	if(itemCtrl.hasError()){
                                                 error = itemCtrl.getError();
                                         	}
                                         	request.setAttribute("error","error: "+error);
-//                                        	request.getRequestDispatcher("/createAuction.ftl").forward(request,response);
+                                        	request.getRequestDispatcher("/createAuction.ftl").forward(request,response);
+						return;
                                 	}else{
-		                                response.sendRedirect("/myAuctions");
+		                                if(!auctionCtrl.attemptAuctionCreate(parameters,this.itemId)){
+                		                        request.setAttribute("error", "Error: "+auctionCtrl.getError());
+							request.getRequestDispatcher("/createAuction.ftl").forward(request,response);
+							return;
+                               			 }
+		                 
+				               response.sendRedirect("/myAuctions");
                 		                return;
 
 					}
-				}
+				
                                 
                         }
 			

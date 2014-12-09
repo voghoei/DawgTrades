@@ -63,7 +63,7 @@ public class CreateItemUI extends HttpServlet{
 		if(itemName != null){
 			//send the itemName, Item Desc, attributes, and category to the control
 			
-			if(!itemCtrl.attemptItemCreate(request.getParameterMap())){
+			if(!itemCtrl.attemptItemCreate(request.getParameterMap(),currentUser.getId())){
 				request.setAttribute("error", "An error occurred");	
 			}
 		}

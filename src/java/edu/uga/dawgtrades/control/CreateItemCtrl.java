@@ -42,7 +42,7 @@ public class CreateItemCtrl{
 		}
 	}
 	
-	public boolean attemptItemCreate(Map<String,String[]> parameters)throws DTException, ServletException,IOException{
+	public boolean attemptItemCreate(Map<String,String[]> parameters, long userId)throws DTException, ServletException,IOException{
 
 		boolean created=true;
 		try{
@@ -50,18 +50,18 @@ public class CreateItemCtrl{
 			Item item = objectModel.createItem();
 			item.setName(parameters.get("name")[0]);
 			item.setDescription(parameters.get("desc")[0]);
-			RegisteredUser currentUser = ctrl.getLoggedInUser(session);
-			item.setOwnerId(currentUser.getId());
+			//RegisteredUser currentUser = ctrl.getLoggedInUser(session);
+			item.setOwnerId(userId);
 			objectModel.storeItem(item);
 			long itemId = item.getId();
-			long categoryId = parameters.get("id")[0];
+			long categoryId = String.parse(parameters.get("id")[0]);
 			Iterator<AttributeType> attributeTypes = this.getCategoryAttributes(categoryId).iterator();
 			AttributeType attrType = null;
 			while(attributeTypes.hasNext()){
 				attrType = attributeTypes.next();
 				Attribute attribute = objectModel.createAttribute();
 				attribute.setAttributeTypeId(attrType.getId());
-				attribute.setValue(parameters.get(new Long.toString(attrType.getId())));
+				attribute.setValue(parameters.get(Long.toString(attrType.getId())));
 				attribute.setItemId(itemId);
 			}
 			

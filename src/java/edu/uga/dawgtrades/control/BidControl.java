@@ -65,7 +65,7 @@ public class BidControl {
         }
     }
 
-    public boolean placeBid(long auctionID, float amount, long userID) {
+    public boolean placeBid(long auctionID, double amount, long userID) {
         AuctionControl auctionCtrl = new AuctionControl();
         Auction auction = auctionCtrl.getAuctionWithID(auctionID);
         if(auction != null) {

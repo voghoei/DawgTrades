@@ -99,5 +99,11 @@ public class MyAuctionsControl{
                 }
 
 	}
+	public boolean hasError(){
+		return this.hasError;
+	}
+	public String getError(){
+		return this.error;
+	}
 	
 }

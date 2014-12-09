@@ -13,7 +13,7 @@ import javax.servlet.*;
 /*
 List the open auctions for items owned by the current user.
 */
-public class MyAuctionUI extends HttpServlet{
+public class MyAuctionsUI extends HttpServlet{
 
 	@Override
         protected void doGet(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException{

@@ -22,6 +22,18 @@
 <h1>${item.getName()}</h1>
 <div class="row">
 	<div class="col-md-3">
+		<#if loggedInUser?? && (loggedInUser.getId() == owner.getId() || loggedInUser.getIsAdmin())>
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					Manage Auction
+				</div>
+				<div class="list-group">
+					<a class="list-group-item list-group-item-danger" href="auction/delete?id=${auction.getId()">
+						Delete Auction
+					</a>
+				</div>
+			</div>
+		</#if>
 		<div class="panel panel-default">
 			<div class="panel-heading">
 				Auction Information

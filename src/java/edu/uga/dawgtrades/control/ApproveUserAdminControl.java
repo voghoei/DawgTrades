@@ -69,14 +69,19 @@ public class ApproveUserAdminControl {
         ArrayList<RegisteredUser> out = new ArrayList<RegisteredUser>();
         try {
             this.connect();
+            // Just grab all users
             RegisteredUser modelUser = this.objectModel.createRegisteredUser();
             Iterator<RegisteredUser> userIter = this.objectModel.findRegisteredUser(modelUser);
             while (userIter.hasNext()) {
                 RegisteredUser user = userIter.next();
+
+                // Put in unapproved ones
                 if(!user.getIsApproved()) {
                     out.add(user);
                 }
             }
+
+            // Return list
             return out;
 
         }
@@ -91,18 +96,26 @@ public class ApproveUserAdminControl {
     }
 
     public boolean approve(long id) {
-        ArrayList<RegisteredUser> out = new ArrayList<RegisteredUser>();
         try {
             this.connect();
+
+            // Grab user from DB
             RegisteredUser modelUser = this.objectModel.createRegisteredUser();
             modelUser.setId(id);
             Iterator<RegisteredUser> userIter = this.objectModel.findRegisteredUser(modelUser);
             if (userIter.hasNext()) {
+                // Got user
                 RegisteredUser user = userIter.next();
+
+                // Set approval
                 user.setIsApproved(true);
+
+                // Save
                 this.objectModel.storeRegisteredUser(user);
                 return true;
             }
+
+            // otherwise, return error
             this.hasError = true;
             this.error = "User not found.";
             return false;

@@ -101,14 +101,18 @@ public class LoginControl {
 
             Iterator<RegisteredUser> userIter = null;
             RegisteredUser runningUser = null;
+
+            // Try
             RegisteredUser modelUser = this.objectModel.createRegisteredUser();
             modelUser.setName(username);
             modelUser.setPassword(password);
 
+            // Fetch from DB
             userIter = this.objectModel.findRegisteredUser(modelUser);
 
             if (userIter.hasNext()) {
                 runningUser = userIter.next();
+                // Check for approval before access
                 if(runningUser.getIsApproved()) {
                     session.setAttribute("currentSessionUser", runningUser);
                     session.setAttribute("currentSessionTimestamp", new Date());

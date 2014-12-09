@@ -123,16 +123,22 @@ public class AuctionControl {
     public ArrayList<AttributeType> getAttributeTypesForCategory(long id) {
         ArrayList<AttributeType> types = new ArrayList<AttributeType>();
         CategoryControl catCtrl = new CategoryControl();
+
         // We need to get parent's (if any) as well
         long parentID = catCtrl.getParentCategoryIDForID(id);
+
+        // Check if it exists
         Category current = catCtrl.getCategoryWithID(id);
         if(current != null) {
             try {
                 this.connect();
+                // Grab this category's types
                 Iterator<AttributeType> results = this.objectModel.getAttributeType(current);
                 while(results.hasNext()) {
                      types.add(results.next());
                 }
+
+                // If there's a parent, grab + merge those.
                 if(parentID > 0) {
                     ArrayList<AttributeType> parentTypes = this.getAttributeTypesForCategory(parentID);
                     if(parentTypes != null) {
@@ -158,6 +164,8 @@ public class AuctionControl {
     }
 
     public ArrayList<Bid> getBidsForAuctionID(long id) {
+
+        // Grab all bids for this auction
         Auction auction = this.getAuctionWithID(id);
         if(auction != null) {
             ArrayList<Bid> out = new ArrayList<Bid>();
@@ -184,6 +192,8 @@ public class AuctionControl {
     }
 
     public RegisteredUser getOwnerForAuctionID(long id) {
+
+        // Grab owner for auction based on owner.
         Item item = this.getItemForAuctionID(id);
         if(item != null) {
             try {
@@ -203,6 +213,7 @@ public class AuctionControl {
     }
 
     public boolean userCanDelete(RegisteredUser user, long id) {
+        // Check if user is owner of auction or is an admin
         RegisteredUser owner = this.getOwnerForAuctionID(id);
         if(owner != null) {
             if(owner.getId() == user.getId() || user.getIsAdmin()) {

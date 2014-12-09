@@ -65,10 +65,14 @@ public class AttributeTypeControl {
         }
     }
     public boolean createAttributeType(long categoryID, String name, boolean isString) {
+
+        // Check category exists
         CategoryControl catCtrl = new CategoryControl();
         if(catCtrl.categoryExists(categoryID)) {
             try {
                 this.connect();
+
+                // It does, create + add type
                 AttributeType type = this.objectModel.createAttributeType(catCtrl.getCategoryWithID(categoryID), name, isString);
                 this.objectModel.storeAttributeType(type);
                 return true;
@@ -89,13 +93,18 @@ public class AttributeTypeControl {
     public long getCategoryIDForAttributeTypeID(long id) {
         try {
             this.connect();
+            // Instantiate type
             AttributeType type = this.objectModel.createAttributeType();
             type.setId(id);
             Iterator<AttributeType> results = this.objectModel.findAttributeType(type);
+
+            // Result?
             if(results.hasNext()) {
+                // Yep, get + return.
                 type = results.next();
                 return type.getCategoryId();
             }else{
+                // Nope.
                 return -1;
             }
         }
@@ -112,10 +121,14 @@ public class AttributeTypeControl {
     public int getIsString(long id) {
         try {
             this.connect();
+            // Instantiate
             AttributeType type = this.objectModel.createAttributeType();
             type.setId(id);
             Iterator<AttributeType> results = this.objectModel.findAttributeType(type);
+
+            // Result?
             if(results.hasNext()) {
+                // Yes, just return.
                 type = results.next();
                 if(type.getIsString()) {
                     return 1;
@@ -137,6 +150,7 @@ public class AttributeTypeControl {
     }
 
     public String getName(long id) {
+        // Instantiate, check, return.
         try {
             this.connect();
             AttributeType type = this.objectModel.createAttributeType();
@@ -160,6 +174,7 @@ public class AttributeTypeControl {
     }
 
     public boolean deleteAttributeType(long id) {
+        // Simple instantiate + attempt to delete.
         try {
             this.connect();
             AttributeType type = this.objectModel.createAttributeType();
@@ -179,6 +194,7 @@ public class AttributeTypeControl {
     }
 
     public boolean updateAttributeType(String name, long id) {
+        // Can only change name. to change more, delete + remake
         try {
             this.connect();
             AttributeType type = this.objectModel.createAttributeType();
@@ -204,6 +220,7 @@ public class AttributeTypeControl {
 
     }
     public boolean attributeTypeExists(long id) {
+        // Check ID is valid
         try {
             this.connect();
             AttributeType type = this.objectModel.createAttributeType();

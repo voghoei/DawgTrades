@@ -46,18 +46,6 @@ public class CategoryControl {
         return err;
     }
 
-    public HashMap<String, ArrayList> populateHashmapWithCategories(long id) {
-        ArrayList<Category> subCats = this.getCategoriesWithParentID(id);
-        HashMap<String, ArrayList> children = new HashMap<String, ArrayList>();
-        if(subCats != null && !subCats.isEmpty()) {
-            children.put(Long.valueOf(id).toString(), subCats);
-            for(Category cat : subCats) {
-                children.putAll(this.populateHashmapWithCategories(cat.getId()));
-            }
-        }
-        return children;
-    }
-
     private void connect() throws DTException{
             this.close();
             this.conn = DbUtils.connect();
@@ -76,6 +64,22 @@ public class CategoryControl {
             System.err.println("Exception: "+e);
         }
     }
+
+    public HashMap<String, ArrayList> populateHashmapWithCategories(long id) {
+        // Gets a hashmap, fills it with id(string) -> subcategory pairs.
+        // Useful to get all subcategories in an easily-traversed object.
+        ArrayList<Category> subCats = this.getCategoriesWithParentID(id);
+        HashMap<String, ArrayList> children = new HashMap<String, ArrayList>();
+        // Assuming it's got subcategories.
+        if(subCats != null && !subCats.isEmpty()) {
+            children.put(Long.valueOf(id).toString(), subCats);
+            for(Category cat : subCats) {
+                children.putAll(this.populateHashmapWithCategories(cat.getId()));
+            }
+        }
+        return children;
+    }
+
     public Category getCategoryWithID(long id) {
         try {
             this.connect();
@@ -99,28 +103,40 @@ public class CategoryControl {
     }
 
     public long getCategoryItemCount(long id) {
+        // Essentially, iterate through all items w/ open auctions, and sum them up for category + descendants
         long count = 0;
         try {
             this.connect();
+            // Grab category
             Category toFind = this.objectModel.createCategory();
             toFind.setId(id);
             Iterator<Category> results = this.objectModel.findCategory(toFind);
             if(results.hasNext()) {
+                // Got it.
                 toFind = results.next();
+
+                // Grab items
                 Item itemSearch = this.objectModel.createItem();
                 itemSearch.setCategoryId(toFind.getId());
                 ItemIterator items = (ItemIterator) this.objectModel.findItem(itemSearch);
                 while(items.hasNext()) {
+                    // Got em
                     Item item = items.next();
+
+                    // Get auction for item.
                     Auction auction = this.objectModel.createAuction();
                     auction.setItemId(item.getId());
                     Iterator<Auction> auctionResult = this.objectModel.findAuction(auction);
+
+                    // Check if closed
                     if(auctionResult.hasNext()) {
                         if(!auctionResult.next().getIsClosed()) {
                             count++;
                         }
                     }
                 }
+
+                // Recurse into subcategories.
                 ArrayList<Category> subCats = this.getCategoriesWithParentID(toFind.getId());
                 for(Category cat : subCats) {
                     long catCount = this.getCategoryItemCount(cat.getId());
@@ -144,6 +160,8 @@ public class CategoryControl {
     }
 
     public HashMap<String, Bid> getBidsForAuctions(ArrayList<Auction> auctions) {
+
+        // Get bids where auction id is auction->id
         HashMap<String, Bid> bids = new HashMap<String, Bid>();
         try {
             this.connect();
@@ -179,6 +197,8 @@ public class CategoryControl {
     }
 
     public HashMap<String, Item> getItemsForAuctions(ArrayList<Auction> auctions) {
+
+        // This has an item iterator basically... put into a hashmap for freemarker
         HashMap<String, Item> items = new HashMap<String, Item>();
         try {
             this.connect();
@@ -206,20 +226,24 @@ public class CategoryControl {
     }
 
     public ArrayList<Auction> getCategoryAuctions(long id) {
+        // again, long-winded mess to get auctions for cat
         ArrayList<Auction> auctions = new ArrayList<Auction>();
         try {
             if(id != 0) {
                 this.connect();
+                // Get category
                 Category toFind = this.objectModel.createCategory();
                 toFind.setId(id);
                 Iterator<Category> results = this.objectModel.findCategory(toFind);
                 if(results.hasNext()) {
                     toFind = results.next();
+                    // get item
                     Item itemSearch = this.objectModel.createItem();
                     itemSearch.setCategoryId(toFind.getId());
                     ItemIterator items = (ItemIterator) this.objectModel.findItem(itemSearch);
                     while(items.hasNext()) {
                         Item item = items.next();
+                        // get auction
                         Auction auction = this.objectModel.createAuction();
                         auction.setItemId(item.getId());
                         Iterator<Auction> auctionResult = this.objectModel.findAuction(auction);
@@ -230,6 +254,7 @@ public class CategoryControl {
                             }
                         }
                     }
+                    // Recurse into subdirectories
                     ArrayList<Category> subCats = this.getCategoriesWithParentID(toFind.getId());
                     for(Category cat : subCats) {
                         ArrayList<Auction> subAuctions = this.getCategoryAuctions(cat.getId());
@@ -242,6 +267,7 @@ public class CategoryControl {
                     return null;
                 }
             }else{
+                // Do for all categories
                 ArrayList<Category> subCats = this.getCategoriesWithParentID(0);
                 for(Category cat : subCats) {
                     ArrayList<Auction> subAuctions = this.getCategoryAuctions(cat.getId());
@@ -262,7 +288,8 @@ public class CategoryControl {
         }
     }
 
-    public ArrayList<Category> getCategoriesWithParentID(long id) {
+    public ArrayList<Category> getCategoriesWithParentID(long id) {/
+        // Does what it says
         try {
             this.connect();
             Category toFind = this.objectModel.createCategory();
@@ -286,6 +313,7 @@ public class CategoryControl {
     }
 
     public boolean categoryExists(long id) {
+        // Simple existance check
         long count = 0;
         try {
             this.connect();
@@ -309,6 +337,7 @@ public class CategoryControl {
     }
 
     public boolean createCategoryWithParent(String name, long id) {
+        // Spawn new cateogry with a parent
         long count = 0;
         try {
             this.connect();
@@ -373,6 +402,7 @@ public class CategoryControl {
     }
 
     public long getParentCategoryIDForID(long id) {
+        // Get parent category ID for a category ID.
         try {
             this.connect();
             Category toFind = this.objectModel.createCategory();

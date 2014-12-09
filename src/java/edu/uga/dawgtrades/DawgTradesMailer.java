@@ -13,8 +13,11 @@ import java.sql.SQLException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import com.sun.jersey.api.client.filter.*;
 import com.sun.jersey.api.client.*;
 import com.sun.jersey.api.*;
+import com.sun.jersey.core.util.*;
+import javax.ws.rs.core.MediaType;
 
 
 public class DawgTradesMailer  {

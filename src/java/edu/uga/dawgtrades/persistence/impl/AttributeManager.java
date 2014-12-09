@@ -107,10 +107,10 @@ class AttributeManager {
         StringBuffer query = new StringBuffer(100);
         StringBuffer condition = new StringBuffer(100);
 
-        if (attribute.getAttributeTypeId() != 0) {
+        if (attribute.getAttributeTypeId() <= 0) {
             throw new DTException("AttributeManager.restore: the argument attribute includes a non-persistent AttributeType object");
         }
-        if (attribute.getItemId() != 0) {
+        if (attribute.getItemId() <= 0) {
             throw new DTException("AttributeManager.restore: the argument attribute includes a non-persistent Item object");
         }
 

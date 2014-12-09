@@ -18,8 +18,8 @@
 		<ul class="list-group">
 		<#list items as item>
 			<#assign itemId = "${item.getId()}">
-			<#if auctions[itemId] != null>
-			<a href="/auction?id=${auctions[itemId].getId()}"><li class="list-group-item">${item.getName()}</li></a>
+			<#if auctions[itemId]??>
+				<a href="/auction?id=${auctions[itemId].getId()}"><li class="list-group-item">${item.getName()} (<#if auctions[itemId].getIsClosed()>Closed<#else>Open</#if>)</li></a>
 			</#if>
 		</#list>
 		</ul>

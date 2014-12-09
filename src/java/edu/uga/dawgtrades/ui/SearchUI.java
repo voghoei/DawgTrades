@@ -48,7 +48,6 @@ public class SearchUI extends HttpServlet {
         }
 
         CategoryControl catCtrl = new CategoryControl();
-        String message = "";
 
         String chooseCategoryToSearch = request.getParameter("category");
         String searchCategory = request.getParameter("searchCategory");
@@ -198,7 +197,6 @@ public class SearchUI extends HttpServlet {
                         if(attrValString == null || attrValString.isEmpty()) {
                             continue;
                         }else{
-                            message = message + "Checking attr_" + Long.valueOf(attribute.getId()).toString() + "... (Value: " + attrValString + ")<br />";
                             searchVals.put("attr_" + Long.valueOf(attribute.getId()).toString(), attrValString);
                             if(attribute.getIsString()) {
                                 attrValString = attrValString.toLowerCase();
@@ -221,7 +219,6 @@ public class SearchUI extends HttpServlet {
                                     }
                                 }
                             }else{
-                                message = message + "Is number.<br />";
                                 double attrVal = 0;
                                 try {
                                     attrVal = Double.valueOf(attrValString);
@@ -243,14 +240,12 @@ public class SearchUI extends HttpServlet {
                                         attrValComp.equals("gt")
                                     )
                                 ) {
-                                    message = message + "Invalid comparison op: " + attrValComp + ".<br />";
                                     // Got a search key without valid comparison operator, skip it.
                                     continue;
                                 }
                                 searchVals.put("attr_" + Long.valueOf(attribute.getId()).toString() + "_comparison", attrValComp);
 
                                 for(Auction auction : candidates) {
-                                    message = message + "Comparing to Auction ID " + auction.getId() + ".<br />";
                                     Item item = itemsForAuctions.get(Long.valueOf(auction.getId()).toString());
                                     String itemValueString = searchCtrl.getAttributeWithTypeForItem(attribute, item);
                                     if(itemValueString == null) {
@@ -260,11 +255,9 @@ public class SearchUI extends HttpServlet {
                                             request.getRequestDispatcher("/genericError.ftl").forward(request, response);
                                             return;
                                         }else{
-                                            message = message + "No matching value found.<br />";
                                             continue;
                                         }
                                     }
-                                    message = message + "Item value: " + itemValueString + ".<br />";
                                     double itemVal = 0;
                                     try {
                                         itemVal = Double.valueOf(itemValueString);
@@ -319,8 +312,6 @@ public class SearchUI extends HttpServlet {
 
                     // candidates should now contain search results.
                     request.setAttribute("searchResults", candidates);
-
-                    request.setAttribute("message", message);
 
                     // Get bids
                     HashMap<String, Bid> bids = catCtrl.getBidsForAuctions(candidates);

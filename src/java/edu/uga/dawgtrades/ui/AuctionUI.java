@@ -150,7 +150,7 @@ public class AuctionUI extends HttpServlet {
                     request.setAttribute("owner", owner);
                     request.setAttribute("item", item);
                     request.setAttribute("auction", toView);
-                    request.getRequestDispatcher("/category.ftl").forward(request, response);
+                    request.getRequestDispatcher("/viewAuction.ftl").forward(request, response);
                     return;
                 }else{
                     if(auctionCtrl.hasError()) {

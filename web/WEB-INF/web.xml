@@ -168,6 +168,16 @@
         <url-pattern>/experience</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>AuctionUI</servlet-name>
+        <servlet-class>edu.uga.dawgtrades.ui.AuctionUI</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AuctionUI</servlet-name>
+        <url-pattern>/auction</url-pattern>
+    </servlet-mapping>
+
+
     <session-config>
         <session-timeout>30</session-timeout>
     </session-config>

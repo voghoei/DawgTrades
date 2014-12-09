@@ -157,7 +157,7 @@ public class CategoryControl {
                     if(candidate == null) {
                         candidate = current;
                     } else {
-                        if(candidate.getAmount() > current.getAmount()) {
+                        if(current.getAmount() > candidate.getAmount()) {
                             candidate = current;
                         }
                     }

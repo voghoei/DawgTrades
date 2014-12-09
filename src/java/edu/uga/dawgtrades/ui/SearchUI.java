@@ -27,7 +27,7 @@ public class SearchUI extends HttpServlet {
 
     // Gotta love floating point
     private boolean epsilonEquals(double x, double y) {
-        double epsilon = max(java.lang.Math.ulp(x), java.lang.Math.ulp(y))
+        double epsilon = Math.max(Math.ulp(x), Math.ulp(y));
         return Math.abs(x-y) < epsilon;
     }
 
@@ -188,7 +188,7 @@ public class SearchUI extends HttpServlet {
                                             request.getRequestDispatcher("/genericError.ftl").forward(request, response);
                                             return;
                                         }else{
-                                            continue
+                                            continue;
                                         }
                                     }
                                     itemValueString = itemValueString.toLowerCase();
@@ -231,7 +231,7 @@ public class SearchUI extends HttpServlet {
                                             request.getRequestDispatcher("/genericError.ftl").forward(request, response);
                                             return;
                                         }else{
-                                            continue
+                                            continue;
                                         }
                                     }
                                     double itemVal = 0;

@@ -67,7 +67,7 @@ public class BidUI extends HttpServlet {
                 String format = df.format(amount);
                 amount = (Double) df.parse(format);
 
-                
+
                 Auction auction = auctionCtrl.getAuctionWithID(id);
                 if(auction != null) {
                     RegisteredUser owner = auctionCtrl.getOwnerForAuctionID(id);
@@ -156,6 +156,14 @@ public class BidUI extends HttpServlet {
                 request.setAttribute("returnTo", "/category");
                 request.getRequestDispatcher("/genericError.ftl").forward(request, response);
                 return;
+            }
+            catch(ParseException e) {
+                // This should never happen given the way we've set things up
+                request.setAttribute("error", "Internal error.");
+                request.setAttribute("returnTo", "/");
+                request.getRequestDispatcher("/genericError.ftl").forward(request, response);
+                return;
+
             }
         }else{
             request.setAttribute("error", "Insufficient parameters given.");

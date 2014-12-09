@@ -58,8 +58,8 @@ public class DawgTradesContextListener implements ServletContextListener {
                                     // Email owner + winner
                                     String winnerEmail = bidSet.getString(5);
                                     String winnerName = bidSet.getString(6);
-                                    String ownerEmail = bidSet.getString(8);
-                                    String ownerName = bidSet.getString(9);
+                                    String ownerEmail = auctionSet.getString(8);
+                                    String ownerName = auctionSet.getString(9);
                                     System.out.println("[LISTENER] Sending email to " + winnerName + " (" + winnerEmail + ") (Winner)");
                                     System.out.println("[LISTENER] Sending email to " + ownerName + " (" + ownerEmail + ") (Owner)");
                                 }else{

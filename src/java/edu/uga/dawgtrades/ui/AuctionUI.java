@@ -144,7 +144,7 @@ public class AuctionUI extends HttpServlet {
                         if(auctionCtrl.hasError()) {
                            request.setAttribute("error", auctionCtrl.getError());
                         }else{
-                           request.setAttribute("error", "Unkown error occurred while getting the auction item.");
+                           request.setAttribute("error", "Unknown error occurred while getting the auction item.");
                         }
                         request.setAttribute("returnTo", "/category");
                         request.getRequestDispatcher("/genericError.ftl").forward(request, response);
@@ -156,9 +156,16 @@ public class AuctionUI extends HttpServlet {
                         // Get winner of auction (assuming there is one...)
                         if(!bids.isEmpty()) {
                             Bid winningBid = bids.get(0);
-                            ViewUserControl userCtrl = new ViewUserControl();
-                            RegisteredUser winner = winningBid.getRegisteredUser();
-                            request.setAttribute("winner", winner);
+                            RegisteredUser winner = auctionCtrl.getUser(winningBid.getRegisteredUser());
+                            if(winner != null) {
+                                request.setAttribute("winner", winner);
+                            }else{
+                                if(auctionCtrl.hasError()) {
+                                   request.setAttribute("error", "Error while getting auction winner: " + auctionCtrl.getError());
+                                }else{
+                                   request.setAttribute("error", "Unknown error occurred while getting the auction winner.");
+                                }
+                            }
                         }
                     }
 

@@ -237,6 +237,26 @@ public class AuctionControl {
         return false;
     }
 
+    public RegisteredUser getUser(RegisteredUser user) {
+        try {
+            this.connect();
+            Iterator<RegisteredUser> results = this.objectModel.findRegisteredUser(user);
+            if(results.hasNext()) {
+                return results.next();
+            }
+            return 
+        }
+        catch(DTException e) {
+            this.hasError = true;
+            this.error = e.getMessage();
+            return null;
+        }
+        finally {
+            this.close();
+        }
+
+    }
+
     public Item getItemForAuctionID(long id) {
         Auction auction = this.getAuctionWithID(id);
         if(auction != null) {

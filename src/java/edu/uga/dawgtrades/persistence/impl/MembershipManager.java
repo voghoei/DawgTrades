@@ -47,8 +47,8 @@ class MembershipManager {
             }
 
             if (membership.getDate() != null) {
-                memDate = membership.getDate();
-                java.sql.Timestamp ts = new java.sql.Timestamp(memDate.getTime());
+                mDate = membership.getDate();
+                java.sql.Timestamp ts = new java.sql.Timestamp(mDate.getTime());
                 stmt.setTimestamp(2, ts);
             } else {
                 stmt.setNull(2, java.sql.Types.TIMESTAMP);

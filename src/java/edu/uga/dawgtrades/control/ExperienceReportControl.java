@@ -51,7 +51,6 @@ public class ExperienceReportControl {
                 userMap.add(userIter.next());
             }
 
-
         } catch (DTException e) {
             error = e.getMessage();
 
@@ -95,17 +94,26 @@ public class ExperienceReportControl {
         return userReportMap;
     }
 
-    public boolean attemptToWriteExperienceReport(RegisteredUser reviewer, RegisteredUser reviewed, int rate, String report) throws DTException {
+    public boolean attemptToWriteExperienceReport(RegisteredUser reviewer, long reviewed_id, int rate, String report) throws DTException {
         ExperienceReport modelExperienceReport = null;
+        Iterator<RegisteredUser> userIter = null;
+        RegisteredUser reviewedUser = null;
         try {
 
             connect();
+            RegisteredUser modelUser = objectModel.createRegisteredUser();
+            modelUser.setId(reviewed_id);
+            userIter = objectModel.findRegisteredUser(modelUser);
+            if (userIter.hasNext()) {
 
-            modelExperienceReport = objectModel.createExperienceReport(reviewer, reviewed, rate, report, new Date());
-
-            objectModel.storeExperienceReport(modelExperienceReport);
-
-            return true;
+                reviewedUser = userIter.next();
+                modelExperienceReport = objectModel.createExperienceReport(reviewer, reviewedUser, rate, report, new Date());
+                objectModel.storeExperienceReport(modelExperienceReport);
+                return true;
+            } else {
+                error = "User not Found";
+                return false;
+            }
         } catch (DTException e) {
             error = e.getMessage();
             return false;
@@ -113,6 +121,62 @@ public class ExperienceReportControl {
             close();
         }
 
+    }
+
+    public boolean attemptToUpdateExperienceReport(int rate, String report, long id) throws DTException {
+        ExperienceReport modelExperienceReport = null;
+
+        Iterator<ExperienceReport> reportIter = null;
+        ExperienceReport reportCurrent = null;
+        try {
+
+            connect();
+
+            modelExperienceReport = objectModel.createExperienceReport();
+            modelExperienceReport.setId(id);
+
+            reportIter = objectModel.findExperienceReport(modelExperienceReport);
+
+            while (reportIter.hasNext()) {
+                reportCurrent = reportIter.next();
+            }
+            reportCurrent.setRating(rate);
+            reportCurrent.setReport(report);
+            reportCurrent.setDate(new Date());
+            objectModel.storeExperienceReport(reportCurrent);
+            return true;
+
+        } catch (DTException e) {
+            error = e.getMessage();
+            return false;
+        } finally {
+            close();
+        }
+
+    }
+
+    public boolean attemptToDeleteExperienceReport(long id) throws DTException {
+        ExperienceReport modelExperienceReport = null;
+
+        Iterator<ExperienceReport> reportIter = null;
+        ExperienceReport reportCurrent = null;
+        try {
+            connect();
+            modelExperienceReport = objectModel.createExperienceReport();
+            modelExperienceReport.setId(id);
+            reportIter = objectModel.findExperienceReport(modelExperienceReport);
+            while (reportIter.hasNext()) {
+                reportCurrent = reportIter.next();
+            }
+            objectModel.deleteExperienceReport(reportCurrent);
+            return true;
+
+        } catch (DTException e) {
+            error = e.getMessage();
+            return false;
+        } finally {
+            close();
+        }
     }
 
     public String getError() {

@@ -16,7 +16,7 @@ public class ExperienceReportManager {
     private Connection conn = null;
 
     public ExperienceReportManager(Connection conn, ObjectModel objectmodel) {
-        this.objectModel = objectModel;
+        this.objectModel = objectmodel;
         this.conn = conn;
     }
 

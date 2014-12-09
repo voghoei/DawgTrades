@@ -59,7 +59,7 @@ public class RegisterUI extends HttpServlet{
 			return;			
 		}
 		try{
-			if(ctrl.attemptToRegister(username,fname,lname,password,email,phone,texts != null)){
+			if(ctrl.attemptToRegister(username,fname,lname,password,email,phone,texts)){
 				response.sendRedirect("/login?message=c3daec042ebd773d1d2e505235f1449c4ff1625f");
 			}else{
 				request.setAttribute("error","Registration failed: "+ctrl.getError());

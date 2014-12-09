@@ -1,4 +1,5 @@
 <#import "default.ftl" as default>
+<#import "categoryListMacro.ftl" as catList>
 <@default.mainLayout "Create Item">
 <h1> Create Item </h1>
 
@@ -20,28 +21,23 @@
 		<div class="form-group">
 			<#if categoryChosen??>
 				<label for="category"> Category:</label>
- 				<select name="catId" class="form-control" onChange="window.location.href=this.value" required>
-                        	<option value="#"> Select a Category </option>
-                        	<#if categoryList??>
-                                        <#list categoryList as category>
-					<#if category.getId() == categoryChosen.getId()>
-					<option value="/createItem?id=${category.getId()}" selected>${category.getName()}</option>
+ 				<select name="catId" class="form-control" onChange="window.location.href='createItem?id=' + this.value" required>
+                	<option value="#" disabled> Select a Category </option>
+                	<#if categoriesMap??>
+						<@catList.categoryList categoryMap=categoriesMap selected="${categoryChosen.getId()}" />
 					<#else>
-					<option value="/createItem?id=${category.getId()}">${category.getName()}</option>
+						<option value="#" disabled> No Categories </option>
 					</#if>
-                                        </#list>
-				</#if>
 				</select>
 			<#else>
 				<label for="category"> Category </label>
-				<select class="form-control" onChange="window.location.href=this.value" required>
-				<option value="#"> Select a Category </option>
-				<#if categoryList??>					
-					<#list categoryList as category><option value="/createItem?id=${category.getId()}">${category.getName()}</option>
-					</#list>
-				<#else>
-					<option value="#" disabled> No Categories </option>
-				</#if>
+ 				<select name="catId" class="form-control" onChange="window.location.href='createItem?id=' + this.value" required>
+                	<option value="#" disabled> Select a Category </option>
+                	<#if categoriesMap??>
+						<@catList.categoryList categoryMap=categoriesMap selected="${categoryChosen.getId()}" />
+					<#else>
+						<option value="#" disabled> No Categories </option>
+					</#if>
 				</select>
 			</#if>
 		<div class="form-group">

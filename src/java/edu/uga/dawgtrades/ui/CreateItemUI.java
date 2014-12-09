@@ -24,29 +24,36 @@ public class CreateItemUI extends HttpServlet{
 		HttpSession session = request.getSession(true);
 		String error = "Error unknown";
 		LoginControl ctrl = new LoginControl();
+		CategoryControl catCtrl = new CategoryControl();
 		if(!ctrl.checkIsLoggedIn(session)){
-			response.sendRedirect("/login");
-			request.setAttribute("loggedInUser","");
-			request.removeAttribute("loggedInUser");
+			response.sendRedirect("login");
 			return;
 		}else{
 			RegisteredUser currentUser = (RegisteredUser)session.getAttribute("currentSessionUser");
 			request.setAttribute("loggedInUser",currentUser);
 		}
 		CreateItemCtrl itemCtrl = new CreateItemCtrl();
-		ArrayList<Category> categories = itemCtrl.getCategoryList();
-		if(categories != null){	
-			request.setAttribute("categoryList",categories);
-//			request.setAttribute("error","List size: "+itemCtrl.getError());
-		}else if(itemCtrl.hasError()){
-			request.setAttribute("error","Error: "+itemCtrl.getError());
+        HashMap<String, ArrayList> children = catCtrl.populateHashmapWithCategories(0);
+		if(children != null) {
+		    request.setAttribute("categoriesMap", children);
+		}else{
+		    if(catCtrl.hasError()) {
+		        request.setAttribute("error", "Error getting categories: " + catCtrl.getError());
+		        request.setAttribute("returnTo", "./");
+		        request.getRequestDispatcher("/genericError.ftl").forward(request, response);
+		        return;
+		    }else{
+		        request.setAttribute("error", "Internal error getting categories.");
+		        request.setAttribute("returnTo", "./");
+		        request.getRequestDispatcher("/genericError.ftl").forward(request, response);
+		        return;
+		    }
 
 		}
 		String categoryId = request.getParameter("id");
 		if(categoryId != null){
 			try{
 				long id = Long.parseLong(categoryId,10);
-				CategoryControl catCtrl = new CategoryControl();
 				Category category = catCtrl.getCategoryWithID(id);
 				request.setAttribute("categoryChosen",category);
 				ArrayList<AttributeType> attributeTypes = itemCtrl.getCategoryAttributes(id);
@@ -75,7 +82,7 @@ public class CreateItemUI extends HttpServlet{
 				return;	
 			}
 			
-			response.sendRedirect("/createAuction?id="+itemId);
+			response.sendRedirect("createAuction?id="+itemId);
 			return;
 		}
 		

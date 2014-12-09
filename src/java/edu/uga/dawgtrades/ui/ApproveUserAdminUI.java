@@ -42,12 +42,16 @@ public class ApproveUserAdminUI extends HttpServlet {
             }
             request.setAttribute("loggedInUser",currentUser);
         }
-        ApproveUserAdminControl usrCtrl = new ApproveUserAdminControl();
 
+        // If user ID is set, then we approve a user
+        ApproveUserAdminControl usrCtrl = new ApproveUserAdminControl();
         String userID = request.getParameter("id");
         if(userID != null) {
             try {
+                // Get ID from string
                 long id = Long.parseLong(userID, 10);
+
+                // Do approval
                 if(usrCtrl.approve(id)) {
                     request.setAttribute("message", "User approved!");
                 }else{
@@ -62,6 +66,8 @@ public class ApproveUserAdminUI extends HttpServlet {
                 request.setAttribute("error", "Invalid user ID. Please try again.");
             }
         }
+
+        // Now, grab list of unapproved users to show
         ArrayList<RegisteredUser> unapprovedUsers = usrCtrl.getUnapprovedUsers();
         if(unapprovedUsers == null) {
                 if(usrCtrl.hasError()) {
@@ -77,6 +83,8 @@ public class ApproveUserAdminUI extends HttpServlet {
                 }
         }
         request.setAttribute("unapprovedUsers", unapprovedUsers);
+
+        // Display
         request.getRequestDispatcher("/approveUsersAdmin.ftl").forward(request, response);
     }
 
@@ -88,7 +96,7 @@ public class ApproveUserAdminUI extends HttpServlet {
 
     @Override
     public String getServletInfo() {
-        return "Category UI";
+        return "Admin User Approval UI";
     }// </editor-fold>
 
 }

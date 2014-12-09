@@ -313,6 +313,9 @@ public class CategoryControl {
     }
 
     public boolean categoryExists(long id) {
+        // Basic
+        if(id < 1)
+            return false;
         // Simple existance check
         long count = 0;
         try {

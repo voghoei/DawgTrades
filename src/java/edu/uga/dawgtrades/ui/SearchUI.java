@@ -49,15 +49,24 @@ public class SearchUI extends HttpServlet {
 
         CategoryControl catCtrl = new CategoryControl();
 
+        // If this is present, on step 2
         String chooseCategoryToSearch = request.getParameter("category");
+
+        // If this is present, on step 3
         String searchCategory = request.getParameter("searchCategory");
+
+        // If nether, on step one.
         if(chooseCategoryToSearch != null) {
             try {
+                // Step 2: enter attribute data
+
+                // Grab category.
                 long id = Long.parseLong(chooseCategoryToSearch, 10);
                 Category toSearch = catCtrl.getCategoryWithID(id);
                 if(toSearch != null) {
                     request.setAttribute("searchCategory", toSearch);
 
+                    // Now, get the list of attributeTypes for it.
                     AuctionControl auctionCtrl = new AuctionControl();
                     ArrayList<AttributeType> attributeTypes;
                     if(id != 0) {
@@ -99,12 +108,17 @@ public class SearchUI extends HttpServlet {
             }
 
         }else if(searchCategory != null){
+            // On step 3: do the search.
+            // This is meaty, follow carefully.
             try {
+
+                // Grab the category.
                 long id = Long.parseLong(searchCategory, 10);
                 Category toSearch = catCtrl.getCategoryWithID(id);
                 if(toSearch != null) {
                     request.setAttribute("searchCategory", toSearch);
 
+                    // Grab the list of attributetypes.
                     AuctionControl auctionCtrl = new AuctionControl();
                     ArrayList<AttributeType> attributeTypes;
                     if(id != 0) {
@@ -192,18 +206,32 @@ public class SearchUI extends HttpServlet {
                     HashMap<String, String> searchVals = new HashMap<String, String>();
 
                     for(AttributeType attribute : attributeTypes) {
+                        // Store current matches for this attribute
                         ArrayList<Auction> currentCandidates = new ArrayList<Auction>();
+
+                        // Grab form value
                         String attrValString = request.getParameter("attr_" + Long.valueOf(attribute.getId()).toString());
+
+                        // If empty, skip
                         if(attrValString == null || attrValString.isEmpty()) {
                             continue;
                         }else{
+                            // Not empty. Get value and put it in storage.
                             searchVals.put("attr_" + Long.valueOf(attribute.getId()).toString(), attrValString);
+
+                            // If it's a string attribute...
                             if(attribute.getIsString()) {
+
+                                // Convert to lowercase.
                                 attrValString = attrValString.toLowerCase();
                                 for(Auction auction : candidates) {
+                                    // Grab item for auction.
                                     Item item = itemsForAuctions.get(Long.valueOf(auction.getId()).toString());
+
+                                    // Get the value of its attribute
                                     String itemValueString = searchCtrl.getAttributeWithTypeForItem(attribute, item);
                                     if(itemValueString == null) {
+                                        // Assuming we got nothing...
                                         if(searchCtrl.hasError()) {
                                             request.setAttribute("error", "Error parsing backend data: " + searchCtrl.getError());
                                             request.setAttribute("returnTo", "/search");
@@ -213,12 +241,17 @@ public class SearchUI extends HttpServlet {
                                             continue;
                                         }
                                     }
+
+                                    // Convert to lower
                                     itemValueString = itemValueString.toLowerCase();
+
+                                    // Check if it's inside. If so, it's a match.
                                     if(itemValueString.contains(attrValString)) {
                                         currentCandidates.add(auction);
                                     }
                                 }
                             }else{
+                                // Numbers. Parse the search number.
                                 double attrVal = 0;
                                 try {
                                     attrVal = Double.valueOf(attrValString);
@@ -228,6 +261,8 @@ public class SearchUI extends HttpServlet {
                                     request.setAttribute("returnTo", "/search?category=" + searchCategory);
                                     request.getRequestDispatcher("/genericError.ftl").forward(request, response);
                                 }
+
+                                // Get the comparison type.
                                 String attrValComp = request.getParameter("attr_" + Long.valueOf(attribute.getId()).toString() + "_comparison");
                                 if(
                                     attrValComp == null ||
@@ -243,10 +278,15 @@ public class SearchUI extends HttpServlet {
                                     // Got a search key without valid comparison operator, skip it.
                                     continue;
                                 }
+
+                                // Store search type.
                                 searchVals.put("attr_" + Long.valueOf(attribute.getId()).toString() + "_comparison", attrValComp);
 
                                 for(Auction auction : candidates) {
+                                    // Grab item for auction.
                                     Item item = itemsForAuctions.get(Long.valueOf(auction.getId()).toString());
+
+                                    // Grab attribute value.
                                     String itemValueString = searchCtrl.getAttributeWithTypeForItem(attribute, item);
                                     if(itemValueString == null) {
                                         if(searchCtrl.hasError()) {
@@ -258,6 +298,8 @@ public class SearchUI extends HttpServlet {
                                             continue;
                                         }
                                     }
+
+                                    // Convert to double
                                     double itemVal = 0;
                                     try {
                                         itemVal = Double.valueOf(itemValueString);
@@ -267,6 +309,8 @@ public class SearchUI extends HttpServlet {
                                         request.setAttribute("returnTo", "/search?category=" + searchCategory);
                                         request.getRequestDispatcher("/genericError.ftl").forward(request, response);
                                     }
+
+                                    // Do comparison.
                                     switch(attrValComp) {
                                         case "lt":
                                             if(itemVal < attrVal) {
@@ -303,6 +347,8 @@ public class SearchUI extends HttpServlet {
                                     }
                                 }
                             }
+
+                            // After removing all non-matches, candidates is set for the next iteration.
                             candidates = currentCandidates;
                         }
                     }
@@ -329,6 +375,8 @@ public class SearchUI extends HttpServlet {
                         }
                     }
                     request.setAttribute("auctionBids", bids);
+
+                    // Render.
                     request.getRequestDispatcher("/searchResults.ftl").forward(request, response);
                     return;
                 }else{
@@ -353,6 +401,8 @@ public class SearchUI extends HttpServlet {
 
             }
         }else{
+
+            // Step 1. Choose category.
             HashMap<String, ArrayList> children = catCtrl.populateHashmapWithCategories(0);
             if(children != null) {
                 request.setAttribute("categoriesMap", children);

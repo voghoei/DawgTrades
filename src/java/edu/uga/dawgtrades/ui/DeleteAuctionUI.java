@@ -44,7 +44,9 @@ public class DeleteAuctionUI extends HttpServlet {
         if(auctionID != null) {
             try {
                 long id = Long.parseLong(auctionID, 10);
+                // Check that it exists
                 if(auctionCtrl.auctionExists(id)) {
+                    // Ensure we're ABLE to delete
                     if(!auctionCtrl.userCanDelete(currentUser, id)) {
                         request.setAttribute("error", "You are not authorized to delete this auction.");
                         request.setAttribute("returnTo", "/auction?id=" + auctionID);
@@ -92,6 +94,7 @@ public class DeleteAuctionUI extends HttpServlet {
         if(auctionID != null) {
             try {
                 long id = Long.parseLong(auctionID, 10);
+                // Checks again.
                 if(auctionCtrl.auctionExists(id)) {
                     if(!auctionCtrl.userCanDelete(currentUser, id)) {
                         if(auctionCtrl.hasError()) {
@@ -106,6 +109,8 @@ public class DeleteAuctionUI extends HttpServlet {
                             return; 
                         }
                     }
+
+                    // delete
                     if(auctionCtrl.deleteAuction(id)) {
                         response.sendRedirect("/category");
                     }else{
@@ -149,7 +154,7 @@ public class DeleteAuctionUI extends HttpServlet {
 
     @Override
     public String getServletInfo() {
-        return "Category UI";
+        return "Delete Auction UI";
     }// </editor-fold>
 
 }

@@ -43,6 +43,8 @@ public class DeleteAttributeAdminUI extends HttpServlet {
             }
             request.setAttribute("loggedInUser",currentUser);
         }
+
+        // Check existence
         String attributeID = request.getParameter("id");
         if(attributeID != null) {
             try {
@@ -52,14 +54,14 @@ public class DeleteAttributeAdminUI extends HttpServlet {
                     request.getRequestDispatcher("/attributeDeleteAdmin.ftl").forward(request, response);
                 }else{
                     request.setAttribute("error", "Attribute Type doesn't exist.");
-                    request.setAttribute("returnTo", "/admin/categories");
+                    request.setAttribute("returnTo", "../categories");
                     request.getRequestDispatcher("/genericError.ftl").forward(request, response);
                     return; 
                 }
             }
             catch(NumberFormatException e) {
                 request.setAttribute("error", "Bad ID passed.");
-                request.setAttribute("returnTo", "/admin/categories");
+                request.setAttribute("returnTo", "../categories");
                 request.getRequestDispatcher("/genericError.ftl").forward(request, response);
                 return;
             }
@@ -88,23 +90,28 @@ public class DeleteAttributeAdminUI extends HttpServlet {
             }
             request.setAttribute("loggedInUser",currentUser);
         }
+
+        // Get the ID
         String attributeID = request.getParameter("id");
         if(attributeID != null) {
             try {
                 long id = Long.parseLong(attributeID, 10);
                 if(attrTypeCtrl.attributeTypeExists(id)) {
+                    // Get the ID to go back to
                     long toRedir = attrTypeCtrl.getCategoryIDForAttributeTypeID(id);
+
+                    // Delete
                     if(attrTypeCtrl.deleteAttributeType(id)) {
-                        response.sendRedirect("/admin/categories/edit?id=" + toRedir);
+                        response.sendRedirect("../categories/edit?id=" + toRedir);
                     }else{
                         if(attrTypeCtrl.hasError()) {
                             request.setAttribute("error", "Error: " + attrTypeCtrl.getError());
-                            request.setAttribute("returnTo", "/admin/categories");
+                            request.setAttribute("returnTo", "../categories");
                             request.getRequestDispatcher("/genericError.ftl").forward(request, response);
                             return;
                         }else{
                             request.setAttribute("error", "An unknown error occurred.");
-                            request.setAttribute("returnTo", "/admin/categories");
+                            request.setAttribute("returnTo", "../categories");
                             request.getRequestDispatcher("/genericError.ftl").forward(request, response);
                             return;
                         }
@@ -113,7 +120,7 @@ public class DeleteAttributeAdminUI extends HttpServlet {
             }
             catch(NumberFormatException e) {
                 request.setAttribute("error", "Bad ID passed.");
-                request.setAttribute("returnTo", "/admin/categories");
+                request.setAttribute("returnTo", "../categories");
                 request.getRequestDispatcher("/genericError.ftl").forward(request, response);
                 return;
             }
@@ -125,7 +132,7 @@ public class DeleteAttributeAdminUI extends HttpServlet {
 
     @Override
     public String getServletInfo() {
-        return "Category UI";
+        return "Delete Attribute Type UI";
     }// </editor-fold>
 
 }

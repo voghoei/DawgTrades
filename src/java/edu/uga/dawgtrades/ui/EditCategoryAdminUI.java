@@ -58,19 +58,19 @@ public class EditCategoryAdminUI extends HttpServlet {
                     request.getRequestDispatcher("/categoryEditAdmin.ftl").forward(request, response);
                 }else{
                     request.setAttribute("error", "Category doesn't exist.");
-                    request.setAttribute("returnTo", "/admin/categories");
+                    request.setAttribute("returnTo", "../categories");
                     request.getRequestDispatcher("/genericError.ftl").forward(request, response);
                     return; 
                 }
             }catch(NumberFormatException e) {
                 request.setAttribute("error", "Invalid category given: Not a number.");
-                request.setAttribute("returnTo", "/admin/categories");
+                request.setAttribute("returnTo", "../categories");
                 request.getRequestDispatcher("/genericError.ftl").forward(request, response);
                 return; 
             }
         }else{
             request.setAttribute("error", "No category given.");
-            request.setAttribute("returnTo", "/admin/categories");
+            request.setAttribute("returnTo", "../categories");
             request.getRequestDispatcher("/genericError.ftl").forward(request, response);
             return; 
         }
@@ -123,13 +123,13 @@ public class EditCategoryAdminUI extends HttpServlet {
             }
             catch(NumberFormatException e) {
                 request.setAttribute("error", "Invalid parent category given: Not a number.");
-                request.setAttribute("returnTo", "/admin/categories");
+                request.setAttribute("returnTo", "../categories");
                 request.getRequestDispatcher("/genericError.ftl").forward(request, response);
                 return;
             }
         }else{
             request.setAttribute("error", "Insufficient parameters given.");
-            request.setAttribute("returnTo", "/admin/categories");
+            request.setAttribute("returnTo", "../categories");
             request.getRequestDispatcher("/genericError.ftl").forward(request, response);
             return;
         }
@@ -137,7 +137,7 @@ public class EditCategoryAdminUI extends HttpServlet {
 
     @Override
     public String getServletInfo() {
-        return "Category UI";
+        return "Edit Category UI";
     }// </editor-fold>
 
 }

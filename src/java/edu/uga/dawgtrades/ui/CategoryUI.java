@@ -41,16 +41,24 @@ public class CategoryUI extends HttpServlet {
             request.removeAttribute("loggedInUser");
         }
         CategoryControl catCtrl = new CategoryControl();
+
+        // Check if an ID is given
         String categoryID = request.getParameter("id");
         if(categoryID != null) {
             try {
                 long id = Long.parseLong(categoryID, 10);
+
+                // If it's valid...
                 if(id > 0) {
+                    // Get category
                     Category toBrowse = catCtrl.getCategoryWithID(id);
                     if(toBrowse != null) {
                         request.setAttribute("specificCategory", toBrowse);
+
+                        // Get direct subcategories.
                         ArrayList<Category> subCats = catCtrl.getCategoriesWithParentID(id);
                         if(subCats != null && !subCats.isEmpty()) {
+                            // Grab a count of each subcategory's auctions
                             ArrayList<Long> counts = new ArrayList<Long>();
                             for(Category cat : subCats) {
                                 counts.add(new Long(catCtrl.getCategoryItemCount(cat.getId())));
@@ -64,8 +72,11 @@ public class CategoryUI extends HttpServlet {
                                 request.setAttribute("error", "Unknown error while getting subcategories");
                             }
                         }
+
+                        // Get the auctions under this category.
                         ArrayList<Auction> auctions = catCtrl.getCategoryAuctions(id);
                         if(auctions != null) {
+                            // Get auction metadata
                             HashMap<String, Bid> bids = catCtrl.getBidsForAuctions(auctions);
                             HashMap<String, Item> items = catCtrl.getItemsForAuctions(auctions);
                             if(bids != null && items != null) {
@@ -88,6 +99,8 @@ public class CategoryUI extends HttpServlet {
                                 request.setAttribute("error", "Unknown error while getting auctions");
                             }   
                         }
+
+                        // Forward request.
                         request.getRequestDispatcher("/category.ftl").forward(request, response);
                         return;
                     }else{

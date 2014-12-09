@@ -19,6 +19,7 @@ public class AdminPanelUI extends HttpServlet{
 
 	 @Override
         protected void doGet(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException{
+        // Ensure logged in
 		HttpSession session = request.getSession(true);
 		LoginControl ctrl = new LoginControl();
 		if(!ctrl.checkIsLoggedIn(session)){
@@ -26,6 +27,8 @@ public class AdminPanelUI extends HttpServlet{
 			return;
 		}else{
 			RegisteredUser currentUser = (RegisteredUser)session.getAttribute("currentSessionUser");
+
+			// Check authorization
 			if(!currentUser.getIsAdmin()) {
 				response.sendRedirect("/");
 				return;
@@ -33,6 +36,7 @@ public class AdminPanelUI extends HttpServlet{
 			request.setAttribute("loggedInUser",currentUser);
 		}
 		
+		// Show page
 		request.getRequestDispatcher("/adminsettings.ftl").forward(request,response);
 
 	}

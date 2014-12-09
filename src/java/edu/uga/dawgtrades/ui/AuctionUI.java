@@ -51,32 +51,35 @@ public class AuctionUI extends HttpServlet {
         }
 
 
+        // Get the auction we're viewing.
         AuctionControl auctionCtrl = new AuctionControl();
-
         String auctionID = request.getParameter("id");
         if(auctionID != null) {
             try {
+                // Get + check if the ID works.
                 long id = Long.parseLong(auctionID, 10);
                 Auction toView = auctionCtrl.getAuctionWithID(id);
                 if(toView != null) {
+
+                    // Got an auction, moving on to get its metadata.
                     request.setAttribute("auction", toView);
 
+                    // Get its category.
                     CategoryControl catCtrl = new CategoryControl();
-                    
                     Category auctionCategory = catCtrl.getCategoryWithID(auctionCtrl.getCategoryIDForAuctionID(id));
-
                     if(auctionCategory == null) {
                         if(catCtrl.hasError()) {
                            request.setAttribute("error", catCtrl.getError());
                         }else{
                            request.setAttribute("error", "Unkown error occurred while getting auction category.");
                         }
-                        request.setAttribute("returnTo", "/category");
+                        request.setAttribute("returnTo", "category");
                         request.getRequestDispatcher("/genericError.ftl").forward(request, response);
                         return;
 
                     }
                     
+                    // Get the attributes for it.
                     ArrayList<Attribute> attributes = auctionCtrl.getAttributesForAuctionID(id);
                     HashMap<String, Attribute> attributeForType = new HashMap<String, Attribute>();
                     
@@ -86,7 +89,7 @@ public class AuctionUI extends HttpServlet {
                         }else{
                            request.setAttribute("error", "Unkown error occurred while getting auction attributes.");
                         }
-                        request.setAttribute("returnTo", "/category");
+                        request.setAttribute("returnTo", "category");
                         request.getRequestDispatcher("/genericError.ftl").forward(request, response);
                         return;
 
@@ -96,6 +99,7 @@ public class AuctionUI extends HttpServlet {
                         attributeForType.put(new Long(attr.getAttributeTypeId()).toString(), attr);
                     }
 
+                    // Get the attribute type metadata
                     ArrayList<AttributeType> attributeTypes = auctionCtrl.getAttributeTypesForCategory(auctionCategory.getId());
                     
                     if(attributeTypes == null) {
@@ -104,12 +108,13 @@ public class AuctionUI extends HttpServlet {
                         }else{
                            request.setAttribute("error", "Unkown error occurred while getting category attributes.");
                         }
-                        request.setAttribute("returnTo", "/category");
+                        request.setAttribute("returnTo", "category");
                         request.getRequestDispatcher("/genericError.ftl").forward(request, response);
                         return;
 
                     }
                     
+                    // Grab the list of bids
                     ArrayList<Bid> bids = auctionCtrl.getBidsForAuctionID(id);
                     
                     if(bids == null) {
@@ -118,40 +123,42 @@ public class AuctionUI extends HttpServlet {
                         }else{
                            request.setAttribute("error", "Unkown error occurred while getting bids.");
                         }
-                        request.setAttribute("returnTo", "/category");
+                        request.setAttribute("returnTo", "category");
                         request.getRequestDispatcher("/genericError.ftl").forward(request, response);
                         return;
 
                     }
                     
+
+                    // Grab the owner.
                     RegisteredUser owner = auctionCtrl.getOwnerForAuctionID(id);
-                    
                     if(owner == null) {
                         if(auctionCtrl.hasError()) {
                            request.setAttribute("error", auctionCtrl.getError());
                         }else{
                            request.setAttribute("error", "Unkown error occurred while getting the auction owner.");
                         }
-                        request.setAttribute("returnTo", "/category");
+                        request.setAttribute("returnTo", "category");
                         request.getRequestDispatcher("/genericError.ftl").forward(request, response);
                         return;
 
                     }
                     
+                    // Grab the item in the auction.
                     Item item = auctionCtrl.getItemForAuctionID(id);
-                    
                     if(item == null) {
                         if(auctionCtrl.hasError()) {
                            request.setAttribute("error", auctionCtrl.getError());
                         }else{
                            request.setAttribute("error", "Unknown error occurred while getting the auction item.");
                         }
-                        request.setAttribute("returnTo", "/category");
+                        request.setAttribute("returnTo", "category");
                         request.getRequestDispatcher("/genericError.ftl").forward(request, response);
                         return;
 
                     }
 
+                    // If it's closed, calculate a winner (if any)
                     if(toView.getIsClosed()) {
                         // Get winner of auction (assuming there is one...)
                         if(!bids.isEmpty()) {
@@ -181,12 +188,12 @@ public class AuctionUI extends HttpServlet {
                 }else{
                     if(auctionCtrl.hasError()) {
                         request.setAttribute("error", auctionCtrl.getError());
-                        request.setAttribute("returnTo", "/category");
+                        request.setAttribute("returnTo", "category");
                         request.getRequestDispatcher("/genericError.ftl").forward(request, response);
                         return;
                     }else{
                         request.setAttribute("error", "Auction does not exist.");
-                        request.setAttribute("returnTo", "/category");
+                        request.setAttribute("returnTo", "category");
                         request.getRequestDispatcher("/genericError.ftl").forward(request, response);
                         return;
                     }
@@ -194,11 +201,12 @@ public class AuctionUI extends HttpServlet {
             }
             catch(NumberFormatException e) {
                 request.setAttribute("error", "Invalid auction ID. Please try again.");
-                request.setAttribute("returnTo", "/category");
+                request.setAttribute("returnTo", "category");
                 request.getRequestDispatcher("/genericError.ftl").forward(request, response);
                 return;
             }
         }else{
+            // No auction means a redirect home.
             response.sendRedirect("/");
             return;
         }

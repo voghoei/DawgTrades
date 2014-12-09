@@ -43,6 +43,8 @@ public class CategoryAdminUI extends HttpServlet {
             }
             request.setAttribute("loggedInUser",currentUser);
         }
+
+        // Just populate category map
         HashMap<String, ArrayList> children = catCtrl.populateHashmapWithCategories(0);
         request.setAttribute("categoriesMap", children);
         request.getRequestDispatcher("/categoryAdmin.ftl").forward(request, response);

@@ -40,6 +40,8 @@ public class ViewUserUI extends HttpServlet {
             request.setAttribute("loggedInUser", "");;
             request.removeAttribute("loggedInUser");
         }
+
+        // this all basically fetches user info + auction info for user... see others for an idea of how.
         ViewUserControl vuserCtrl = new ViewUserControl();
         CategoryControl catCtrl = new CategoryControl();
         String userID = request.getParameter("id");

@@ -121,13 +121,13 @@ public class EditAttributeAdminUI extends HttpServlet {
             }
             catch(NumberFormatException e) {
                 request.setAttribute("error", "Invalid attribute type ID given: Not a number.");
-                request.setAttribute("returnTo", "/admin/categories");
+                request.setAttribute("returnTo", "../categories");
                 request.getRequestDispatcher("/genericError.ftl").forward(request, response);
                 return;
             }
         }else{
             request.setAttribute("error", "Insufficient parameters given.");
-            request.setAttribute("returnTo", "/admin/categories");
+            request.setAttribute("returnTo", "../categories");
             request.getRequestDispatcher("/genericError.ftl").forward(request, response);
             return;
         }

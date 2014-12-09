@@ -44,6 +44,8 @@ public class CreateAttributeAdminUI extends HttpServlet {
             request.setAttribute("loggedInUser",currentUser);
         }
 
+        // Literally just check that the category exists.
+
         String categoryID = request.getParameter("categoryID");
         if(categoryID != null) {
             try {
@@ -54,20 +56,20 @@ public class CreateAttributeAdminUI extends HttpServlet {
                     return;
                 }else{
                     request.setAttribute("error", "Category doesn't exist.");
-                    request.setAttribute("returnTo", "/admin/categories");
+                    request.setAttribute("returnTo", "../categories");
                     request.getRequestDispatcher("/genericError.ftl").forward(request, response);
                     return; 
                 }
             }
             catch(NumberFormatException e) {
                 request.setAttribute("error", "Invalid category given: Not a number.");
-                request.setAttribute("returnTo", "/admin/categories");
+                request.setAttribute("returnTo", "../categories");
                 request.getRequestDispatcher("/genericError.ftl").forward(request, response);
                 return; 
             }
         }else {
             request.setAttribute("error", "Category required.");
-            request.setAttribute("returnTo", "/admin/categories");
+            request.setAttribute("returnTo", "../categories");
             request.getRequestDispatcher("/genericError.ftl").forward(request, response);
             return; 
         }
@@ -92,6 +94,8 @@ public class CreateAttributeAdminUI extends HttpServlet {
             }
             request.setAttribute("loggedInUser",currentUser);
         }
+
+        // Get attributeType metadata
         String categoryID = request.getParameter("categoryID");
         String name = request.getParameter("name");
         String isString = request.getParameter("isString");
@@ -107,37 +111,37 @@ public class CreateAttributeAdminUI extends HttpServlet {
                     }
                     AttributeTypeControl attrTypeCtrl = new AttributeTypeControl();
                     if(attrTypeCtrl.createAttributeType(id, name, (isString != null))) {
-                        response.sendRedirect("/admin/categories/edit?id=" + new Long(id).toString());
+                        response.sendRedirect("../categories/edit?id=" + new Long(id).toString());
                         return;
                     }else{
                         if(catCtrl.hasError()) {
                             request.setAttribute("error", "Error: " + catCtrl.getError());
-                            request.setAttribute("returnTo", "/admin/categories");
+                            request.setAttribute("returnTo", "../categories");
                             request.getRequestDispatcher("/genericError.ftl").forward(request, response);
                             return;
                         }else{
                             request.setAttribute("error", "An unknown error occurred.");
-                            request.setAttribute("returnTo", "/admin/categories");
+                            request.setAttribute("returnTo", "../categories");
                             request.getRequestDispatcher("/genericError.ftl").forward(request, response);
                             return;
                         }
                     }
                 }else{
                     request.setAttribute("error", "Category doesn't exist.");
-                    request.setAttribute("returnTo", "/admin/categories");
+                    request.setAttribute("returnTo", "../categories");
                     request.getRequestDispatcher("/genericError.ftl").forward(request, response);
                     return; 
                 }
             }
             catch(NumberFormatException e) {
                 request.setAttribute("error", "Invalid category given: Not a number.");
-                request.setAttribute("returnTo", "/admin/categories");
+                request.setAttribute("returnTo", "../categories");
                 request.getRequestDispatcher("/genericError.ftl").forward(request, response);
                 return; 
             }
         }else {
             request.setAttribute("error", "Missing parameters.");
-            request.setAttribute("returnTo", "/admin/categories");
+            request.setAttribute("returnTo", "../categories");
             request.getRequestDispatcher("/genericError.ftl").forward(request, response);
             return; 
         }
@@ -145,7 +149,7 @@ public class CreateAttributeAdminUI extends HttpServlet {
 
     @Override
     public String getServletInfo() {
-        return "Category UI";
+        return "Category Attribute Add UI";
     }// </editor-fold>
 
 }

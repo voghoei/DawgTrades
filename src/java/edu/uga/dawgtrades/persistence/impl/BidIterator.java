@@ -57,7 +57,7 @@ public class BidIterator implements Iterator<Bid> {
                 if(timestamp == null) {
                     throw new DTException("BidIterator: Failed to retrieve timestamp from DB.");
                 }
-                bid.setDate(new java.util.Date(timestamp.getTime())));
+                bid.setDate(new java.util.Date(timestamp.getTime()));
                 bid.setId(rs.getLong(1));
                 more = rs.next();
                 return bid;

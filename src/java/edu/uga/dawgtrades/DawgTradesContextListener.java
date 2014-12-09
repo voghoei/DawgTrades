@@ -16,19 +16,20 @@ public class DawgTradesContextListener implements ServletContextListener {
             }
         }
     }
-    private WorkerThreadClass myThread = null;
+    private Thread myThread = null;
+    private WorkerThreadClass worker = null
 
     public void contextInitialized(ServletContextEvent sce) {
         if ((myThread == null) || (!myThread.isAlive())) {
-            myThread = new MyThreadClass();
+            worker = new WorkerThreadClass();
+            myThread = new Thread(worker);
             myThread.start();
         }
     }
 
     public void contextDestroyed(ServletContextEvent sce){
         try {
-            myThread.doShutdown();
-            myThread.running = false;
+            worker.running = false;
             myThread.interrupt();
         } catch (Exception ex) {
         }

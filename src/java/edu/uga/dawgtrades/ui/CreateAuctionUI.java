@@ -17,6 +17,7 @@ import javax.servlet.http.HttpSession;
 import java.util.*;
 
 public class CreateAuctionUI extends HttpServlet{
+	private static long itemId;
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException{
 		HttpSession session = request.getSession(true);
@@ -33,7 +34,7 @@ public class CreateAuctionUI extends HttpServlet{
 		}
 		//if the form hasn't been filled out yet. Just so it doesn't do this part for no reason
 		if(request.getParameter("id") != null && request.getParameter("expiration") == null){
-			long itemId = Long.parseLong(request.getParameter("id"));
+			this.itemId = Long.parseLong(request.getParameter("id"));
 			Item item = auctionCtrl.getItem(itemId);
 			request.setAttribute("item",item);
 		}
@@ -41,7 +42,7 @@ public class CreateAuctionUI extends HttpServlet{
 		if(request.getParameter("expiration") != null){
 			Map<String,String[]> parameters = request.getParameterMap();
 			//send to database
-			if(!auctionCtrl.attemptAuctionCreate(parameters)){
+			if(!auctionCtrl.attemptAuctionCreate(parameters,this.itemId)){
 				request.setAttribute("error", "Error: "+auctionCtrl.getError());	
 			}
 			response.sendRedirect("/");

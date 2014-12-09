@@ -126,7 +126,7 @@ public class MyAuctionsControl{
                       this.close();
                 }
 
-
+	}
 	public boolean hasError(){
 		return this.hasError;
 	}

@@ -25,8 +25,8 @@ public class ItemManager {
     }
 
     public void save(Item item) throws DTException {
-        String insertItemSQL = "INSERT INTO Item (user_id, Category_id, code, name, description) VALUES (?, ?, ?, ?, ?)";
-        String updateItemSQL = "UPDATE Item SET user_id=?,Category_id=?,code=?,name=?,description=? WHERE id = ?";
+        String insertItemSQL = "INSERT INTO Item (user_id, Category_id, name, description) VALUES (?, ?, ?, ?)";
+        String updateItemSQL = "UPDATE Item SET user_id=?,Category_id=?,name=?,description=? WHERE id = ?";
         PreparedStatement stmt = null;
         ResultSet rs = null;
         try {
@@ -35,14 +35,13 @@ public class ItemManager {
                 stmt = (PreparedStatement) conn.prepareStatement(insertItemSQL, Statement.RETURN_GENERATED_KEYS);
             } else {
                 stmt = (PreparedStatement) conn.prepareStatement(updateItemSQL);
-                stmt.setLong(6, item.getId());
+                stmt.setLong(5, item.getId());
             }
             // Set attributes
             stmt.setLong(1, item.getOwnerId());
-            stmt.setLong(2, item.getCategoryId());            
-            stmt.setString(3, item.getCode());
-            stmt.setString(4, item.getName());
-            stmt.setString(5, item.getDescription());
+            stmt.setLong(2, item.getCategoryId());
+            stmt.setString(3, item.getName());
+            stmt.setString(4, item.getDescription());
 
             // Again, check which type of updte.
             if (!item.isPersistent()) {
@@ -97,7 +96,7 @@ public class ItemManager {
 
     public Iterator<Item> restore(Item item) throws DTException {
         // Base selectItem SQL
-        String selectItemSql = "SELECT id, user_id, Category_id, code, name, description FROM Item";
+        String selectItemSql = "SELECT id, user_id, Category_id, name, description FROM Item";
         PreparedStatement stmt = null;
         ResultSet rs = null;
 
@@ -122,16 +121,6 @@ public class ItemManager {
                         conditions = true;
                         selectItemSql += " WHERE name = ?";
                         arguments.add(item.getName());
-                    }
-                    if (item.getCode() != "") {
-                        if (!conditions) {
-                            conditions = true;
-                            selectItemSql += " WHERE";
-                        } else {
-                            selectItemSql += " AND";
-                        }
-                        selectItemSql += " code = ?";
-                        arguments.add(item.getCode());
                     }
                     if (item.getDescription() != "") {
                         if (!conditions) {

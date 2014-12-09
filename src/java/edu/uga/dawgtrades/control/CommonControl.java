@@ -25,6 +25,10 @@ public class CommonControl{
         	"c3daec042ebd773d1d2e505235f1449c4ff1625f",
         	"Registration successful! Login with your username and password below."
     	);
+        infoMessages.put(
+        	"556961b3f4bbd252ff169bbf5502611444faa0de",
+        	"Bid placed!"
+    	);
     }
 	public boolean isAdmin(RegisteredUser user)throws ServletException, IOException,DTException{
 		Connection conn = null;

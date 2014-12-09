@@ -125,9 +125,9 @@ public class ObjectModelImpl extends Persistent implements ObjectModel {
     }
 
     //Item
-    public Item createItem(Category category, RegisteredUser user, String identifier,
+    public Item createItem(Category category, RegisteredUser user,
             String name, String description) {
-        Item newItem = new ItemImpl(category.getId(), user.getId(), identifier, name);
+        Item newItem = new ItemImpl(category.getId(), user.getId(), name);
         newItem.setDescription(description);
         return newItem;
     }

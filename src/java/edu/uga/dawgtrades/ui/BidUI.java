@@ -65,7 +65,7 @@ public class BidUI extends HttpServlet {
                 // Rounded to 00
                 DecimalFormat df = new DecimalFormat("0.00");
                 String format = df.format(amount);
-                amount = (Double) df.parse(format);
+                amount = df.parse(format).doubleValue();
 
 
                 Auction auction = auctionCtrl.getAuctionWithID(id);

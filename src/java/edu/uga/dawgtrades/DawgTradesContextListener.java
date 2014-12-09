@@ -12,12 +12,15 @@ public class DawgTradesContextListener implements ServletContextListener {
         public boolean running = true;
         public void run() {
             while(running) {
-                Thread.sleep(10000);
+                try{
+                    Thread.sleep(10000);
+                }
+                catch(InterruptedException e) {return;}
             }
         }
     }
     private Thread myThread = null;
-    private WorkerThreadClass worker = null
+    private WorkerThreadClass worker = null;
 
     public void contextInitialized(ServletContextEvent sce) {
         if ((myThread == null) || (!myThread.isAlive())) {

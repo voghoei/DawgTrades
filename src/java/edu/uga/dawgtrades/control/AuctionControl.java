@@ -73,7 +73,7 @@ public class AuctionControl {
             Iterator<Auction> results = this.objectModel.findAuction(proto);
             if(results.hasNext()) {
                 proto = results.next();
-                return type.getCategoryId();
+                return proto.getCategoryId();
             }else{
                 return -1;
             }
@@ -149,7 +149,7 @@ public class AuctionControl {
                      types.add(results.next());
                 }
                 if(parentID > 0) {
-                    ArrayList<AttributeType> parentTypes = this.getAttributeTypeForCategory(parentID);
+                    ArrayList<AttributeType> parentTypes = this.getAttributeTypesForCategory(parentID);
                     if(parentTypes != null) {
                         types.addAll(parentTypes);
                     }else{

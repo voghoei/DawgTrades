@@ -153,8 +153,8 @@ public class AuctionUI extends HttpServlet {
                     request.getRequestDispatcher("/category.ftl").forward(request, response);
                     return;
                 }else{
-                    if(catCtrl.hasError()) {
-                        request.setAttribute("error", catCtrl.getError());
+                    if(auctionCtrl.hasError()) {
+                        request.setAttribute("error", auctionCtrl.getError());
                         request.setAttribute("returnTo", "/category");
                         request.getRequestDispatcher("/genericError.ftl").forward(request, response);
                         return;

@@ -36,7 +36,7 @@
 		  <div class="panel-heading">
 		  	Category Navigation
 		  </div>
-		  <div class="panel-body list-group">
+		  <div class="list-group">
 		  	<a href="category?id=${specificCategory.getParentId()}" class="list-group-item"><span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span> Go to parent category</a>
 		  </div>
 		</div>

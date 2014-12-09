@@ -21,7 +21,8 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
-import java.util.Iterator;
+import java.util.*;
+import java.text.SimpleDateFormat;
 
 public class CreateAuctionCtrl{
 
@@ -46,6 +47,32 @@ public class CreateAuctionCtrl{
                 }
         }
 	
+	public boolean attemptAuctionCreate(Map<String,String[]> parameters){
+		boolean created = true;
+		try{
+			this.connect();
+			//create empty auction
+			Auction auction = objectModel.createAuction();
+			//formate for datetime: yyyy-MM-dd HH:mm:ss
+			String date = parameters.get("expiration")[0];
+			String time = parameters.get("expiration-time")[0];
+			String datetime = date+" "+time;
+			double minPrice = Double.parseDouble(parameters.get("minPrice")[0]);	
+			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");			
+			long itemId = Long.parseLong( parameters.get("id")[0]);
+			Date date = formatter.parse(datetime);
+			auction.setMinPrice(minPrice);
+			auction.setExpiration(datetime);
+			auction.setItemId(itemId);
+		}catch(DTException e){
+			this.error = e.getMessage();
+			this.hasError = true;
+			created = false;
+		}finally{
+			this.close();
+		}
+		return created;
+	}
 	
 
 	public Item getItem(long id){

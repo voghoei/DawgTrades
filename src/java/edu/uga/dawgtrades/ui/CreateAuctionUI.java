@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.*;
 
 public class CreateAuctionUI extends HttpServlet{
 	@Override
@@ -30,10 +31,20 @@ public class CreateAuctionUI extends HttpServlet{
 			RegisteredUser currentUser = (RegisteredUser)session.getAttribute("currentSessionUser");
 			request.setAttribute("loggedInUser",currentUser);
 		}
-		if(request.getParameter("id") != null){
+		//if the form hasn't been filled out yet. Just so it doesn't do this part for no reason
+		if(request.getParameter("id") != null && request.getParameter("expiration") == null){
 			long itemId = Long.parseLong(request.getParameter("id"));
 			Item item = auctionCtrl.getItem(itemId);
 			request.setAttribute("item",item);
+		}
+		//if the form has been submitted
+		if(request.getParameter("expiration") != null){
+			Map<String,String[]> parameters = request.getParameterMap();
+			//send to database
+			if(!auctionCtrl.attemptAuctionCreate(parameters)){
+				request.setAttribute("error", "An error occurred");	
+			}
+			response.sendRedirect("/");
 		}
 		
 		request.getRequestDispatcher("/createAuction.ftl").forward(request,response);

@@ -19,7 +19,7 @@
 	</div>
 </div>
 </#if>
-<h1>Search Results</h1>
+<h1>Search Results in ${searchCategory.getName()}</h1>
 <div class="row">
 	<div class="col-md-3">
 		<div class="panel panel-default">

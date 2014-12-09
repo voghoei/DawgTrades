@@ -194,7 +194,7 @@ public class SearchUI extends HttpServlet {
                     for(AttributeType attribute : attributeTypes) {
                         ArrayList<Auction> currentCandidates = new ArrayList<Auction>();
                         String attrValString = request.getParameter("attr_" + Long.valueOf(attribute.getId()).toString());
-                        if(attrValString == null || attrValString == "") {
+                        if(attrValString == null || attrValString.isEmpty()) {
                             continue;
                         }else{
                             searchVals.put("attr_" + Long.valueOf(attribute.getId()).toString(), attrValString);
@@ -231,13 +231,13 @@ public class SearchUI extends HttpServlet {
                                 String attrValComp = request.getParameter("attr_" + Long.valueOf(attribute.getId()).toString() + "_comparison");
                                 if(
                                     attrValComp == null ||
-                                    (
-                                        attrValComp != "lt" &&
-                                        attrValComp != "lte" &&
-                                        attrValComp != "eq" &&
-                                        attrValComp != "neq" &&
-                                        attrValComp != "gte" &&
-                                        attrValComp != "gt"
+                                    !(
+                                        attrValComp.equals("lt") ||
+                                        attrValComp.equals("lte") ||
+                                        attrValComp.equals("eq") ||
+                                        attrValComp.equals("neq") ||
+                                        attrValComp.equals("gte") ||
+                                        attrValComp.equals("gt")
                                     )
                                 ) {
                                     // Got a search key without valid comparison operator, skip it.

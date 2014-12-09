@@ -42,7 +42,7 @@ public class CreateItemCtrl{
 		}
 	}
 	
-	public boolean attemptItemCreate(Map<String,String[]> parameters, long userId)throws DTException, ServletException,IOException{
+	public boolean attemptItemCreate(Map<String,String[]> parameters, long userId){
 
 		boolean created=true;
 		try{

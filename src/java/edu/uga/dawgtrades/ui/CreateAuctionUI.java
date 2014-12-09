@@ -4,6 +4,8 @@ import edu.uga.dawgtrades.DTException;
 import edu.uga.dawgtrades.control.LoginControl;
 import edu.uga.dawgtrades.control.CreateAuctionCtrl;
 import edu.uga.dawgtrades.control.CreateItemCtrl;
+import edu.uga.dawgtrades.control.CategoryControl;
+import edu.uga.dawgtrades.model.Category;
 import edu.uga.dawgtrades.model.RegisteredUser;
 import edu.uga.dawgtrades.model.Item;
 import java.io.IOException;
@@ -23,6 +25,7 @@ public class CreateAuctionUI extends HttpServlet{
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException{
 		HttpSession session = request.getSession(true);
 		LoginControl ctrl = new LoginControl();
+                CategoryControl catCtrl = new CategoryControl();
 		CreateAuctionCtrl auctionCtrl = new CreateAuctionCtrl();
 		if(!ctrl.checkIsLoggedIn(session)){
 			response.sendRedirect("/login");
@@ -71,9 +74,9 @@ public class CreateAuctionUI extends HttpServlet{
                 String itemName = request.getParameter("name");
                 String desc = request.getParameter("desc");
                 String catID = request.getParameter("catId");
-		String expiration = request.getParameters("expiration");
-		String expTime = request.getParameters("expiration-time");
-		String minPrice = request.getParameters("minPrice");
+		String expiration = request.getParameter("expiration");
+		String expTime = request.getParameter("expiration-time");
+		String minPrice = request.getParameter("minPrice");
                 if(itemName != null){
                         if(itemName.isEmpty()) {
                                 request.setAttribute("error","Name is required.");
@@ -83,7 +86,7 @@ public class CreateAuctionUI extends HttpServlet{
                                 request.setAttribute("error","Category is invalid.");
                         }else if(!auctionCtrl.dateIsValid(expiration,expTime)){
 				request.setAttribute("error","Date is invalid.");			
-			}else if(minPrice <= 0){
+			}else if(Double.parseDouble(minPrice) <= 0){
 				request.setAttribute("error","Minimum Selling price must greater than 0");
 			}else{
 				Map<String,String[]> parameters = request.getParameterMap();

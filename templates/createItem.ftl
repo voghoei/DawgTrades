@@ -30,7 +30,12 @@
  			<select class="form-control" onChange="window.location.href=this.value">
                         <option value="#"> Select a Category </option>
                         <#if categoryList??>
-                                        <#list categoryList as category><option value="/createItem?id=${category.getId()}"<#if ${category.getId()} == ${categoryChosen.getId()}>seleted</#if> >${category.getName()}</option>
+                                        <#list categoryList as category>
+					<#if ${category.getId()} == ${categoryChosen.getId()}>
+					<option value="/createItem?id=${category.getId()}" selected>${category.getName()}</option>
+					<#else>
+					<option value="/createItem?id=${category.getId()}">${category.getName()}</option>
+					</#if>
                                         </#list>
 
 			<#else>

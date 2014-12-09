@@ -33,9 +33,9 @@ public class SettingsUI extends HttpServlet{
 		String page = request.getParameter("id");
 		if(page == null){
 			request.setAttribute("profile"," ");
-		}else if(page == "password"){
+		}else if(page.equals("password")){
 			request.setAttribute("password"," ");
-		} else if(page == "other"){
+		} else if(page.equals( "other")){
 			request.setAttribute("other"," ");
 		}
 		request.getRequestDispatcher("/settings.ftl").forward(request,response);

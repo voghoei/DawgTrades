@@ -72,7 +72,7 @@
 						</div>
 					</div>
 					<div class="input-group clearfix input-group-lg">
-						<button type="submit" class="btn btn-default pull-right"> Place Bid</button>
+						<button type="submit" class="btn btn-success pull-right"> Place Bid</button>
 					</div>
 				</form>
 			</div>

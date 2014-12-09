@@ -14,17 +14,32 @@
 
 
 <div class="row">
-	<#if auctions??>
-		<div class="list-group">
-		<#list items as item>
-			<#assign itemId = "${item.getId()}">
-			<#if auctions[itemId]??>
-				<a href="/auction?id=${auctions[itemId].getId()}" class="list-group-item <#if auctions[itemId].getIsClosed()>list-group-item-danger<#else>list-group-item-success</#if>">${item.getName()} (<#if auctions[itemId].getIsClosed()>Closed<#else>Open</#if>)</a>
-			</#if>
-		</#list>
+	<div class="col-md-3">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				Actions
+			</div>
+			<div class="list-group">
+				<a class="list-group-item" href="createAuction">
+                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                    Create Auction
+                </a>
+			</div>
 		</div>
-	<#else>
-		<h2> You don't have any active auctions</h2>
-	</#if>
+	</div>
+	<div class="col-md-9">
+		<#if auctions??>
+			<div class="list-group">
+			<#list items as item>
+				<#assign itemId = "${item.getId()}">
+				<#if auctions[itemId]??>
+					<a href="/auction?id=${auctions[itemId].getId()}" class="list-group-item <#if auctions[itemId].getIsClosed()>list-group-item-danger<#else>list-group-item-success</#if>">${item.getName()} (<#if auctions[itemId].getIsClosed()>Closed<#else>Open</#if>)</a>
+				</#if>
+			</#list>
+			</div>
+		<#else>
+			<p class="lead lead-no-bottom-margin text-center">You have no auctions.</p>
+		</#if>
+	</div>
 </div>
 </@default.mainLayout>

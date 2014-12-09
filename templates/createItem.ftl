@@ -57,7 +57,7 @@
 				<div class="form-group">
 					<#list attributes as attribute>
 					<label class="control-label" for="attribute">${attribute.getName()}</label>
-					<input type="text" class="form-control" name="attribute" required>
+					<input type="text" class="form-control" name="${attribute.getId()}" required>
 					</#list>
 				</div>
 			</#if>

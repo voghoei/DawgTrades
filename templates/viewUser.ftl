@@ -41,10 +41,10 @@
 						<#assign auctionID = "${auction.getId()}">
 							<div class="col-md-4">
 								<h5><a href="/auction?id=${auction.getId()}">${items[auctionID].getName()}</a></h5>
-								<p><#if ${auction.getIsClosed()}>Ended<#else>Ends</#if> on ${auction.getExpiration()?datetime}</p>
+								<p><#if auction.getIsClosed()>Ended<#else>Ends</#if> on ${auction.getExpiration()?datetime}</p>
 								<p>Minimum bid: $${auction.getMinPrice()}</p>
 								<p>Current bid: <#if auctionBids[auctionID]??>$${auctionBids[auctionID].getAmount()}<#else>None</#if></p>
-								<p>Status: <#if ${auction.getIsClosed()}>Closed<#else>Open</#if></p>
+								<p>Status: <#if auction.getIsClosed()>Closed<#else>Open</#if></p>
 							</div>
 						</#list>
 					</div>

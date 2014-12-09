@@ -20,14 +20,14 @@
 		<div class="form-group">
 			<#if categoryChosen??>
 				<label for="category"> Category:</label>
- 				<select class="form-control" onChange="window.location.href=this.value" required>
+ 				<select name="catId" class="form-control" onChange="window.location.href=this.value" required>
                         	<option value="#"> Select a Category </option>
                         	<#if categoryList??>
                                         <#list categoryList as category>
 					<#if category.getId() == categoryChosen.getId()>
-					<option name="catId" value="/createItem?id=${category.getId()}" selected>${category.getName()}</option>
+					<option value="/createItem?id=${category.getId()}" selected>${category.getName()}</option>
 					<#else>
-					<option name="catId" value="/createItem?id=${category.getId()}">${category.getName()}</option>
+					<option value="/createItem?id=${category.getId()}">${category.getName()}</option>
 					</#if>
                                         </#list>
 				</#if>

@@ -103,7 +103,7 @@ public class MyBidsControl {
     }
 
     public ArrayList<Auction> getAuctionsForBids(ArrayList<Bid> bids) {
-        ArrayList<Auction> out = new ArrayList<Bid>();
+        ArrayList<Auction> out = new ArrayList<Auction>();
         try {
             this.connect();
             for(Bid bid : bids) {

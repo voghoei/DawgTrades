@@ -74,7 +74,7 @@ public class CreateItemCtrl{
 		}finally{
 			close();
 		}
-		return -1;
+	
 	}
 	
 	private void addAttributes(Set<Attribute> attributes){	

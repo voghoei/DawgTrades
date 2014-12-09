@@ -13,6 +13,19 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 public class RegisterUI extends HttpServlet{
+
+	private boolean isNumeric(String str)  
+	{  
+	  try  
+	  {  
+	    double d = Double.parseDouble(str);  
+	  }  
+	  catch(NumberFormatException nfe)  
+	  {  
+	    return false;  
+	  }  
+	  return true;  
+	}
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException{
 		HttpSession session = request.getSession(true);
@@ -36,7 +49,7 @@ public class RegisterUI extends HttpServlet{
 			request.getRequestDispatcher("/register.ftl").forward(request,response);
 			return;			
 		}
-		if(phone.length() != 10){
+		if(phone.length() != 10 || !this.isNumeric(phone)){
 			request.setAttribute("error","Phone number should be 10 digits. (i.e. 5551234567)");
 			request.getRequestDispatcher("/register.ftl").forward(request,response);
 			return;			

@@ -57,7 +57,7 @@
 				</ul>
 		  	</#if>
 	  	</div>
-	  	<#if loggedInUser?? && loggedInUser.getId() != owner.getId()>
+	  	<#if loggedInUser?? && loggedInUser.getId() != owner.getId() && !auction.getIsClosed()>
 			<div class="panel panel-default">
 				<div class="panel-heading">
 					Place a bid

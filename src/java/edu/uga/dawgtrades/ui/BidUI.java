@@ -70,6 +70,12 @@ public class BidUI extends HttpServlet {
 
                 Auction auction = auctionCtrl.getAuctionWithID(id);
                 if(auction != null) {
+                    if(auction.getIsClosed() ) {
+                        request.setAttribute("error", "You can't bid on a closed auction.");
+                        request.setAttribute("returnTo", "/auction?id=" + auctionID);
+                        request.getRequestDispatcher("/genericError.ftl").forward(request, response);
+                        return;
+                    }
                     RegisteredUser owner = auctionCtrl.getOwnerForAuctionID(id);
                     if(owner == null) {
                         if(auctionCtrl.hasError()) {

@@ -34,7 +34,7 @@
  				<select name="catId" class="form-control" onChange="window.location.href='createItem?id=' + this.value" required>
                 	<option value="#" disabled> Select a Category </option>
                 	<#if categoriesMap??>
-						<@catList.categoryList categoryMap=categoriesMap selected="${categoryChosen.getId()}" />
+						<@catList.categoryList categoryMap=categoriesMap/>
 					<#else>
 						<option value="#" disabled> No Categories </option>
 					</#if>

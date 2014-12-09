@@ -69,7 +69,7 @@ public class ViewUserControl {
         try {
             this.connect();
             RegisteredUser user = this.objectModel.createRegisteredUser();
-            user.setId(userID);
+            user.setId(id);
             Iterator<RegisteredUser> results = this.objectModel.findRegisteredUser(user);
             if (results.hasNext()) {
                 return results.next();

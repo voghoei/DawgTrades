@@ -55,8 +55,8 @@ public class ViewUserUI extends HttpServlet {
                         HashMap<String, Bid> bids = catCtrl.getBidsForAuctions(userAuctions);
                         HashMap<String, Item> items = catCtrl.getItemsForAuctions(userAuctions);
                         if(bids != null && items != null) {
-                            request.setAttribute("categoryAuctions", auctions);
-                            request.setAttribute("categoryItems", items);
+                            request.setAttribute("userAuctions", userAuctions);
+                            request.setAttribute("items", items);
                             request.setAttribute("auctionBids", bids);
                             request.getRequestDispatcher("/viewUser.ftl").forward(request, response);
                         }else {

@@ -12,7 +12,10 @@ public class DawgTradesContextListener implements ServletContextListener {
         public boolean running = true;
         public void run() {
             while(running) {
-                Thread.sleep(10000);
+                try{
+                    Thread.sleep(10000);
+                }
+                catch(InterruptedException e) {return;}
             }
         }
     }

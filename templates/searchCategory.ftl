@@ -12,9 +12,9 @@
 				</div>
 			</div>
 			<div class="form-group">
-				<label for="name">Description Contains</label>
+				<label for="description">Description Contains</label>
 				<div class="input-group input-group">
-					<input type="text" class="form-control" name="name">
+					<input type="text" class="form-control" name="description">
 				</div>
 			</div>
 			<#list attributeTypes as attributeType>
@@ -35,6 +35,7 @@
 								<option value="lt">Less Than</option>
 								<option value="lte">Less Than Or Equal To</option>
 								<option value="eq">Equal To</option>
+								<option value="eq">Not Equal To</option>
 								<option value="gte">Greater Than Or Equal To</option>
 								<option value="gt">Greater Than</option>
 							</select>

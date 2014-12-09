@@ -1,7 +1,7 @@
 package edu.uga.dawgtrades.ui;
 
 import edu.uga.dawgtrades.DTException;
-import edu.uga.dawgtrades.control.RegisterControl;
+import edu.uga.dawgtrades.control.LoginControl;
 import edu.uga.dawgtrades.control.MyAuctionsControl;
 import edu.uga.dawgtrades.model.Auction;
 import edu.uga.dawgtrades.model.RegisteredUser;
@@ -32,7 +32,7 @@ public class MyAuctionUI extends HttpServlet{
 		 RegisteredUser currentUser = (RegisteredUser)session.getAttribute("currentSessionUser");
 
 		long userId = currentUser.getId();
-		MyAuctionControl auctionCtrl = new MyAuctionControl();
+		MyAuctionsControl auctionCtrl = new MyAuctionsControl();
 		ArrayList<Auction> auctions = auctionCtrl.getUserAuctions(userId);
 		if(auctions != null){
 			request.setAttribute("auctions",auctions);

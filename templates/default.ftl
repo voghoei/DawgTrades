@@ -46,7 +46,7 @@
 			          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">${loggedInUser.getFirstName()} <span class="caret"></span></a>
 			          <ul class="dropdown-menu" role="menu">
 			            <li><a href="/settings">Account Settings</a></li>
-			            <li><a href="#">My Auctions</a></li>
+			            <li><a href="/myAuctions">My Auctions</a></li>
 			            <li class="divider"></li>
 			            <#if loggedInUser.getIsAdmin()>
 			            <li><a href="/admin">Admin Panel</a></li>

@@ -59,7 +59,7 @@ public class CreateAuctionCtrl{
 			}
 			return item;				
 		}catch(DTException e){
-			this.error = e;
+			this.error = e.getMessage();
 			this.hasError = true;
 			return null;
 		}finally{

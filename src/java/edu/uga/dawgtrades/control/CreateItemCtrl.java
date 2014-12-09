@@ -55,7 +55,7 @@ public class CreateItemCtrl{
 			item.setCategoryId(categoryId);
 			objectModel.storeItem(item);
 			long itemId = item.getId();
-			Iterator<AttributeType> attributeTypes = this.getCategoryAttributesWithExistingConnection(categoryId).iterator();
+			Iterator<AttributeType> attributeTypes = this.getCategoryAttributes(categoryId).iterator();
 			AttributeType attrType = null;
 			while(attributeTypes.hasNext()){
 				attrType = attributeTypes.next();
@@ -102,36 +102,13 @@ public class CreateItemCtrl{
 		}
 	}
 	public ArrayList<AttributeType> getCategoryAttributes(long id){
-		try{
-			this.connect();
-			AttributeType attrType = this.objectModel.createAttributeType();
-			Category category = this.objectModel.createCategory();
-			category.setId(id);
-			Iterator<AttributeType> results = this.objectModel.getAttributeType(category);
-			ArrayList<AttributeType> attributeTypes = new ArrayList<AttributeType>();
-			while(results.hasNext()){
-				attributeTypes.add(results.next());
-			}
-			return attributeTypes;
-		}catch(DTException e){
-			error = e.getMessage();
-			hasError=true;
-			return null;
-		}finally{
-			this.close();
+		AuctionControl auctCtrl = new AuctionControl();
+		ArrayList<AttributeType> out = auctCtrl.getAttributeTypesForCategory(id);
+		if(auctCtrl.hasError()) {
+			this.hasError = true;
+			this.error = auctCtrl.getError();
 		}
-	}
-	private ArrayList<AttributeType> getCategoryAttributesWithExistingConnection(long id)
-		throws DTException{
-		AttributeType attrType = this.objectModel.createAttributeType();
-		Category category = this.objectModel.createCategory();
-		category.setId(id);
-		Iterator<AttributeType> results = this.objectModel.getAttributeType(category);
-		ArrayList<AttributeType> attributeTypes = new ArrayList<AttributeType>();
-		while(results.hasNext()){
-			attributeTypes.add(results.next());
-		}
-		return attributeTypes;
+		return out;
 	}
 	public String getError(){
 		return error;

@@ -36,10 +36,10 @@ public class CategoryManager {
                 stmt = (PreparedStatement) conn.prepareStatement(updateCategorySql);
             }
 
-            if (category.getParentId() != 0) {
+            if (category.getParentId() >= 0) {
                 stmt.setLong(1, category.getParentId());
             } else {
-                stmt.setNull(1, java.sql.Types.NULL);
+                throw new DTException("CategoryManager.save: can't save a category: Parent undefined");
             }
 
             if (category.getName() != null) // name is unique unique and non null

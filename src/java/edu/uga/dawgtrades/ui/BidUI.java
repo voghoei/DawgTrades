@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import edu.uga.dawgtrades.model.RegisteredUser;
+import java.text.DecimalFormat;
 
 
 /**
@@ -59,7 +60,14 @@ public class BidUI extends HttpServlet {
             }
             try {
                 long id = Long.parseLong(auctionID, 10);
-                float amount = Float.parseFloat(amountString);
+                double amount = Double.parseDouble(amountString);
+
+                // Rounded to 00
+                DecimalFormat df = new DecimalFormat("0.00");
+                String format = df.format(amount);
+                amount = (Double) df.parse(format);
+
+                
                 Auction auction = auctionCtrl.getAuctionWithID(id);
                 if(auction != null) {
                     RegisteredUser owner = auctionCtrl.getOwnerForAuctionID(id);

@@ -30,7 +30,11 @@
 		</div>
 
 		<button type="submit" class="btn btn-default">Update Profile </button>
-	</form>
+		</form>
+		<form role="form" id="deleteAccountForm" action="deleteAccount" method="get">
+		<button type="submit" class="btn btn-danger"> Delete Account </button>
+		</form>
+
 	<#elseif password??>
 	<form role="form" id="settingsForm" action="settings" method="post">
                 <div classs="form-group">

@@ -62,6 +62,7 @@ public class CreateItemUI extends HttpServlet{
 		String desc = request.getParameter("desc");
 		if(itemName != null){
 			//send the itemName, Item Desc, attributes, and category to the control
+			RegisteredUser currentUser = (RegisteredUser)session.getAttribute("currentSessionUser");
 			
 			if(!itemCtrl.attemptItemCreate(request.getParameterMap(),currentUser.getId())){
 				request.setAttribute("error", "An error occurred");	

@@ -54,7 +54,7 @@ public class CreateItemCtrl{
 			item.setOwnerId(userId);
 			objectModel.storeItem(item);
 			long itemId = item.getId();
-			long categoryId = String.parseLong(parameters.get("id")[0]);
+			long categoryId = Long.parseLong(parameters.get("id")[0]);
 			Iterator<AttributeType> attributeTypes = this.getCategoryAttributes(categoryId).iterator();
 			AttributeType attrType = null;
 			while(attributeTypes.hasNext()){

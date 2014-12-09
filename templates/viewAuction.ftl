@@ -79,6 +79,8 @@
 	  	</#if>
 	</div>
 	<div class="col-md-9">
+		<h3>Category</h3>
+		<p><a href="/category?id=${category.getId()}">${category.getName()}</a></p>
 		<h3>Description</h3>
 		<p>${item.getDescription()}</p>
 		<h3>Attributes</h3>

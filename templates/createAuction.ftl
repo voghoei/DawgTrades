@@ -1,4 +1,5 @@
 <#import "default.ftl" as default>
+<#import "categoryListMacro.ftl" as catList>
 <@default.mainLayout "Create Auction">
 <h1> Create Auction </h1>
 <#if error??>

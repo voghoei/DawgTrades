@@ -64,7 +64,7 @@ class MembershipManager {
 
     public Membership restore()
             throws DTException {
-        String selectMembershipSql = "select id, price, date from membership where date = (select Max(date) from membership)";
+        String selectMembershipSql = "SELECT id, price, date FROM Membership WHERE date = (SELECT Max(date) FROM Membership)";
         Statement stmt = null;
         Membership membership = null;
 
@@ -88,7 +88,7 @@ class MembershipManager {
     }
 
     public Iterator<Membership> restore(Membership membership) throws DTException {
-        String selectMembershipSql = "select id, price, date from membership order by id DESC";
+        String selectMembershipSql = "select id, price, date from Membership order by id DESC";
         Statement stmt = null;
         StringBuffer query = new StringBuffer(100);
         StringBuffer condition = new StringBuffer(100);

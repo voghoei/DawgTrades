@@ -51,6 +51,12 @@
 					<h4 class="list-group-item-heading">Owner:</h4>
 					<p class="list-group-item-text"><a href="/user?id=${owner.getId()}">${owner.getFirstName()} ${owner.getLastName()}</a></p>
 				</li>
+				<#if winner??>
+					<li class="list-group-item">
+						<h4 class="list-group-item-heading">Winner:</h4>
+						<p class="list-group-item-text"><a href="/user?id=${winner.getId()}">${winner.getFirstName()} ${winner.getLastName()}</a></p>
+					</li>
+				</#if>
 			</ul>
 		</div>
 		<div class="panel panel-default">

@@ -152,6 +152,16 @@ public class AuctionUI extends HttpServlet {
 
                     }
 
+                    if(toView.getIsClosed()) {
+                        // Get winner of auction (assuming there is one...)
+                        if(!bids.isEmpty()) {
+                            Bid winningBid = bids.get(0);
+                            ViewUserControl userCtrl = new ViewUserControl();
+                            RegisteredUser winner = winningBid.getRegisteredUser();
+                            request.setAttribute("winner", winner);
+                        }
+                    }
+
                     request.setAttribute("category", auctionCategory);
                     request.setAttribute("attributeForType", attributeForType);
                     request.setAttribute("attributeTypes", attributeTypes);

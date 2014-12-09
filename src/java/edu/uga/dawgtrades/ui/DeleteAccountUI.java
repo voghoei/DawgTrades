@@ -31,14 +31,14 @@ public class DeleteAccountUI extends HttpServlet{
 			if(confirm.equals("yes")){
 				RegisteredUser currentUser = (RegisteredUser)session.getAttribute("currentSessionUser");
 
-				if(!deleteControl.deleteAccount(currentUser.getId())){
+				if(!deleteControl.attemptDelete(currentUser.getId())){
 					request.setAttribute("error",deleteControl.getError());
 				}else{
 					response.setRedirect("/");
 					return;
 				}
 			}else{
-				response.setRedirect("/settings");
+				response.sendRedirect("/settings");
 				return;
 			}
 		}

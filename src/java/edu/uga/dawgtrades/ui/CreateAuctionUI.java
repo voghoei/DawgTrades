@@ -42,7 +42,7 @@ public class CreateAuctionUI extends HttpServlet{
 			Map<String,String[]> parameters = request.getParameterMap();
 			//send to database
 			if(!auctionCtrl.attemptAuctionCreate(parameters)){
-				request.setAttribute("error", "An error occurred");	
+				request.setAttribute("error", "Error: "+auctionCtrl.getMessage());	
 			}
 			response.sendRedirect("/");
 		}

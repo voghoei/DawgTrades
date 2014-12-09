@@ -29,14 +29,20 @@ public class RegisterUI extends HttpServlet{
 		String phone = request.getParameter("phone");
 		String password = request.getParameter("password");
 		String passwordRe = request.getParameter("passwordRe");
+		String texts = request.getParameter("texts");
 		RegisterControl ctrl = new RegisterControl();		
 		if(!password.equals(passwordRe)){
 			request.setAttribute("error","Passwords don't match.");
 			request.getRequestDispatcher("/register.ftl").forward(request,response);
 			return;			
 		}
+		if(phone.length() != 10){
+			request.setAttribute("error","Phone number should be 10 digits. (i.e. 5551234567)");
+			request.getRequestDispatcher("/register.ftl").forward(request,response);
+			return;			
+		}
 		try{
-			if(ctrl.attemptToRegister(username,fname,lname,password,email,phone,true)){
+			if(ctrl.attemptToRegister(username,fname,lname,password,email,phone,texts != null)){
 				response.sendRedirect("/login?message=c3daec042ebd773d1d2e505235f1449c4ff1625f");
 			}else{
 				request.setAttribute("error","Registration failed: "+ctrl.getError());

@@ -26,6 +26,14 @@
                         <label for="email">Email</label>
                         <input type="email" class="form-control" placeholder="Email" name="email">
                 </div>
+                <div classs="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" class="form-control" placeholder="Phone Number" name="phone">
+                </div>
+                <div classs="form-group">
+                        <label for="texts">Phone Accepts Texts?</label>
+                        <input type="checkbox" class="form-control" name="texts">
+                </div>
 		<div classs="form-group">
                         <label for="password">Enter a password</label>
                         <input type="password" class="form-control" placeholder="Password" name="password">
@@ -33,10 +41,6 @@
                 <div classs="form-group">
                         <label for="passwordReEnter">Re-enter password</label>
                         <input type="password" class="form-control" placeholder="Re-enter Password" name="passwordRe">
-                </div>
-                <div classs="form-group">
-                        <label for="phone">Phone Number</label>
-                        <input type="tel" class="form-control" placeholder="Phone Number" name="phone">
                 </div>
                 <div class="form-group">
 		<button type="submit" class="btn btn-default">Submit</button>

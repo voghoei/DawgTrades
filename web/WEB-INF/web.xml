@@ -177,6 +177,15 @@
         <url-pattern>/auction</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>BidUI</servlet-name>
+        <servlet-class>edu.uga.dawgtrades.ui.BidUI</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>BidUI</servlet-name>
+        <url-pattern>/bid</url-pattern>
+    </servlet-mapping>
+
 
     <session-config>
         <session-timeout>30</session-timeout>

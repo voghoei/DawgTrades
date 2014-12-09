@@ -71,7 +71,7 @@ public class ResetPasswordControl {
             this.connect();
             RegisteredUser toFind = this.objectModel.createRegisteredUser();
             toFind.setName(username);
-            Iterator<AttributeType> results = this.objectModel.findRegisteredUser(toFind);
+            Iterator<RegisteredUser> results = this.objectModel.findRegisteredUser(toFind);
             if(results.hasNext()) {
                 toFind = results.next();
                 return DawgTradesMailer.sendMail(

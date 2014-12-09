@@ -26,7 +26,6 @@ public class CreateItemCtrl{
 	private Persistence persistence = null;
 	private String error="Error Unknown";
 	private boolean hasError = false;
-	private long categoryId = -1;
 	private LoginControl ctrl = new LoginControl();
 	private void connect() throws DTException{
 		conn = DbUtils.connect();
@@ -52,9 +51,10 @@ public class CreateItemCtrl{
 			item.setDescription(parameters.get("desc")[0]);
 			//RegisteredUser currentUser = ctrl.getLoggedInUser(session);
 			item.setOwnerId(userId);
+			long categoryId = Long.parseLong(parameters.get("catId")[0].substring(15));			
+			item.setCategoryId(categoryId);
 			objectModel.storeItem(item);
 			long itemId = item.getId();
-			this.categoryId = Long.parseLong(parameters.get("catId")[0].substring(15));
 			Iterator<AttributeType> attributeTypes = this.getCategoryAttributes(categoryId).iterator();
 			AttributeType attrType = null;
 			while(attributeTypes.hasNext()){
@@ -69,7 +69,7 @@ public class CreateItemCtrl{
 			return itemId;	
 				
 		}catch(DTException e){
-			error = e.getMessage()+" "+this.categoryId;
+			error = e.getMessage();
 			hasError = true;
 			return -1;
 		}finally{

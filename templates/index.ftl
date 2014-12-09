@@ -8,5 +8,5 @@
 		Need to register? <a href="${baseContext}/register">Click here!</a>
 	</div>
 </div>
-<#/if>
+</#if>
 </@default.mainLayout>

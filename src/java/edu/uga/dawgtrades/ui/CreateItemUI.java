@@ -58,7 +58,7 @@ public class CreateItemUI extends HttpServlet{
 			}catch(NumberFormatException e){
 				request.setAttribute("error","Invalid category ID. Please try again.");
 			}
-		}
+		
 		String itemName = request.getParameter("name");
 		String desc = request.getParameter("desc");
 		if(itemName != null){
@@ -78,7 +78,7 @@ public class CreateItemUI extends HttpServlet{
 			response.sendRedirect("/createAuction?id="+itemId);
 			return;
 		}
-			
+		}//end of if categoryId is null 	
 		request.getRequestDispatcher("/createItem.ftl").forward(request,response);
 		
 	}

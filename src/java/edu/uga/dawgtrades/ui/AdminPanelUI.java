@@ -21,6 +21,7 @@ public class AdminPanelUI extends HttpServlet{
         protected void doGet(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException{
         // Ensure logged in
 		HttpSession session = request.getSession(true);
+		request.setAttribute("baseContext", session.getServletContext().getContextPath());
 		LoginControl ctrl = new LoginControl();
 		if(!ctrl.checkIsLoggedIn(session)){
 			response.sendRedirect("/login");

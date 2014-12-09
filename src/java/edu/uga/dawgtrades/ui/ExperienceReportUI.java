@@ -20,6 +20,7 @@ public class ExperienceReportUI extends HttpServlet {
         String userId = "";
         RegisteredUser currentUser = null;
         HttpSession session = request.getSession(true);
+        request.setAttribute("baseContext", session.getServletContext().getContextPath());
         LoginControl ctrl = new LoginControl();
         if (!ctrl.checkIsLoggedIn(session)) {
             response.sendRedirect("/login");

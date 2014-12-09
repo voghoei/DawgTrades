@@ -22,6 +22,7 @@ public class CreateItemUI extends HttpServlet{
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException{
 		HttpSession session = request.getSession(true);
+		request.setAttribute("baseContext", session.getServletContext().getContextPath());
 		String error = "Error unknown";
 		LoginControl ctrl = new LoginControl();
 		CategoryControl catCtrl = new CategoryControl();

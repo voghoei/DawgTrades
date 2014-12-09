@@ -1,3 +1,4 @@
+
 package edu.uga.dawgtrades.ui;
 
 import edu.uga.dawgtrades.DTException;
@@ -29,12 +30,15 @@ public class RegisterUI extends HttpServlet{
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException{
 		HttpSession session = request.getSession(true);
+		request.setAttribute("baseContext", session.getServletContext().getContextPath());
 		RegisterControl ctrl = new RegisterControl();
 		request.getRequestDispatcher("/register.ftl").forward(request,response);
 	}
 
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException{
+		HttpSession session = request.getSession(true);
+		request.setAttribute("baseContext", session.getServletContext().getContextPath());
 		String username = request.getParameter("username");
 		String fname = request.getParameter("fname");
 		String lname = request.getParameter("lname");

@@ -30,6 +30,7 @@ public class DeleteAuctionUI extends HttpServlet {
         
         // Get current session
         HttpSession session = request.getSession(true);
+        request.setAttribute("baseContext", session.getServletContext().getContextPath());
         LoginControl loginCtrl = new LoginControl();
         AuctionControl auctionCtrl = new AuctionControl();
         RegisteredUser currentUser = null;
@@ -80,6 +81,7 @@ public class DeleteAuctionUI extends HttpServlet {
         
         // Get current session
         HttpSession session = request.getSession(true);
+        request.setAttribute("baseContext", session.getServletContext().getContextPath());
         LoginControl loginCtrl = new LoginControl();
         AuctionControl auctionCtrl = new AuctionControl();
         RegisteredUser currentUser = null;

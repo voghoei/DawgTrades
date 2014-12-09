@@ -26,7 +26,7 @@
 		<form role="form" action="delete" method="post" class="clearfix">
 			<input type="hidden" name="id" id="id" value="${toDelete}" />
 			<div class="form-group pull-right">
-				<a class="btn btn-default" href="/auction?id=${toDelete}">Cancel</a> <button type="submit" class="btn btn-danger">Confirm</button>
+				<a class="btn btn-default" href="${baseContext}/auction?id=${toDelete}">Cancel</a> <button type="submit" class="btn btn-danger">Confirm</button>
 			</div>
 		</form>
 	</div>

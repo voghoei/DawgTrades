@@ -11,7 +11,7 @@
 			<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
 			<!-- Font-Awesome -->
 			<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
-			<link rel="stylesheet" href="/resources/css/custom.css">
+			<link rel="stylesheet" href="${baseContext}/resources/css/custom.css">
 			
 			<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
 			<!--[if lt IE 9]>
@@ -31,32 +31,32 @@
 			        <span class="icon-bar"></span>
 			        <span class="icon-bar"></span>
 			      </button>
-			      <a class="navbar-brand" href="/">DawgTrades</a>
+			      <a class="navbar-brand" href="${baseContext}/">DawgTrades</a>
 			    </div>
 
 			    <!-- Collect the nav links, forms, and other content for toggling -->
 			    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 			      <ul class="nav navbar-nav">
-			        <li><a href="/category">Browse</a></li>
-			        <li><a href="/search">Search</a></li>
+			        <li><a href="${baseContext}/category">Browse</a></li>
+			        <li><a href="${baseContext}/search">Search</a></li>
 			      </ul>
 			      <ul class="nav navbar-nav navbar-right">
 			        <#if loggedInUser??>
 			        <li class="dropdown">
 			          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">${loggedInUser.getFirstName()} <span class="caret"></span></a>
 			          <ul class="dropdown-menu" role="menu">
-			            <li><a href="/settings">Account Settings</a></li>
-			            <li><a href="/myAuctions">My Auctions</a></li>
+			            <li><a href="${baseContext}/settings">Account Settings</a></li>
+			            <li><a href="${baseContext}/myAuctions">My Auctions</a></li>
 			            <li class="divider"></li>
 			            <#if loggedInUser.getIsAdmin()>
-			            <li><a href="/admin">Admin Panel</a></li>
+			            <li><a href="${baseContext}/admin">Admin Panel</a></li>
 			            <li class="divider"></li>
 			            </#if>
-			            <li><a href="/logout">Log Out</a></li>
+			            <li><a href="${baseContext}/logout">Log Out</a></li>
 			          </ul>
 			        </li>
 			        <#else>
-			        <li><a href="/login">Login</a></li>
+			        <li><a href="${baseContext}/login">Login</a></li>
 			        </#if>
 			      </ul>
 			    </div><!-- /.navbar-collapse -->

@@ -30,6 +30,7 @@ public class CreateAttributeAdminUI extends HttpServlet {
         
         // Get current session
         HttpSession session = request.getSession(true);
+        request.setAttribute("baseContext", session.getServletContext().getContextPath());
         LoginControl loginCtrl = new LoginControl();
         CategoryControl catCtrl = new CategoryControl();
         if(!loginCtrl.checkIsLoggedIn(session)){
@@ -81,6 +82,7 @@ public class CreateAttributeAdminUI extends HttpServlet {
         
         // Get current session
         HttpSession session = request.getSession(true);
+        request.setAttribute("baseContext", session.getServletContext().getContextPath());
         LoginControl loginCtrl = new LoginControl();
         CategoryControl catCtrl = new CategoryControl();
         if(!loginCtrl.checkIsLoggedIn(session)){

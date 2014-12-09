@@ -33,7 +33,7 @@
 			<#list items as item>
 				<#assign itemId = "${item.getId()}">
 				<#if auctions[itemId]??>
-					<a href="/auction?id=${auctions[itemId].getId()}" class="list-group-item <#if auctions[itemId].getIsClosed()>list-group-item-danger<#else>list-group-item-success</#if>">${item.getName()} (<#if auctions[itemId].getIsClosed()>Closed<#else>Open</#if>)</a>
+					<a href="${baseContext}/auction?id=${auctions[itemId].getId()}" class="list-group-item <#if auctions[itemId].getIsClosed()>list-group-item-danger<#else>list-group-item-success</#if>">${item.getName()} (<#if auctions[itemId].getIsClosed()>Closed<#else>Open</#if>)</a>
 				</#if>
 			</#list>
 			</div>

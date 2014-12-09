@@ -23,6 +23,7 @@ public class MembershipUI extends HttpServlet {
             throws ServletException, IOException {
         
        HttpSession session = request.getSession(true);
+        request.setAttribute("baseContext", session.getServletContext().getContextPath());
         LoginControl ctrl = new LoginControl();
         if (!ctrl.checkIsLoggedIn(session)) {
             response.sendRedirect("/login");

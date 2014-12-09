@@ -64,8 +64,8 @@ public class CreateItemUI extends HttpServlet{
 		if(itemName != null){
 			//send the itemName, Item Desc, attributes, and category to the control
 			RegisteredUser currentUser = (RegisteredUser)session.getAttribute("currentSessionUser");
-			
-			if(!itemCtrl.attemptItemCreate(request.getParameterMap(),currentUser.getId())>0){
+			long itemId = itemCtrl.attemptItemCreate(request.getParameterMap(),currentUser.getId());	
+			if(!itemId>0){
 				if(itemCtrl.hasError()){
 					error = itemCtrl.getError();
 				}
@@ -73,7 +73,7 @@ public class CreateItemUI extends HttpServlet{
 				return;	
 			}
 			
-			response.sendRedirect("/createAuction?id="+Long.toString(itemCtrl.getItem().getId()));
+			response.sendRedirect("/createAuction?id="+itemId);
 			return;
 		}
 			

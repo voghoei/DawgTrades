@@ -40,9 +40,7 @@ public class CreateItemCtrl{
 			System.err.println("Exception: "+e);
 		}
 	}
-	public Item getItem(){
-		return this.item;
-	}
+
 	public long attemptItemCreate(Map<String,String[]> parameters, long userId){
 
 		boolean created=true;

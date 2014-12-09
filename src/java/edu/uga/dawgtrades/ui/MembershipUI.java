@@ -52,6 +52,9 @@ public class MembershipUI extends HttpServlet {
                 request.setAttribute("membershipList", membership);
             } else if (membershipCtrl.hasError()) {
                 request.setAttribute("error", "Error: " + membershipCtrl.getError());
+            }else{
+                request.setAttribute("error", "Unknown error.");
+
             }
 
         } catch (DTException ex) {

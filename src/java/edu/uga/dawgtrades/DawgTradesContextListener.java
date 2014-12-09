@@ -61,7 +61,17 @@ public class DawgTradesContextListener implements ServletContextListener {
                                     String ownerEmail = auctionSet.getString(8);
                                     String ownerName = auctionSet.getString(9);
                                     System.out.println("[LISTENER] Sending email to " + winnerName + " (" + winnerEmail + ") (Winner)");
+                                    if(DawgTradesMailer.sendMail(winnerEmail, "Auction Won", "Congratulations, " + winnerName + ", you won an auction. View the auction at http://dawgtrades.devisedby.us/auction?id=" + auctionSet.getLong(1) + "." )) {
+                                        System.out.println("[LISTENER] Winner mail sent.");
+                                    }else{
+                                        System.out.println("[LISTENER] Failed to send winner mail.");
+                                    }
                                     System.out.println("[LISTENER] Sending email to " + ownerName + " (" + ownerEmail + ") (Owner)");
+                                    if(DawgTradesMailer.sendMail(ownerEmail, "Auction Won", "Congratulations, " + ownerName + ", there was a winning bid on one of your auctions. View the auction at http://dawgtrades.devisedby.us/auction?id=" + auctionSet.getLong(1) + "." )) {
+                                        System.out.println("[LISTENER] Winner mail sent.");
+                                    }else{
+                                        System.out.println("[LISTENER] Failed to send winner mail.");
+                                    }
                                 }else{
                                     // Expired without winner
                                     long itemID = auctionSet.getLong(4);

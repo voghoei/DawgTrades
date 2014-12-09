@@ -27,12 +27,14 @@ public class CreateAuctionUI extends HttpServlet{
 			RegisteredUser currentUser = (RegisteredUser)session.getAttribute("currentSessionUser");
 			request.setAttribute("loggedInUser",currentUser);
 		}
+
+		
 		request.getRequestDispatcher("/createAuction.ftl").forward(request,response);
 	}
 
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException{
-		
+		doGet(request,response);	
 			
 	}
 }

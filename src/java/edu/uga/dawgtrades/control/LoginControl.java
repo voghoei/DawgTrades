@@ -26,6 +26,45 @@ import javax.servlet.http.HttpSession;
  */
 public class LoginControl {
 
+    private Connection conn = null;
+    private ObjectModel objectModel = null;
+    private Persistence persistence = null;
+    private boolean hasError = false;
+    private String error;
+
+    public boolean hasError() {
+        return this.hasError;
+    }
+
+    public String getError() {
+        String err = null;
+        if (this.hasError) {
+            err = this.error;
+            this.error = null;
+            this.hasError = false;
+        }
+        return err;
+    }
+
+    private void connect() throws DTException{
+            this.close();
+            this.conn = DbUtils.connect();
+            this.objectModel = new ObjectModelImpl();
+            this.persistence = new PersistenceImpl(conn,objectModel);
+            this.objectModel.setPersistence(persistence);
+        
+    }
+    private void close(){
+        try{
+            if(this.conn != null) {
+                this.conn.close();
+            }
+
+        }catch (Exception e){
+            System.err.println("Exception: "+e);
+        }
+    }
+
     public boolean checkIsLoggedIn(HttpSession session)
             throws ServletException, IOException {
         
@@ -47,47 +86,39 @@ public class LoginControl {
         return currentUser;
     }
 
-    public boolean attemptLogin(String username, String password, HttpSession session)
-            throws ServletException, IOException, DTException {
-        Connection conn = null;
-        ObjectModel objectModel = null;
-        Persistence persistence = null;
+    public boolean attemptLogin(String username, String password, HttpSession session) {
         try {
-            // get a database connection
-            conn = DbUtils.connect();
-
-            // obtain a reference to the ObjectModel module      
-            objectModel = new ObjectModelImpl();
-
-            // obtain a reference to Persistence module and connect it to the ObjectModel        
-            persistence = new PersistenceImpl(conn, objectModel);
-
-            // connect the ObjectModel module to the Persistence module
-            objectModel.setPersistence(persistence);
+            this.connect()
 
             Iterator<RegisteredUser> userIter = null;
             RegisteredUser runningUser = null;
-            RegisteredUser modelUser = objectModel.createRegisteredUser();
+            RegisteredUser modelUser = this.objectModel.createRegisteredUser();
             modelUser.setName(username);
             modelUser.setPassword(password);
 
-            userIter = objectModel.findRegisteredUser(modelUser);
+            userIter = this.objectModel.findRegisteredUser(modelUser);
 
             if (userIter.hasNext()) {
                 runningUser = userIter.next();
-                session.setAttribute("currentSessionUser", runningUser);
-                return true;
+                if(runningUser.getIsApproved()) {
+                    session.setAttribute("currentSessionUser", runningUser);
+                    return true;
+                }
+                this.hasError = true;
+                this.error = "Your account has not been approved yet. Please pay the membership fee and the administrator will approve it.";
+                return false;
             } else {
                 return false;
             }
 
-        } 
+        }
+        catch(DTException e) {
+            this.hasError = true;
+            this.error = e.getMessage();
+            return null;
+        }
         finally {
-            try {
-                conn.close();
-            } catch (Exception e) {
-                System.err.println("Exception: " + e);
-            }
+            this.close();
         }
     }
 

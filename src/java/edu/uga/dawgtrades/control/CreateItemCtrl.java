@@ -59,9 +59,10 @@ public class CreateItemCtrl{
 			AttributeType attrType = null;
 			while(attributeTypes.hasNext()){
 				attrType = attributeTypes.next();
+				String value = parameters.get(Long.toString(attrType.getId()))[0];
 				Attribute attribute = objectModel.createAttribute();
 				attribute.setAttributeTypeId(attrType.getId());
-				attribute.setValue(parameters.get(Long.toString(attrType.getId())));
+				attribute.setValue(value);
 				attribute.setItemId(itemId);
 			}
 			

@@ -41,6 +41,15 @@ public class AuctionUI extends HttpServlet {
             request.removeAttribute("loggedInUser");
         }
 
+        // Check for a message to display
+        String messageID = request.getParameter("message");
+        if(messageID != null) {
+            String message = CommonControl.infoMessages.get(messageID);
+            if(message != null) {
+                request.setAttribute("message", message);
+            }
+        }
+
 
         AuctionControl auctionCtrl = new AuctionControl();
 

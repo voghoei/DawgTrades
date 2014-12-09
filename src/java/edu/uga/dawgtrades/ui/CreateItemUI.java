@@ -71,6 +71,11 @@ public class CreateItemUI extends HttpServlet{
 				}
 				request.setAttribute("error", "An error occurred"+error);	
 			}
+			else{
+				request.setAttribute("item",itemCtrl.getItem());
+			}
+			request.getRequestDispatcher("/createAuction.ftl").forward(request,response);
+			return;
 		}
 			
 		request.getRequestDispatcher("/createItem.ftl").forward(request,response);

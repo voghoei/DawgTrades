@@ -4,12 +4,14 @@
 <div class="row">
 	<form role="form" action="createAuction" method="post">
 		<!-- create item stuff goes here -->
+		<div class="form-group">
 		<#if item??>
-			<h3> Item here </h3>
+			<h3>${item.getName()}</h3>
+			<p> ${item.getDescription()}</p>
 		<#else>
-			<a id="createItemLink"  href="/createItem">Add an Item</a>
+			<p class="form-control-static"><a id="createItemLink"  href="/createItem">Add an Item</a></p>
 		</#if>
-		
+		</div>
 		<div class="form-group">
 			<label for="expiration"> Auction Expiration Date </label>
 			<input type="datetime" class="form-control" name="expiration">

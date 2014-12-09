@@ -65,17 +65,16 @@ public class LoginUI extends HttpServlet {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
 
-        try {
-            if (ctrl.attemptLogin(username, password, session)) {
-                response.sendRedirect("/");
+        if (ctrl.attemptLogin(username, password, session)) {
+            response.sendRedirect("/");
+        } else {
+            if(ctrl.hasError()) {
+                request.setAttribute("error", ctrl.getError());
+                request.getRequestDispatcher("/login.ftl").forward(request, response);
             } else {
                 request.setAttribute("error", "Invalid username/password given.");
                 request.getRequestDispatcher("/login.ftl").forward(request, response);
             }
-
-        } catch (DTException e) {
-            request.setAttribute("error", "An exception occurred: " + e.getMessage());
-            request.getRequestDispatcher("/login.ftl").forward(request, response);
         }
     }
 

@@ -87,7 +87,7 @@ public interface ObjectModel {
 
     //Registered User
     public RegisteredUser createRegisteredUser(String firstName, String lastName, String name, String password,
-            String email, String phone, boolean canText, boolean isAdmin) throws DTException;
+            String email, String phone, boolean canText, boolean isAdmin, boolean isApproved) throws DTException;
 
     public RegisteredUser createRegisteredUser();
 

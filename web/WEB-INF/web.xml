@@ -136,6 +136,16 @@
 
 
     <servlet>
+        <servlet-name>ApproveUserAdminUI</servlet-name>
+        <servlet-class>edu.uga.dawgtrades.ui.ApproveUserAdminUI</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ApproveUserAdminUI</servlet-name>
+        <url-pattern>/admin/users/approve</url-pattern>
+    </servlet-mapping>
+
+
+    <servlet>
         <servlet-name>CreateAuctionServlet</servlet-name>
         <servlet-class>edu.uga.dawgtrades.ui.CreateAuctionUI</servlet-class>
     </servlet>

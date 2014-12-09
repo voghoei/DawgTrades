@@ -6,25 +6,25 @@ package edu.uga.dawgtrades.control;
  */
 import edu.uga.dawgtrades.DTException;
 import edu.uga.dawgtrades.control.LoginControl;
-import edu.uga.dawgtrades.model.ObjectModel;
-import edu.uga.dawgtrades.model.RegisteredUser;
+import edu.uga.dawgtrades.model.*;
 import edu.uga.dawgtrades.model.impl.ObjectModelImpl;
 import edu.uga.dawgtrades.persistence.Persistence;
 import edu.uga.dawgtrades.persistence.impl.DbUtils;
 import edu.uga.dawgtrades.persistence.impl.PersistenceImpl;
+import edu.uga.dawgtrades.persistence.impl.ItemIterator;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
-import java.util.Iterator;
+import java.util.*;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author sahar
+ * @author reanimus
  */
-public class LoginControl {
+public class ApproveUserAdminControl {
 
     private Connection conn = null;
     private ObjectModel objectModel = null;
@@ -65,52 +65,47 @@ public class LoginControl {
         }
     }
 
-    public boolean checkIsLoggedIn(HttpSession session)
-            throws ServletException, IOException {
-        
-        // Get current session
-        RegisteredUser currentUser = (RegisteredUser) session.getAttribute("currentSessionUser");
-
-        if(currentUser != null)
-        {
-            return true;
-        }
-        return false;
-    }
-    
-    public RegisteredUser getLoggedInUser(HttpSession session)
-            throws ServletException, IOException {
-        
-        // Get current session
-        RegisteredUser currentUser = (RegisteredUser) session.getAttribute("currentSessionUser");
-        return currentUser;
-    }
-
-    public boolean attemptLogin(String username, String password, HttpSession session) {
+    public ArrayList<RegisteredUser> getUnapprovedUsers() {
+        ArrayList<RegisteredUser> out = new ArrayList<RegisteredUser>();
         try {
             this.connect();
-
-            Iterator<RegisteredUser> userIter = null;
-            RegisteredUser runningUser = null;
             RegisteredUser modelUser = this.objectModel.createRegisteredUser();
-            modelUser.setName(username);
-            modelUser.setPassword(password);
-
-            userIter = this.objectModel.findRegisteredUser(modelUser);
-
-            if (userIter.hasNext()) {
-                runningUser = userIter.next();
-                if(runningUser.getIsApproved()) {
-                    session.setAttribute("currentSessionUser", runningUser);
-                    return true;
+            Iterator<RegisteredUser> userIter = this.objectModel.findRegisteredUser(modelUser);
+            while (userIter.hasNext()) {
+                RegisteredUser user = userIter.next();
+                if(!user.getIsApproved()) {
+                    out.add(user);
                 }
-                this.hasError = true;
-                this.error = "Your account has not been approved yet. Please pay the membership fee and the administrator will approve it.";
-                return false;
-            } else {
-                return false;
             }
+            return out;
 
+        }
+        catch(DTException e) {
+            this.hasError = true;
+            this.error = e.getMessage();
+            return null;
+        }
+        finally {
+            this.close();
+        }
+    }
+
+    public boolean approve(long id) {
+        ArrayList<RegisteredUser> out = new ArrayList<RegisteredUser>();
+        try {
+            this.connect();
+            RegisteredUser modelUser = this.objectModel.createRegisteredUser();
+            modelUser.setId(id);
+            Iterator<RegisteredUser> userIter = this.objectModel.findRegisteredUser(modelUser);
+            if (userIter.hasNext()) {
+                RegisteredUser user = userIter.next();
+                user.setIsApproved(true);
+                this.objectModel.storeRegisteredUser(user);
+                return true;
+            }
+            this.hasError = true;
+            this.error = "User not found.";
+            return false;
         }
         catch(DTException e) {
             this.hasError = true;

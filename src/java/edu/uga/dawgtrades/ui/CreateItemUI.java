@@ -60,8 +60,10 @@ public class CreateItemUI extends HttpServlet{
 		}
 		String itemName = request.getParameter("name");
 		String desc = request.getParameter("desc");
-		if(request.getParameter("submit") == null)
-			request.setAttribute("error","Submit is null");	
+		if(itemName != null){
+			request.setAttribute("error","Name: "+itemName);
+		}
+			
 		request.getRequestDispatcher("/createItem.ftl").forward(request,response);
 		
 	}

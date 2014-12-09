@@ -16,14 +16,7 @@
 	<form role="form" action="createItem" method="post">
 		<!-- create item stuff goes here -->
 		
-		<div class="form-group">
-			<label for="name"> Item Name </label>
-			<input type="text" class="form-control" name="name" required>
-		</div>
-		<div class="form-group">
-			<label for="desc"> Item Description</label>
-			<textarea class="form-control" rows="3" name="desc"></textarea>
-		</div>
+	
 		<div class="form-group">
 			<#if categoryChosen??>
 				<label for="category"> Category:</label>
@@ -51,6 +44,15 @@
 				</#if>
 				</select>
 			</#if>
+		<div class="form-group">
+                        <label for="name"> Item Name </label>
+                        <input type="text" class="form-control" name="name" required>
+                </div>
+                <div class="form-group">
+                        <label for="desc"> Item Description</label>
+                        <textarea class="form-control" rows="3" name="desc"></textarea>
+                </div>
+
 			<#if attributes??>
 				<div class="form-group">
 					<#list attributes as attribute>
@@ -61,7 +63,7 @@
 			</#if>
 
 		</div>
-		<button type="submit" class="btn btn-default"> Submit </button>
+		<button type="submit" value="submit" class="btn btn-default"> Submit </button>
 	</form>
 </div>
 </@default.mainLayout>

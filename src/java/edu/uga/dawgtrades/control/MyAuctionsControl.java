@@ -56,7 +56,7 @@ public class MyAuctionsControl{
 			ArrayList<Auction> auctions = new ArrayList<Auction>();
 			Auction auction = this.objectModel.createAuction();
 			Map<String,Auction> map = new HashMap<String,Auction>();
-			for(int i = 0; i< items.length; i++){
+			for(int i = 0; i< items.size(); i++){
 				auction.setId(items.get(i).getId());
 				Iterator<Auction> results = this.objectModel.findAuction(auction);
 				while(results.hasNext()){

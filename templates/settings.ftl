@@ -21,9 +21,15 @@
                         <label> Last Name:</label>
                         <input type="text" class="form-control" name="lname" placeholder="${loggedInUser.getLastName()}">
                 </div>
-		
+		<div class ="form-group">
+			<label> Phone Number:</label>
+			<input type="text" class="form-control" name="lname" placeholder="${loggedInUser.getPhone()}">
+		</div>	
+		<div class="form-group>
+			<label> <input type="checkbox">Recieve Text Messages</input> </label>
+		</div>
 
-
+		<button type="submit" class="btn btn-default">Update Profile </button>
 	</form>
 	<#elseif password??>
 	<form role="form" id="settingsForm" action="settings" method="post">
@@ -35,9 +41,9 @@
                         <label for="passwordReEnter">Re-enter password</label>
                         <input type="password" class="form-control" placeholder="Re-enter Password" name="passwordRe">
                 </div>
+		<button type="submit" class="btn btn-default">Update Password </button>
 	</form>
-	<#elseif other??>
-		<form> some text</form>
+	
 	</#if>
 	</#if>
 	</div>

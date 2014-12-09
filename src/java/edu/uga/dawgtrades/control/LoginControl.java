@@ -88,7 +88,7 @@ public class LoginControl {
 
     public boolean attemptLogin(String username, String password, HttpSession session) {
         try {
-            this.connect()
+            this.connect();
 
             Iterator<RegisteredUser> userIter = null;
             RegisteredUser runningUser = null;

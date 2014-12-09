@@ -56,11 +56,11 @@ public class MyAuctionsControl{
 			ArrayList<Auction> auctions = new ArrayList<Auction>();
 			Auction auction = this.objectModel.createAuction();
 			Map<String,Auction> map = new HashMap<String,Auction>();
-			for(int i = 0; i< items.size(); i++){
-				auction.setId(items.get(i).getId());
+			for(Item item : items){
+				auction.setItemId(item.getId());
 				Iterator<Auction> results = this.objectModel.findAuction(auction);
-				while(results.hasNext()){
-					map.put(Long.toString(items.get(i).getId()),results.next());
+				if(results.hasNext()){
+					map.put(Long.toString(item.getId()),results.next());
 				}
 			}
 			return map;
@@ -83,11 +83,6 @@ public class MyAuctionsControl{
 						
 			while(results.hasNext()){
 				items.add(results.next());
-			}
-			long[] itemIDs = new long[items.size()];
-		//	Item[] itemsArray = items.toArray();
-			for(int i =0;i<itemIDs.length; i++){
-				itemIDs[i] = items.get(i).getId();
 			}
 			return items;
 

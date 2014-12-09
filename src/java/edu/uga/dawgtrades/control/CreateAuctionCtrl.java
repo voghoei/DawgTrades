@@ -48,7 +48,7 @@ public class CreateAuctionCtrl{
                 }
         }
 	
-	public boolean attemptAuctionCreate(Map<String,String[]> parameters){
+	public boolean attemptAuctionCreate(Map<String,String[]> parameters,long itemId){
 		boolean created = true;
 		try{
 			this.connect();
@@ -60,7 +60,7 @@ public class CreateAuctionCtrl{
 			String datetime = date+" "+time;
 			double minPrice = Double.parseDouble(parameters.get("minPrice")[0]);	
 			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");			
-			long itemId = Long.parseLong( parameters.get("id")[0]);
+			
 			Date expDate = formatter.parse(datetime);
 			auction.setMinPrice(minPrice);
 			auction.setExpiration(expDate);

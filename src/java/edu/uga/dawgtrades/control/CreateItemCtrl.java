@@ -55,7 +55,7 @@ public class CreateItemCtrl{
 			item.setCategoryId(categoryId);
 			objectModel.storeItem(item);
 			long itemId = item.getId();
-			Iterator<AttributeType> attributeTypes = this.getCategoryAttributes(categoryId).iterator();
+			Iterator<AttributeType> attributeTypes = this.getCategoryAttributesWithExistingConnection(categoryId).iterator();
 			AttributeType attrType = null;
 			while(attributeTypes.hasNext()){
 				attrType = attributeTypes.next();
@@ -120,6 +120,18 @@ public class CreateItemCtrl{
 		}finally{
 			this.close();
 		}
+	}
+	private ArrayList<AttributeType> getCategoryAttributesWithExistingConnection(long id)
+		throws DTException{
+		AttributeType attrType = this.objectModel.createAttributeType();
+		Category category = this.objectModel.createCategory();
+		category.setId(id);
+		Iterator<AttributeType> results = this.objectModel.getAttributeType(category);
+		ArrayList<AttributeType> attributeTypes = new ArrayList<AttributeType>();
+		while(results.hasNext()){
+			attributeTypes.add(results.next());
+		}
+		return attributeTypes;
 	}
 	public String getError(){
 		return error;

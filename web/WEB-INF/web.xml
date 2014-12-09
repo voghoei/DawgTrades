@@ -205,6 +205,15 @@
         <url-pattern>/search</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>MyAuctions</servlet-name>
+        <servlet-class>edu.uga.dawgtrades.ui.MyAuctionsUI</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>MyAuctions</servlet-name>
+        <url-pattern>/myAuctions</url-pattern>
+    </servlet-mapping>
+
 
     <session-config>
         <session-timeout>30</session-timeout>

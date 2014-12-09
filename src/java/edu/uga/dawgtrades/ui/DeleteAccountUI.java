@@ -34,7 +34,7 @@ public class DeleteAccountUI extends HttpServlet{
 				if(!deleteControl.attemptDelete(currentUser.getId())){
 					request.setAttribute("error",deleteControl.getError());
 				}else{
-					response.setRedirect("/");
+					response.sendRedirect("/");
 					return;
 				}
 			}else{

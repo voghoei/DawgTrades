@@ -86,7 +86,7 @@ public class DawgTradesContextListener implements ServletContextListener {
                             bidstmt.close();
                         }
                         if(updateStmt != null) { 
-                            delItemStmt.close();
+                            updateStmt.close();
                         }
                     }
                     Thread.sleep(1000);

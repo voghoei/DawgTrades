@@ -94,6 +94,10 @@ public class RegisteredUserImpl extends Persistent implements RegisteredUser {
         }
     }
 
+    public void setPasswordDirect(String password) {
+        this.password = password;
+    }
+
     public String getEmail() {
         return email;
     }

@@ -18,6 +18,7 @@ public interface RegisteredUser
     String getPassword();
 
     void setPassword(String password);
+    void setPasswordDirect(String password);
 
     boolean getIsAdmin();
 

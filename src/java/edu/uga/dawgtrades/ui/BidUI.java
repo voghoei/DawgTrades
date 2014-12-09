@@ -59,7 +59,7 @@ public class BidUI extends HttpServlet {
             }
             try {
                 long id = Long.parseLong(auctionID, 10);
-                float amount = Float.parseFloat(amountString, 10);
+                float amount = Float.parseFloat(amountString);
                 Auction auction = auctionCtrl.getAuctionWithID(id);
                 if(auction != null) {
                     RegisteredUser owner = auctionCtrl.getOwnerForAuctionID(id);

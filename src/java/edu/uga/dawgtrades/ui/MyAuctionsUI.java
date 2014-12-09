@@ -4,6 +4,7 @@ import edu.uga.dawgtrades.DTException;
 import edu.uga.dawgtrades.control.LoginControl;
 import edu.uga.dawgtrades.control.MyAuctionsControl;
 import edu.uga.dawgtrades.model.Auction;
+import edu.uga.dawgtrades.model.Item;
 import edu.uga.dawgtrades.model.RegisteredUser;
 import java.util.*;
 import java.io.*;

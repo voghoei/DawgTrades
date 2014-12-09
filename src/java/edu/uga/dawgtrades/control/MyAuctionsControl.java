@@ -55,8 +55,8 @@ public class MyAuctionsControl{
 			ArrayList<Item> items = this.getUserItems(userId);
 			ArrayList<Auction> auctions = new ArrayList<Auction>();
 			Auction auction = this.objectModel.createAuction();
-			Map<Item,Auction> map = new HashMap<Item,Auction>();
-			for(int i = 0; i< itemIDs.length; i++){
+			Map<String,Auction> map = new HashMap<String,Auction>();
+			for(int i = 0; i< items.length; i++){
 				auction.setId(items.get(i).getId());
 				Iterator<Auction> results = this.objectModel.findAuction(auction);
 				while(results.hasNext()){
@@ -111,11 +111,11 @@ public class MyAuctionsControl{
                         while(results.hasNext()){
                                 items.add(results.next());
                         }
-                        long[] itemIDs = new long[items.size()];
+                /*        long[] itemIDs = new long[items.size()];
                 //      Item[] itemsArray = items.toArray();
                         for(int i =0;i<itemIDs.length; i++){
                                 itemIDs[i] = items.get(i).getId();
-                        }
+                        }*/
                         return items;
 
                 }catch(DTException e){

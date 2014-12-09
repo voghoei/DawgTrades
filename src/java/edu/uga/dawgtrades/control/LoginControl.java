@@ -115,7 +115,7 @@ public class LoginControl {
         catch(DTException e) {
             this.hasError = true;
             this.error = e.getMessage();
-            return null;
+            return false;
         }
         finally {
             this.close();

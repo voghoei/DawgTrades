@@ -50,6 +50,7 @@ public class CreateAuctionUI extends HttpServlet{
 				request.setAttribute("error", "Error: "+auctionCtrl.getError());	
 			}else{
 				response.sendRedirect("/myAuctions");
+				return;
 			}
 		}
 		

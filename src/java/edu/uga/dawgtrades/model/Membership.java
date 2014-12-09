@@ -4,9 +4,9 @@ import java.util.Date;
 
 public interface Membership extends Persistable {
 
-    float getPrice();
+    double getPrice();
 
-    void setPrice(float price);
+    void setPrice(double price);
 
     Date getDate();
 

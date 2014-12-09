@@ -1,8 +1,14 @@
-import edu.uga.dawgtrades.control;
+package edu.uga.dawgtrades.control;
 
 import edu.uga.dawgtrades.DTException;
 import edu.uga.dawgtrades.control.LoginControl;
 import edu.uga.dawgtrades.model.Item;
+import edu.uga.dawgtrades.model.ObjectModel;
+import edu.uga.dawgtrades.model.impl.ObjectModelImpl;
+import edu.uga.dawgtrades.persistence.Persistence;
+import edu.uga.dawgtrades.persistence.impl.DbUtils;
+import edu.uga.dawgtrades.persistence.impl.PersistenceImpl;
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
@@ -12,6 +18,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.sql.Connection;
+import java.util.Iterator;
 
 public class CreateAuctionCtrl{
 

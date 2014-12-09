@@ -17,7 +17,7 @@ public class DawgTradesContextListener implements ServletContextListener {
         }
     }
     private Thread myThread = null;
-    private WorkerThreadClass worker = null
+    private WorkerThreadClass worker = null;
 
     public void contextInitialized(ServletContextEvent sce) {
         if ((myThread == null) || (!myThread.isAlive())) {

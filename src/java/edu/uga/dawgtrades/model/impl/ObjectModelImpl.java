@@ -269,7 +269,7 @@ public class ObjectModelImpl extends Persistent implements ObjectModel {
     }
 
     public RegisteredUser createRegisteredUser(String firstName, String lastName, String name, String password,  String email, String phone, boolean canText,boolean isAdmin, boolean isApproved) throws DTException {
-        RegisteredUser registeredUser = new RegisteredUserImpl(firstName, lastName, name, password, email, phone,  canText,isAdmin, isApproved);
+        RegisteredUser registeredUser = new RegisteredUserImpl(firstName, lastName, name, password, email, phone,  canText, isAdmin, isApproved);
         return registeredUser;
     }
 

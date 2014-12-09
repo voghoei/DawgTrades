@@ -59,7 +59,7 @@ public class CreateAuctionCtrl{
 			String time = parameters.get("expiration-time")[0];
 			String datetime = date+" "+time;
 			double minPrice = Double.parseDouble(parameters.get("minPrice")[0]);	
-			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");			
+			SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy hh:mm:ss a");			
 			
 			Date expDate = formatter.parse(datetime);
 			auction.setMinPrice(minPrice);

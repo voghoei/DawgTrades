@@ -244,7 +244,7 @@ public class AuctionControl {
             if(results.hasNext()) {
                 return results.next();
             }
-            return 
+            return null;
         }
         catch(DTException e) {
             this.hasError = true;

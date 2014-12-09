@@ -28,7 +28,7 @@
 					Manage Auction
 				</div>
 				<div class="list-group">
-					<a class="list-group-item list-group-item-danger" href="auction/delete?id=${auction.getId()">
+					<a class="list-group-item list-group-item-danger" href="auction/delete?id=${auction.getId()}">
 						Delete Auction
 					</a>
 				</div>

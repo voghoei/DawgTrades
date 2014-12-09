@@ -15,6 +15,7 @@
           <ul class="nav navbar-nav">
             <li><a href="/admin/categories">Category Admin</a></li>
             <li><a href="/admin/users/approve">User Approvals</a></li>
+            <li><a href="/admin/membership">Membership Price</a></li>
           </ul>
         </div><!--/.nav-collapse -->
       </div>

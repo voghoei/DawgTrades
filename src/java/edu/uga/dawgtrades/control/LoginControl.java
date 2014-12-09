@@ -15,7 +15,7 @@ import edu.uga.dawgtrades.persistence.impl.PersistenceImpl;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
-import java.util.Iterator;
+import java.util.*;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpSession;
@@ -73,6 +73,15 @@ public class LoginControl {
 
         if(currentUser != null)
         {
+            Date now = new Date();
+            Date last = (Date) session.getAttribute("currentSessionTimestamp");
+
+            // 15 minute timeout
+            if(now.getTime() - last.getTime() > 600000) {
+                session.removeAttribute("currentSessionUser");
+                session.removeAttribute("currentSessionTimestamp");
+                return false;
+            }
             return true;
         }
         return false;
@@ -102,6 +111,7 @@ public class LoginControl {
                 runningUser = userIter.next();
                 if(runningUser.getIsApproved()) {
                     session.setAttribute("currentSessionUser", runningUser);
+                    session.setAttribute("currentSessionTimestamp", new Date());
                     return true;
                 }
                 this.hasError = true;

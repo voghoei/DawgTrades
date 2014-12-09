@@ -41,7 +41,11 @@ public class MembershipIterator implements Iterator<Membership> {
             try {
                 id = rs.getLong(1);
                 price = rs.getDouble(2);
-                date = rs.getDate(3);
+                java.sql.Timestamp timestamp = rs.getTimestamp(3);
+                if(timestamp == null) {
+                    throw new DTException("AuctionIterator: Failed to retrieve expiration from DB.");
+                }
+                date = new java.util.Date(timestamp.getTime());
 
                 more = rs.next();
 

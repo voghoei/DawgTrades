@@ -1,6 +1,6 @@
 <#import "default.ftl" as default>
 <@default.mainLayout "Settings">
-<h1>Membership</h1>
+<h1>Set Membership Price</h1>
 <#if error??>
         <div class="col-md-12 alert alert-danger" role="alert">
                 <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
@@ -8,7 +8,7 @@
                 ${error}
         </div>
 </#if>
-<div class="row">
+<#include "adminNav.ftl">
 	<form role="form" action="membership" method="post">
 		<!-- create item stuff goes here -->
 		
@@ -16,7 +16,9 @@
 			<label for="price"> Price </label>
 			<input type="text" class="form-control" name="price">
 		</div>
-                <button type="submit" class="btn btn-default"> Submit </button>
+        <div class="clearfix">
+            <button type="submit" class="btn btn-primary pull-right"> Submit </button>
+        </div>
         </form>
  </br></br>
 <div class="form-group">
@@ -30,11 +32,12 @@
     
         <#list membershipList as membership>
             <tr>
-                <td>${membership.getPrice()}</td> <td>${membership.getDate()}</td>
+                <td>${membership.getPrice()}</td> <td>${membership.getDate()?datetime}</td>
             </tr>
         </#list>
     </#if>
   </table>
+  </div>
 </div>
 
 </div>

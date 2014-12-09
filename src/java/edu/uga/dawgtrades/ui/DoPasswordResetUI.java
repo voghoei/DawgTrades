@@ -113,7 +113,6 @@ public class DoPasswordResetUI extends HttpServlet {
                 return;
             }    
 
-            ResetPasswordControl pwCtrl = new ResetPasswordControl();  
             if(pwCtrl.resetPassword(user, pass)) {
                 response.sendRedirect("/");
             }else{

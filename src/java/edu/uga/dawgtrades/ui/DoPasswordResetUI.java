@@ -53,6 +53,7 @@ public class DoPasswordResetUI extends HttpServlet {
             RegisteredUser user = vCtrl.getUserWithID(idNumber);
             if(user == null || !user.getPassword().equals(key)) {
                 response.sendRedirect("/");
+                return;
             }
             request.setAttribute("id", id);
             request.setAttribute("key", key);

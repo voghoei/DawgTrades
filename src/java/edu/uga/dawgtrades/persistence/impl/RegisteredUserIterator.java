@@ -64,6 +64,7 @@ public class RegisteredUserIterator implements Iterator<RegisteredUser> {
             RegisteredUser registeredUser = null;
             try {
                 registeredUser = objectModel.createRegisteredUser(FirstName, LastName, Name, Password, Email, Phone, CanText, IsAdmin, IsApproved);
+                registeredUser.setPasswordDirect(Password);
                 registeredUser.setId(id);
 
             } catch (DTException ce) {

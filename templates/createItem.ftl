@@ -25,9 +25,9 @@
                         	<#if categoryList??>
                                         <#list categoryList as category>
 					<#if category.getId() == categoryChosen.getId()>
-					<option value="/createItem?id=${category.getId()}" selected>${category.getName()}</option>
+					<option name="catId" value="/createItem?id=${category.getId()}" selected>${category.getName()}</option>
 					<#else>
-					<option value="/createItem?id=${category.getId()}">${category.getName()}</option>
+					<option name="catId" value="/createItem?id=${category.getId()}">${category.getName()}</option>
 					</#if>
                                         </#list>
 				</#if>

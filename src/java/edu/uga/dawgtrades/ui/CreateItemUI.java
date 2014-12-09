@@ -22,6 +22,7 @@ public class CreateItemUI extends HttpServlet{
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException{
 		HttpSession session = request.getSession(true);
+		String error = "Error unknown";
 		LoginControl ctrl = new LoginControl();
 		if(!ctrl.checkIsLoggedIn(session)){
 			response.sendRedirect("/login");
@@ -65,7 +66,10 @@ public class CreateItemUI extends HttpServlet{
 			RegisteredUser currentUser = (RegisteredUser)session.getAttribute("currentSessionUser");
 			
 			if(!itemCtrl.attemptItemCreate(request.getParameterMap(),currentUser.getId())){
-				request.setAttribute("error", "An error occurred");	
+				if(itemCtrl.hasError()){
+					error = itemCtrl.getError();
+				}
+				request.setAttribute("error", "An error occurred"+error);	
 			}
 		}
 			

@@ -70,6 +70,7 @@ public class CreateItemCtrl{
 				
 		}catch(DTException e){
 			error = e.getMessage();
+			hasError = true;
 			created = false;
 		}finally{
 			close();

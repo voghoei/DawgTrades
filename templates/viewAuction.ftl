@@ -29,7 +29,7 @@
 			<ul class="list-group">
 				<li class="list-group-item">
 					<h4 class="list-group-item-heading">Ends on:</h4>
-					<p class="list-group-item-text">${auction.getExpiration()}</p>
+					<p class="list-group-item-text">${auction.getExpiration()?datetime}</p>
 				</li>
 				<li class="list-group-item">
 					<h4 class="list-group-item-heading">Minimum Bid:</h4>
@@ -48,7 +48,7 @@
 		  	<#if bids?size gt 0>
 		  		<ul class="list-group">
 		  			<#list bids?chunk(5)?first as bid>
-		  				<li class="list-group-item">$${bid.getAmount()} on ${bid.getDate()}</li>
+		  				<li class="list-group-item">$${bid.getAmount()} on ${bid.getDate()?datetime}</li>
 		  			</#list>
 		  		</ul>
 	  		<#else>

@@ -297,7 +297,9 @@ public class CategoryControl {
             Iterator<Category> results = this.objectModel.findCategory(toFind);
             ArrayList<Category> out = new ArrayList<Category>();
             while(results.hasNext()) {
-                out.add(results.next());
+                Category cat = results.next();
+                if(cat.getId() != 0)
+                    out.add(cat);
             }
             return out;
         }

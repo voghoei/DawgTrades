@@ -47,11 +47,11 @@ class MembershipManager {
             }
 
             if (membership.getDate() != null) {
-                mDate = membership.getDate();
-                java.sql.Date sDate = new java.sql.Date(mDate.getTime());
-                stmt.setDate(2, sDate);
+                memDate = membership.getDate();
+                java.sql.Timestamp ts = new java.sql.Timestamp(memDate.getTime());
+                stmt.setTimestamp(2, ts);
             } else {
-                stmt.setNull(2, java.sql.Types.DATE);
+                stmt.setNull(2, java.sql.Types.TIMESTAMP);
             }
 
             inscnt = stmt.executeUpdate();

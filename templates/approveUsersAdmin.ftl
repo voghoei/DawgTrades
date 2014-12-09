@@ -23,9 +23,13 @@
 </#if>
 <#include "adminNav.ftl">
 		<ul class="list-group">
-			<#list unapprovedUsers as user>
-				<li class="list-group-item clearfix"><span class="btn">${user.getFirstName()} ${user.getLastName()} (Username: ${user.getName()})</span><a href="approve?id=${user.getId()}" class="btn btn-success pull-right">Approve</a></li>
-			</#list>
+			<#if unapprovedUsers?size gt 0>
+				<#list unapprovedUsers as user>
+					<li class="list-group-item clearfix"><span class="btn">${user.getFirstName()} ${user.getLastName()} (Username: ${user.getName()})</span><a href="approve?id=${user.getId()}" class="btn btn-success pull-right">Approve</a></li>
+				</#list>
+			<#else>
+				<p class="lead lead-no-bottom-margin text-center">No users awaiting approval!</p>
+			</#if>
 		</ul>
 	</div>
 </div>

@@ -30,6 +30,7 @@ public class DeleteAttributeAdminUI extends HttpServlet {
         
         // Get current session
         HttpSession session = request.getSession(true);
+        request.setAttribute("baseContext", session.getServletContext().getContextPath());
         LoginControl loginCtrl = new LoginControl();
         AttributeTypeControl attrTypeCtrl = new AttributeTypeControl();
         if(!loginCtrl.checkIsLoggedIn(session)){
@@ -77,6 +78,7 @@ public class DeleteAttributeAdminUI extends HttpServlet {
         
         // Get current session
         HttpSession session = request.getSession(true);
+        request.setAttribute("baseContext", session.getServletContext().getContextPath());
         LoginControl loginCtrl = new LoginControl();
         AttributeTypeControl attrTypeCtrl = new AttributeTypeControl();
         if(!loginCtrl.checkIsLoggedIn(session)){

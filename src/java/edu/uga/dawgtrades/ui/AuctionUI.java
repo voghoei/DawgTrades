@@ -31,6 +31,7 @@ public class AuctionUI extends HttpServlet {
         
         // Get current session
         HttpSession session = request.getSession(true);
+        request.setAttribute("baseContext", session.getServletContext().getContextPath());
         LoginControl loginCtrl = new LoginControl();
         if(loginCtrl.checkIsLoggedIn(session))
         {

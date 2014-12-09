@@ -44,8 +44,8 @@
 					<ul class="list-group">
 						<#list attributes as attribute>
 							<li class="list-group-item">
-								<a href="/admin/attributes/edit?id=${attribute.getId()}" class="btn btn-link">${attribute.getName()} (<#if attribute.getIsString()>String<#else>Number</#if>)</a>
-								<a class="btn btn-danger pull-right" href="/admin/attributes/delete?id=${attribute.getId()}"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Delete</a>
+								<a href="${baseContext}/admin/attributes/edit?id=${attribute.getId()}" class="btn btn-link">${attribute.getName()} (<#if attribute.getIsString()>String<#else>Number</#if>)</a>
+								<a class="btn btn-danger pull-right" href="${baseContext}/admin/attributes/delete?id=${attribute.getId()}"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Delete</a>
 							</li>
 						</#list>
 					</ul>
@@ -55,7 +55,7 @@
 					</ul>
 				</#if>
 			</div>
-			<div class="pull-right"><a class="btn btn-primary" href="/admin/attributes/create?categoryID=${myID}">Add Attribute</a></div>
+			<div class="pull-right"><a class="btn btn-primary" href="${baseContext}/admin/attributes/create?categoryID=${myID}">Add Attribute</a></div>
 		</div>
 		<div class="clearfix">
 			<button type="submit" class="btn btn-primary pull-right">Save</button>

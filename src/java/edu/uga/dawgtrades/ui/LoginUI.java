@@ -29,6 +29,7 @@ public class LoginUI extends HttpServlet {
         
         // Get current session
         HttpSession session = request.getSession(true);
+        request.setAttribute("baseContext", session.getServletContext().getContextPath());
         LoginControl ctrl = new LoginControl();
         if(ctrl.checkIsLoggedIn(session))
         {
@@ -54,6 +55,7 @@ public class LoginUI extends HttpServlet {
         
         // Get current session
         HttpSession session = request.getSession(true);
+        request.setAttribute("baseContext", session.getServletContext().getContextPath());
         LoginControl ctrl = new LoginControl();
         if(ctrl.checkIsLoggedIn(session))
         {

@@ -28,6 +28,7 @@ public class LogoutUI extends HttpServlet {
         
         // Get current session
         HttpSession session = request.getSession(true);
+        request.setAttribute("baseContext", session.getServletContext().getContextPath());
         if(session.getAttribute("currentSessionUser") != null) {
             session.removeAttribute("currentSessionUser");
         }

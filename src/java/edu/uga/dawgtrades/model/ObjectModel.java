@@ -43,7 +43,7 @@ public interface ObjectModel {
     public AttributeType getAttributeType(Attribute attribute) throws DTException;
 
     //Item
-    public Item createItem(Category category, RegisteredUser user, String identifier, String name, String description) throws DTException;
+    public Item createItem(Category category, RegisteredUser user, String name, String description) throws DTException;
 
     public Item createItem();
 

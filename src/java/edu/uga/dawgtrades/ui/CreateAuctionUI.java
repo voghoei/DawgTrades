@@ -3,6 +3,7 @@ package edu.uga.dawgtrades.ui;
 import edu.uga.dawgtrades.DTException;
 import edu.uga.dawgtrades.control.LoginControl;
 import edu.uga.dawgtrades.control.CreateAuctionCtrl;
+import edu.uga.dawgtrades.control.CreateItemCtrl;
 import edu.uga.dawgtrades.model.RegisteredUser;
 import edu.uga.dawgtrades.model.Item;
 import java.io.IOException;
@@ -33,26 +34,82 @@ public class CreateAuctionUI extends HttpServlet{
 			request.setAttribute("loggedInUser",currentUser);
 		}
 		//if the form hasn't been filled out yet. Just so it doesn't do this part for no reason
-		if(request.getParameter("id") != null && request.getParameter("expiration") == null){
-			this.itemId = Long.parseLong(request.getParameter("id"));
-			Item item = auctionCtrl.getItem(itemId);
-			if(!auctionCtrl.itemHasAuction(item)) {
-				request.setAttribute("item",item);
+		                CreateItemCtrl itemCtrl = new CreateItemCtrl();
+        HashMap<String, ArrayList> children = catCtrl.populateHashmapWithCategories(0);
+                if(children != null) {
+                    request.setAttribute("categoriesMap", children);
+                }else{
+                    if(catCtrl.hasError()) {
+                        request.setAttribute("error", "Error getting categories: " + catCtrl.getError());
+                        request.setAttribute("returnTo", "./");
+                        request.getRequestDispatcher("/genericError.ftl").forward(request, response);
+                        return;
+                    }else{
+                        request.setAttribute("error", "Internal error getting categories.");
+                        request.setAttribute("returnTo", "./");
+                        request.getRequestDispatcher("/genericError.ftl").forward(request, response);
+                        return;
+                    }
+
+                }
+		                String categoryId = request.getParameter("id");
+                if(categoryId != null){
+                        try{
+                                long id = Long.parseLong(categoryId,10);
+                                Category category = catCtrl.getCategoryWithID(id);
+                                request.setAttribute("categoryChosen",category);
+                                ArrayList<AttributeType> attributeTypes = itemCtrl.getCategoryAttributes(id);
+                                if(attributeTypes != null){
+                                        request.setAttribute("attributes",attributeTypes);
+                                }else if(itemCtrl.hasError()){
+                                        request.setAttribute("error","Error: "+itemCtrl.getError());
+                                }
+                        }catch(NumberFormatException e){
+                                request.setAttribute("error","Invalid category ID. Please try again.");
+                        }
+                }
+                String itemName = request.getParameter("name");
+                String desc = request.getParameter("desc");
+                String catID = request.getParameter("catId");
+		String expiration = request.getParameters("expiration");
+		String expTime = request.getParameters("expiration-time");
+		String minPrice = request.getParameters("minPrice");
+                if(itemName != null){
+                        if(itemName.isEmpty()) {
+                                request.setAttribute("error","Name is required.");
+                        }else if(desc == null || desc.isEmpty()) {
+                                request.setAttribute("error","Description is required.");
+                        }else if(catID == null || Long.parseLong(catID) <= 0) {
+                                request.setAttribute("error","Category is invalid.");
+                        }else if(!auctionCtrl.dateIsValid(expiration,expTime)){
+				request.setAttribute("error","Date is invalid.");			
+			}else if(minPrice <= 0){
+				request.setAttribute("error","Minimum Selling price must greater than 0");
 			}else{
-				request.setAttribute("error", "Invalid item or item already has an auction associated with it.");
-			}
-		}
-		//if the form has been submitted
-		if(request.getParameter("expiration") != null){
-			Map<String,String[]> parameters = request.getParameterMap();
-			//send to database
-			if(!auctionCtrl.attemptAuctionCreate(parameters,this.itemId)){
-				request.setAttribute("error", "Error: "+auctionCtrl.getError());	
-			}else{
-				response.sendRedirect("/myAuctions");
-				return;
-			}
-		}
+				Map<String,String[]> parameters = request.getParameterMap();
+                                //send the itemName, Item Desc, attributes, and category to the control
+                                RegisteredUser currentUser = (RegisteredUser)session.getAttribute("currentSessionUser");
+                                if(!auctionCtrl.attemptAuctionCreate(parameters,this.itemId)){
+                                	request.setAttribute("error", "Error: "+auctionCtrl.getError());
+				}else{
+					long itemId = itemCtrl.attemptItemCreate(request.getParameterMap(),currentUser.getId());
+                                	if(itemId<0){
+                                        	if(itemCtrl.hasError()){
+                                                error = itemCtrl.getError();
+                                        	}
+                                        	request.setAttribute("error","error: "+error);
+//                                        	request.getRequestDispatcher("/createAuction.ftl").forward(request,response);
+                                	}else{
+		                                response.sendRedirect("/myAuctions");
+                		                return;
+
+					}
+				}
+                                
+                        }
+			
+                }
+
 		
 		request.getRequestDispatcher("/createAuction.ftl").forward(request,response);
 	}

@@ -21,7 +21,6 @@ import java.util.*;
 import javax.servlet.*;
 import javax.servlet.http.HttpSession;
 public class CreateItemCtrl{
-	private Item item= null;
 	private Connection conn = null;
 	private ObjectModel objectModel = null;
 	private Persistence persistence = null;
@@ -44,7 +43,7 @@ public class CreateItemCtrl{
 	public Item getItem(){
 		return this.item;
 	}
-	public boolean attemptItemCreate(Map<String,String[]> parameters, long userId){
+	public long attemptItemCreate(Map<String,String[]> parameters, long userId){
 
 		boolean created=true;
 		try{
@@ -55,7 +54,6 @@ public class CreateItemCtrl{
 			//RegisteredUser currentUser = ctrl.getLoggedInUser(session);
 			item.setOwnerId(userId);
 			objectModel.storeItem(item);
-			this.item = item;
 			long itemId = item.getId();
 			long categoryId = Long.parseLong(parameters.get("id")[0]);
 			Iterator<AttributeType> attributeTypes = this.getCategoryAttributes(categoryId).iterator();
@@ -69,16 +67,16 @@ public class CreateItemCtrl{
 				attribute.setItemId(itemId);
 			}
 			
-			
+			return itemId;	
 				
 		}catch(DTException e){
 			error = e.getMessage();
 			hasError = true;
-			created = false;
+			return null;
 		}finally{
 			close();
 		}
-		return created;
+		return null;
 	}
 	
 	private void addAttributes(Set<Attribute> attributes){	

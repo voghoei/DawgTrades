@@ -66,26 +66,11 @@ public class AuctionControl {
     }
 
     public long getCategoryIDForAuctionID(long id) {
-        try {
-            this.connect();
-            Auction proto = this.objectModel.createAuction();
-            proto.setId(id);
-            Iterator<Auction> results = this.objectModel.findAuction(proto);
-            if(results.hasNext()) {
-                proto = results.next();
-                return proto.getCategoryId();
-            }else{
-                return -1;
-            }
+        Item item = this.getItemForAuctionID(id);
+        if(item != null) {
+            return item.getCategoryId();
         }
-        catch(DTException e) {
-            this.hasError = true;
-            this.error = e.getMessage();
-            return -1;
-        }
-        finally {
-            this.close();
-        }
+        return -1;
     }
 
     public ArrayList<Attribute> getAttributesForAuctionID(long id) {

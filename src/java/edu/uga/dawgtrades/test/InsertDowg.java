@@ -79,7 +79,7 @@ public class InsertDowg {
             System.out.println("Entity objects Category Applet created and saved.");
 
             //Item
-            sahatTab = objectModel.createItem(tabletCat, sahar, "sj12", "saharItem", null);
+            sahatTab = objectModel.createItem(tabletCat, sahar, "saharItem", null);
             objectModel.storeItem(sahatTab);
             System.out.println("Entity objects Category sahar'Item created and saved.");
 

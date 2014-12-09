@@ -63,9 +63,8 @@ public class AttributeIterator
                 attTypeName = rs.getString(6);
                 attTypeIsString = rs.getBoolean(7);
                 userId = rs.getLong(8);
-                itemCode = rs.getString(9);
-                itemName = rs.getString(10);
-                itemDesc = rs.getString(11);
+                itemName = rs.getString(9);
+                itemDesc = rs.getString(10);
 
                 more = rs.next();
             } catch (Exception e) {      // just in case...
@@ -82,7 +81,7 @@ public class AttributeIterator
                 user = modelFactory.createRegisteredUser(null, null, null, null, null, null, false,false );
                 user.setId(userId);
 
-                item = modelFactory.createItem(category, user, itemCode, itemName, itemDesc);
+                item = modelFactory.createItem(category, user, itemName, itemDesc);
                 item.setId(itemId);
                 
                 attribute = modelFactory.createAttribute(attributeType, item, value);

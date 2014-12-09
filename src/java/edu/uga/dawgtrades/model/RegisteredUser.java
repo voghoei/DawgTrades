@@ -23,6 +23,10 @@ public interface RegisteredUser
 
     void setIsAdmin(boolean isAdmin);
 
+    boolean getIsApproved();
+
+    void setIsApproved(boolean isAdmin);
+
     String getEmail();
 
     void setEmail(String email);

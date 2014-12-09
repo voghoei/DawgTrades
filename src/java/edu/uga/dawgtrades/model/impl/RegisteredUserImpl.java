@@ -17,11 +17,13 @@ public class RegisteredUserImpl extends Persistent implements RegisteredUser {
     private String phone;
     private boolean canText = false;
     private boolean isAdmin = false;
+    private boolean isApproved = false;
+
 
     public RegisteredUserImpl() {
     }
 
-    public RegisteredUserImpl(String firstName, String lastName, String name, String password, String email, String phone, boolean canText, boolean isAdmin) {
+    public RegisteredUserImpl(String firstName, String lastName, String name, String password, String email, String phone, boolean canText, boolean isAdmin, boolean isApproved) {
 
         this.name = name;
         this.firstName = firstName;
@@ -43,6 +45,7 @@ public class RegisteredUserImpl extends Persistent implements RegisteredUser {
         this.email = email;
         this.canText = canText;
         this.isAdmin = isAdmin;
+        this.isApproved = isApproved;
         this.phone = phone;
     }
 
@@ -123,8 +126,16 @@ public class RegisteredUserImpl extends Persistent implements RegisteredUser {
         this.isAdmin = isAdmin;
     }
 
+    public boolean getIsApproved() {
+        return isApproved;
+    }
+
+    public void setIsApproved(boolean isApproved) {
+        this.isApproved = isApproved;
+    }
+
     public String toString() {
-        return "RegisteredUser[" + getId() + "] " + getFirstName() + " " + getLastName() + " " + getName() + " " + getPassword() + " " + getEmail() + " " + getPhone() + " " + getCanText() + " " + getIsAdmin();
+        return "RegisteredUser[" + getId() + "] " + getFirstName() + " " + getLastName() + " " + getName() + " " + getPassword() + " " + getEmail() + " " + getPhone() + " " + getCanText() + " " + getIsAdmin() + " " + getIsApproved();
     }
 
     public boolean equals(Object otherRegisteredUser) {

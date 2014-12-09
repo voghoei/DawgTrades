@@ -78,7 +78,7 @@ public class AttributeIterator
                 attributeType = modelFactory.createAttributeType(category, attTypeName, attTypeIsString);
                 attributeType.setId(attributeTypeId);
 
-                user = modelFactory.createRegisteredUser(null, null, null, null, null, null, false,false );
+                user = modelFactory.createRegisteredUser(null, null, null, null, null, null, false,false, false );
                 user.setId(userId);
 
                 item = modelFactory.createItem(category, user, itemName, itemDesc);

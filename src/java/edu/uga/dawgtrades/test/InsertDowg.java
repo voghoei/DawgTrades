@@ -61,11 +61,11 @@ public class InsertDowg {
         try {
 
             //   create a few user
-            sahar = objectModel.createRegisteredUser("sahar", "voghoei", "sahr", "ss", "joe@mail.com", "23567895", false, false);
+            sahar = objectModel.createRegisteredUser("sahar", "voghoei", "sahr", "ss", "joe@mail.com", "23567895", false, false, true);
             objectModel.storeRegisteredUser(sahar);
             System.out.println("Entity objects User Sahar created and saved.");
 
-            Daniel = objectModel.createRegisteredUser("daniel", "last", "san", "di", "sa@mail.com", "23567895", false, false);
+            Daniel = objectModel.createRegisteredUser("daniel", "last", "san", "di", "sa@mail.com", "23567895", false, false, true);
             objectModel.storeRegisteredUser(Daniel);
             System.out.println("Entity objects User Daniel created and saved.");
 

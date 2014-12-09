@@ -51,7 +51,7 @@ public class DoPasswordResetUI extends HttpServlet {
         try {
             long idNumber = Long.parseLong(id, 10);
             RegisteredUser user = vCtrl.getUserWithID(idNumber);
-            if(user == null || user.getPassword() != key) {
+            if(user == null || !user.getPassword().equals(key)) {
                 response.sendRedirect("/");
             }
             request.setAttribute("id", id);
@@ -97,7 +97,7 @@ public class DoPasswordResetUI extends HttpServlet {
         try {
             long idNumber = Long.parseLong(id, 10);
             RegisteredUser user = vCtrl.getUserWithID(idNumber);
-            if(user == null || user.getPassword() != key) {
+            if(user == null || !user.getPassword().equals(key)) {
                 response.sendRedirect("/");
                 return;
             }

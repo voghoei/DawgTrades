@@ -37,7 +37,7 @@
                 </div>
 	</form>
 	<#elseif other??>
-		<p> some text</p>
+		<form> some text</form>
 	</#if>
 	</#if>
 	</div>

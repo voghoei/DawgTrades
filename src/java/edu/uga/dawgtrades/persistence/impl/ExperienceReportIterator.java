@@ -42,11 +42,17 @@ public class ExperienceReportIterator implements Iterator<ExperienceReport> {
 
         if (more) {
             try {
-                RegisteredUser userReviewer = new RegisteredUserImpl();
+                RegisteredUser userReviewer = objectModel.createRegisteredUser();
                 RegisteredUser userReviewed = new RegisteredUserImpl();
+                RegisteredUser reviewerUser = null;
+                Iterator<RegisteredUser> userIter = null;
                 er.setId(rs.getLong(1));
                 userReviewer.setId(rs.getLong(2));
-                er.setReviewer(userReviewer);
+                userIter = objectModel.findRegisteredUser(userReviewer);
+                if (userIter.hasNext()) {
+                    reviewerUser = userIter.next();
+                }
+                er.setReviewer(reviewerUser);
                 userReviewed.setId(rs.getLong(3));
                 er.setReviewed(userReviewed);
                 er.setRating(rs.getInt(4));

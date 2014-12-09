@@ -46,7 +46,7 @@ public class CategoryUI extends HttpServlet {
             try {
                 long id = Long.parseLong(categoryID, 10);
                 Category toBrowse = catCtrl.getCategoryWithID(id);
-                if(toBrowse != null) {
+                if(toBrowse != null && id > 0) {
                     request.setAttribute("specificCategory", toBrowse);
                     ArrayList<Category> subCats = catCtrl.getCategoriesWithParentID(id);
                     if(subCats != null && !subCats.isEmpty()) {

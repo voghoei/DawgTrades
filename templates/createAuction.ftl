@@ -1,4 +1,5 @@
 <#import "default.ftl" as default>
+<#import "categoryListMacro.ftl" as catList>
 <@default.mainLayout "Create Auction">
 <h1> Create Auction </h1>
 <#if error??>
@@ -15,15 +16,6 @@
 	<form role="form" action="createAuction" method="post">
 		<!-- create item stuff goes here -->
 		
-                <div class="form-group">
-                        <#if categoryChosen??>
-                                <label for="category"> Category:</label>
-                                <select name="catId" class="form-control" onChange="window.location.href='createItem?id=' + this.value" required>
-                        <option value="#" disabled> Select a Category </option>
-                        <#if categoriesMap??>
-                                                <@catList.categoryList categoryMap=categoriesMap selected="${categoryChosen.getId()}" />
-                                        <#else>
-
                 <div class="form-group">
                         <#if categoryChosen??>
                                 <label for="category"> Category:</label>

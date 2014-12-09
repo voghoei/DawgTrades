@@ -7,6 +7,8 @@ import edu.uga.dawgtrades.control.CreateItemCtrl;
 import edu.uga.dawgtrades.control.CategoryControl;
 import edu.uga.dawgtrades.model.Category;
 import edu.uga.dawgtrades.model.RegisteredUser;
+import edu.uga.dawgtrades.model.AttributeType;
+import edu.uga.dawgtrades.model.Attribute;
 import edu.uga.dawgtrades.model.Item;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -27,6 +29,7 @@ public class CreateAuctionUI extends HttpServlet{
 		LoginControl ctrl = new LoginControl();
                 CategoryControl catCtrl = new CategoryControl();
 		CreateAuctionCtrl auctionCtrl = new CreateAuctionCtrl();
+		String error = "Error unknown";
 		if(!ctrl.checkIsLoggedIn(session)){
 			response.sendRedirect("/login");
 			request.setAttribute("loggedInUser","");

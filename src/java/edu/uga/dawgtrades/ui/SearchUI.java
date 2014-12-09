@@ -172,12 +172,12 @@ public class SearchUI extends HttpServlet {
                     // Next, attributetypes...
                     for(AttributeType attribute : attributeTypes) {
                         ArrayList<Auction> currentCandidates = new ArrayList<Auction>();
-                        String attrVal = request.getParameter("attr_" + Long.valueOf(attribute.getId()).toString());
-                        if(attrVal == null || attrVal == "") {
+                        String attrValString = request.getParameter("attr_" + Long.valueOf(attribute.getId()).toString());
+                        if(attrValString == null || attrValString == "") {
                             continue;
                         }else{
                             if(attribute.getIsString()) {
-                                attrVal = attrVal.toLowerCase();
+                                attrValString = attrValString.toLowerCase();
                                 for(Auction auction : candidates) {
                                     Item item = itemsForAuctions.get(Long.valueOf(auction.getId()).toString());
                                     String itemValueString = searchCtrl.getAttributeWithTypeForItem(attribute, item);
@@ -192,14 +192,14 @@ public class SearchUI extends HttpServlet {
                                         }
                                     }
                                     itemValueString = itemValueString.toLowerCase();
-                                    if(itemValueString.contains(attrVal)) {
+                                    if(itemValueString.contains(attrValString)) {
                                         currentCandidates.add(auction);
                                     }
                                 }
                             }else{
                                 double attrVal = 0;
                                 try {
-                                    attrVal = Double.valueOf(attrVal);
+                                    attrVal = Double.valueOf(attrValString);
                                 }
                                 catch(NumberFormatException e) {
                                     request.setAttribute("error", "You passed in an invalid value for " + attribute.getName() + " (not a number).");

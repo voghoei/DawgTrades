@@ -41,7 +41,7 @@ public class AuctionIterator implements Iterator<Auction> {
                 auction.setId(rs.getLong(1));
                 auction.setItemId(rs.getLong(2));
                 auction.setMinPrice(rs.getFloat(3));
-                java.sql.Timestamp timestamp = resultSet.getTimestamp(4);
+                java.sql.Timestamp timestamp = rs.getTimestamp(4);
                 if(timestamp == null) {
                     throw new DTException("AuctionIterator: Failed to retrieve expiration from DB.");
                 }

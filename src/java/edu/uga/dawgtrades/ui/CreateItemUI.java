@@ -47,7 +47,7 @@ public class CreateItemUI extends HttpServlet{
 				long id = Long.parseLong(categoryId,10);
 				CategoryControl catCtrl = new CategoryControl();
 				Category category = catCtrl.getCategoryWithID(id);
-				request.setAttribute("category",category);
+				request.setAttribute("categoryChosen",category);
 				ArrayList<AttributeType> attributeTypes = itemCtrl.getCategoryAttributes(id);
 				if(attributeTypes != null){
 					request.setAttribute("attributes",attributeTypes);

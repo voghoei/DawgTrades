@@ -24,7 +24,7 @@
 <#include "adminNav.ftl">
 		<ul class="list-group">
 			<#list unapprovedUsers as user>
-				<li class="list-group-item clearfix"><span class="btn btn-link">${user.getFirstName()} ${user.getLastName()} (Username: ${user.getName()})</span><a href="approve?id=${user.getId()}" class="btn btn-success pull-right">Approve</a></li>
+				<li class="list-group-item clearfix"><span class="btn">${user.getFirstName()} ${user.getLastName()} (Username: ${user.getName()})</span><a href="approve?id=${user.getId()}" class="btn btn-success pull-right">Approve</a></li>
 			</#list>
 		</ul>
 	</div>

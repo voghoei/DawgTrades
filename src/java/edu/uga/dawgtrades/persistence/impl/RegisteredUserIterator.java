@@ -54,7 +54,7 @@ public class RegisteredUserIterator implements Iterator<RegisteredUser> {
                 Email = rs.getString(6);
                 Phone = rs.getString(7);
                 CanText = rs.getBoolean(8);
-                IsApproved = rs.getBoolean(9);
+                IsApproved = rs.getBoolean(10);
 
                 more = rs.next();
             } catch (Exception e) {	// just in case...

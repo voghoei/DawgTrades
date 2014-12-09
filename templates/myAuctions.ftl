@@ -15,14 +15,14 @@
 
 <div class="row">
 	<#if auctions??>
-		<ul class="list-group">
+		<div class="list-group">
 		<#list items as item>
 			<#assign itemId = "${item.getId()}">
 			<#if auctions[itemId]??>
-				<a href="/auction?id=${auctions[itemId].getId()}"><li class="list-group-item">${item.getName()} (<#if auctions[itemId].getIsClosed()>Closed<#else>Open</#if>)</li></a>
+				<a href="/auction?id=${auctions[itemId].getId()}" class="list-group-item <#if auctions[itemId].getIsClosed()>list-group-item-danger<#else>list-group-item-success</#if>">${item.getName()} (<#if auctions[itemId].getIsClosed()>Closed<#else>Open</#if>)</a>
 			</#if>
 		</#list>
-		</ul>
+		</div>
 	<#else>
 		<h2> You don't have any active auctions</h2>
 	</#if>

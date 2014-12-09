@@ -73,7 +73,7 @@ public class MyAuctionsControl{
 		}
 	}
 	private long[] getUserItems(long userId){
-               // try{
+                try{
                       //  this.connect();
 			Item modelItem = this.objectModel.createItem();
 			modelItem.setOwnerId(userId);
@@ -90,13 +90,13 @@ public class MyAuctionsControl{
 			}
 			return itemIDs;
 
-               /* }catch(DTException e){
+                }catch(DTException e){
                         this.error = e.getMessage();
                         this.hasError = true;
                         return null;
                 }finally{
-                        this.close();
-                }*/
+                 //       this.close();
+                }
 
 	}
 	public boolean hasError(){

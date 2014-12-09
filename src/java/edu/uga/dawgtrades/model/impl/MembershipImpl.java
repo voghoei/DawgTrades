@@ -5,27 +5,27 @@ import java.util.Date;
 
 public class MembershipImpl extends Persistent implements Membership {
 
-    private float price = 0;
+    private double price = 0;
     private Date date;
 
     public MembershipImpl() {
     }
 
-    public MembershipImpl(float price) {
+    public MembershipImpl(double price) {
         this.price = price;
     }
 
-    public MembershipImpl(float price, Date date) {
+    public MembershipImpl(double price, Date date) {
         this.price = price;
         this.date = date;
     }
 
     
-    public float getPrice() {
+    public double getPrice() {
         return this.price;
     }
 
-    public void setPrice(float price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 

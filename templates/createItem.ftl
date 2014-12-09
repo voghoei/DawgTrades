@@ -18,16 +18,16 @@
 		
 		<div class="form-group">
 			<label for="name"> Item Name </label>
-			<input type="text" class="form-control" name="name">
+			<input type="text" class="form-control" name="name" required>
 		</div>
 		<div class="form-group">
 			<label for="desc"> Item Description</label>
-			<input type="textarea" class="form-control" name="desc">
+			<textarea class="form-control" rows="3" name="desc"></textarea>
 		</div>
 		<div class="form-group">
 			<#if categoryChosen??>
 				<label for="category"> Category:</label>
- 				<select class="form-control" onChange="window.location.href=this.value">
+ 				<select class="form-control" onChange="window.location.href=this.value" required>
                         	<option value="#"> Select a Category </option>
                         	<#if categoryList??>
                                         <#list categoryList as category>
@@ -41,7 +41,7 @@
 				</select>
 			<#else>
 				<label for="category"> Category </label>
-				<select class="form-control" onChange="window.location.href=this.value">
+				<select class="form-control" onChange="window.location.href=this.value" required>
 				<option value="#"> Select a Category </option>
 				<#if categoryList??>					
 					<#list categoryList as category><option value="/createItem?id=${category.getId()}">${category.getName()}</option>
@@ -55,7 +55,7 @@
 				<div class="form-group">
 					<#list attributes as attribute>
 					<label class="control-label" for="attribute">${attribute.getName()}</label>
-					<input type="text" class="form-control" name="attribute">
+					<input type="text" class="form-control" name="attribute" required>
 					</#list>
 				</div>
 			</#if>

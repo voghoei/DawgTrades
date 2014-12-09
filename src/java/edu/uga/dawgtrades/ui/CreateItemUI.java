@@ -57,8 +57,13 @@ public class CreateItemUI extends HttpServlet{
 			}catch(NumberFormatException e){
 				request.setAttribute("error","Invalid category ID. Please try again.");
 			}
-		}	
+		}
+		String itemName = request.getParameter("name");
+		String desc = request.getParameter("desc");
+		if(request.getParameter("submit") == null)
+			request.setAttribute("error","Submit is null");	
 		request.getRequestDispatcher("/createItem.ftl").forward(request,response);
+		
 	}
 
 	@Override

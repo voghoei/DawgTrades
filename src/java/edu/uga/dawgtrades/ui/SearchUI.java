@@ -59,17 +59,22 @@ public class SearchUI extends HttpServlet {
                     request.setAttribute("searchCategory", toSearch);
 
                     AuctionControl auctionCtrl = new AuctionControl();
-                    ArrayList<AttributeType> attributeTypes = auctionCtrl.getAttributeTypesForCategory(id);
-                    if(attributeTypes == null) {
-                        if(catCtrl.hasError()) {
-                            request.setAttribute("error", "Error fetching attributes: " + catCtrl.getError());
-                            request.setAttribute("returnTo", "/");
-                            request.getRequestDispatcher("/genericError.ftl").forward(request, response);
-                        }else{
-                            request.setAttribute("error", "Internal error while fetching attributes.");
-                            request.setAttribute("returnTo", "/");
-                            request.getRequestDispatcher("/genericError.ftl").forward(request, response);
+                    ArrayList<AttributeType> attributeTypes;
+                    if(id != 0) {
+                        attributeTypes = auctionCtrl.getAttributeTypesForCategory(id);
+                        if(attributeTypes == null) {
+                            if(catCtrl.hasError()) {
+                                request.setAttribute("error", "Error fetching attributes: " + catCtrl.getError());
+                                request.setAttribute("returnTo", "/");
+                                request.getRequestDispatcher("/genericError.ftl").forward(request, response);
+                            }else{
+                                request.setAttribute("error", "Internal error while fetching attributes.");
+                                request.setAttribute("returnTo", "/");
+                                request.getRequestDispatcher("/genericError.ftl").forward(request, response);
+                            }
                         }
+                    }else{
+                        attributeTypes = new ArrayList<AttributeType>();
                     }
                     request.setAttribute("attributeTypes", attributeTypes);
                     request.getRequestDispatcher("/searchCategory.ftl").forward(request, response);
@@ -101,17 +106,22 @@ public class SearchUI extends HttpServlet {
                     request.setAttribute("searchCategory", toSearch);
 
                     AuctionControl auctionCtrl = new AuctionControl();
-                    ArrayList<AttributeType> attributeTypes = auctionCtrl.getAttributeTypesForCategory(id);
-                    if(attributeTypes == null) {
-                        if(catCtrl.hasError()) {
-                            request.setAttribute("error", "Error fetching attributes: " + catCtrl.getError());
-                            request.setAttribute("returnTo", "/");
-                            request.getRequestDispatcher("/genericError.ftl").forward(request, response);
-                        }else{
-                            request.setAttribute("error", "Internal error while fetching attributes.");
-                            request.setAttribute("returnTo", "/");
-                            request.getRequestDispatcher("/genericError.ftl").forward(request, response);
+                    ArrayList<AttributeType> attributeTypes;
+                    if(id != 0) {
+                        attributeTypes = auctionCtrl.getAttributeTypesForCategory(id);
+                        if(attributeTypes == null) {
+                            if(catCtrl.hasError()) {
+                                request.setAttribute("error", "Error fetching attributes: " + catCtrl.getError());
+                                request.setAttribute("returnTo", "/");
+                                request.getRequestDispatcher("/genericError.ftl").forward(request, response);
+                            }else{
+                                request.setAttribute("error", "Internal error while fetching attributes.");
+                                request.setAttribute("returnTo", "/");
+                                request.getRequestDispatcher("/genericError.ftl").forward(request, response);
+                            }
                         }
+                    }else{
+                        attributeTypes = new ArrayList<AttributeType>();
                     }
                     request.setAttribute("attributeTypes", attributeTypes);
 
@@ -148,7 +158,13 @@ public class SearchUI extends HttpServlet {
 
                     // Now, apply constraints on name + description (universal)
                     String findName = request.getParameter("name");
+                    if(findName != null) {
+                        request.setAttribute("currentName", findName);
+                    }
                     String findDescription = request.getParameter("description");
+                    if(findDescription != null) {
+                        request.setAttribute("currentDescription", findDescription);
+                    }
                     ArrayList<Auction> candidates = new ArrayList<Auction>();
                     for(Auction auction : auctions) {
                         Item item = itemsForAuctions.get(Long.valueOf(auction.getId()).toString());
@@ -169,13 +185,19 @@ public class SearchUI extends HttpServlet {
                     }
 
                     SearchControl searchCtrl = new SearchControl();
+
                     // Next, attributetypes...
+
+                    // Store the current values in a map for the page to use
+                    HashMap<String, String> searchVals = new HashMap<String, String>();
+
                     for(AttributeType attribute : attributeTypes) {
                         ArrayList<Auction> currentCandidates = new ArrayList<Auction>();
                         String attrValString = request.getParameter("attr_" + Long.valueOf(attribute.getId()).toString());
                         if(attrValString == null || attrValString == "") {
                             continue;
                         }else{
+                            searchVals.put("attr_" + Long.valueOf(attribute.getId()).toString(), attrValString);
                             if(attribute.getIsString()) {
                                 attrValString = attrValString.toLowerCase();
                                 for(Auction auction : candidates) {
@@ -221,6 +243,8 @@ public class SearchUI extends HttpServlet {
                                     // Got a search key without valid comparison operator, skip it.
                                     continue;
                                 }
+                                searchVals.put("attr_" + Long.valueOf(attribute.getId()).toString() + "_comparison", attrValComp);
+
                                 for(Auction auction : candidates) {
                                     Item item = itemsForAuctions.get(Long.valueOf(auction.getId()).toString());
                                     String itemValueString = searchCtrl.getAttributeWithTypeForItem(attribute, item);
@@ -283,8 +307,13 @@ public class SearchUI extends HttpServlet {
                         }
                     }
 
+                    // Save values
+                    request.setAttribute("currentValues", searchVals);
+
                     // candidates should now contain search results.
                     request.setAttribute("searchResults", candidates);
+
+                    // Get bids
                     HashMap<String, Bid> bids = catCtrl.getBidsForAuctions(candidates);
                     if(bids == null) {
                         if(catCtrl.hasError()) {

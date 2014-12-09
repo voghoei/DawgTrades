@@ -65,7 +65,7 @@ public class DawgTradesContextListener implements ServletContextListener {
                                 }else{
                                     // Expired without winner
                                     long itemID = auctionSet.getLong(4);
-                                    System.out.println("[LISTENER] Auction has NO winning bid. Deleting item with ID = " itemID);
+                                    System.out.println("[LISTENER] Auction has NO winning bid. Deleting item with ID = " + itemID);
                                     delItemStmt = conn.createStatement();
                                     delItemStmt.executeUpdate("DELETE FROM Item WHERE id = " + itemID);
                                 }

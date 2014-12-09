@@ -194,6 +194,15 @@
     </servlet-mapping>
 
     <servlet>
+        <servlet-name>DeleteAuctionUI</servlet-name>
+        <servlet-class>edu.uga.dawgtrades.ui.DeleteAuctionUI</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DeleteAuctionUI</servlet-name>
+        <url-pattern>/auction/delete</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
         <servlet-name>ViewUserUI</servlet-name>
         <servlet-class>edu.uga.dawgtrades.ui.ViewUserUI</servlet-class>
     </servlet>

@@ -201,6 +201,42 @@ public class AuctionControl {
         }
         return null;
     }
+
+    public boolean userCanDelete(RegisteredUser user, long id) {
+        RegisteredUser owner = this.getOwnerForAuctionID(id);
+        if(owner != null) {
+            if(owner.getId() == user.getId() || user.getIsAdmin()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean auctionExists(long id) {
+        return this.getAuctionWithID(id) != null;
+    }
+
+    public boolean deleteAuction(long id) {
+        Auction auction = this.getAuctionWithID(id);
+        if(auction != null) {
+            try {
+                this.connect();
+                Item item = this.objectModel.getItem(auction);
+                this.objectModel.deleteItem(item);
+                return true;
+            }
+            catch(DTException e) {
+                this.hasError = true;
+                this.error = e.getMessage();
+                return false;
+            }
+            finally {
+                this.close();
+            }
+        }
+        return false;
+    }
+
     public Item getItemForAuctionID(long id) {
         Auction auction = this.getAuctionWithID(id);
         if(auction != null) {

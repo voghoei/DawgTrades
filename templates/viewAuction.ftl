@@ -45,7 +45,7 @@
 			<div class="panel-heading">
 				Latest Bids
 			</div>
-		  	<#if !bids.isEmpty()>
+		  	<#if bids?size gt 0>
 		  		<ul class="list-group">
 		  			<#list bids?chunk(5)?first as bid>
 		  				<li class="list-group-item">$${bid.getAmount()} on ${bid.getDate()}</li>

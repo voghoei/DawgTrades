@@ -84,7 +84,7 @@ public class MyAuctionsControl{
 				items.add(results.next());
 			}
 			long[] itemIDs = new long[items.size()];
-			Items[] itemsArray = items.toArray();
+			Item[] itemsArray = items.toArray();
 			for(int i =0;i<itemIDs.length; i++){
 				itemIDs[i] = itemsArray[i].getId();
 			}

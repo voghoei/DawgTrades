@@ -2,8 +2,9 @@ package edu.uga.dawgtrades.ui;
 
 import edu.uga.dawgtrades.DTException;
 import edu.uga.dawgtrades.control.RegisterControl;
-import edu.uga.dawgtrades.control.MyAuctionControl;
+import edu.uga.dawgtrades.control.MyAuctionsControl;
 import edu.uga.dawgtrades.model.Auction;
+import edu.uga.dawgtrades.model.RegisteredUser;
 import java.util.*;
 import java.io.*;
 import javax.servlet.http.*;

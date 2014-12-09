@@ -71,7 +71,7 @@
 							<input type="text" class="form-control" name="amount">
 						</div>
 					</div>
-					<div class="input-group clearfix input-group-lg">
+					<div class="clearfix">
 						<button type="submit" class="btn btn-success pull-right"> Place Bid</button>
 					</div>
 				</form>

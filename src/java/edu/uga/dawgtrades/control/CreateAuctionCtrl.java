@@ -69,7 +69,11 @@ public class CreateAuctionCtrl{
 		}catch(DTException e){
 			this.error = e.getMessage();
 			this.hasError = true;
-			created = false;
+			return false;
+		}catch(ParseExeption e){
+			this.error = e.getMessage();
+			this.hasError = true;
+			return false;
 		}finally{
 			this.close();
 		}

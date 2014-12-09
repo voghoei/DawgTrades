@@ -37,6 +37,7 @@
 					<option value="/createItem?id=${category.getId()}">${category.getName()}</option>
 					</#if>
                                         </#list>
+			</#if>
 
 			<#else>
 			<label for="category"> Category </label>

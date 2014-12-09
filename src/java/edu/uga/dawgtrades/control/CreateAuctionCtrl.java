@@ -70,7 +70,7 @@ public class CreateAuctionCtrl{
 			this.error = e.getMessage();
 			this.hasError = true;
 			return false;
-		}catch(ParseExeption e){
+		}catch(ParseException e){
 			this.error = e.getMessage();
 			this.hasError = true;
 			return false;

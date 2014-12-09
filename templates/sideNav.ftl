@@ -16,7 +16,7 @@
           <ul class="nav navbar-nav">
             <li <#if profile??>class="active"</#if>><a href="${baseContext}/settings">Edit Profile</a></li>
             <li <#if password??>class="active"</#if>><a href="${baseContext}/settings?id=password">Change Password</a></li>
-            <li<#if other??>class="active"</#if>><a href="${baseContext}/settings?id=other">Other Menu Item</a></li>
+           
          
           </ul>
         </div><!--/.nav-collapse -->

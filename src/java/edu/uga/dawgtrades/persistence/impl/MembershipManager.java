@@ -41,7 +41,7 @@ class MembershipManager {
 
             if (membership.getPrice() != 0.0) // price is unique and non null
             {
-                stmt.setFloat(1, membership.getPrice());
+                stmt.setDouble(1, membership.getPrice());
             } else {
                 throw new DTException("MembershipManager.save: can't save a Membership: price undefined");
             }
@@ -75,7 +75,7 @@ class MembershipManager {
             if (stmt.execute(selectMembershipSql)) {
                 ResultSet r = stmt.getResultSet();
                 r.next();
-                membership = objectModel.createMembership(r.getFloat(2), r.getDate(3));
+                membership = objectModel.createMembership(r.getDouble(2), r.getDate(3));
                 membership.setId(r.getLong(1));
                 return membership;
             }

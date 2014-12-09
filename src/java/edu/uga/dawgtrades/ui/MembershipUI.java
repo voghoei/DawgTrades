@@ -41,7 +41,7 @@ public class MembershipUI extends HttpServlet {
         try {
 
             if (price != null) {
-                if (!membershipCtrl.attemptToCreateMembership(Float.valueOf(price))) {
+                if (!membershipCtrl.attemptToCreateMembership(Double.valueOf(price))) {
                     request.setAttribute("error", "Error: " + membershipCtrl.getError());
                 }
             }

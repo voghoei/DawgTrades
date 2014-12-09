@@ -5,9 +5,9 @@ import java.util.Date;
 public interface Auction
         extends Persistable {
 
-    float getMinPrice();
+    double getMinPrice();
 
-    void setMinPrice(float minPrice);
+    void setMinPrice(double minPrice);
 
     Date getExpiration();
 
@@ -15,7 +15,7 @@ public interface Auction
 
     boolean getIsClosed();
 
-    float getSellingPrice();
+    double getSellingPrice();
 
     long getItemId();
 

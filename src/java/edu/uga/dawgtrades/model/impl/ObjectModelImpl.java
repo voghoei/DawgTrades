@@ -35,7 +35,7 @@ public class ObjectModelImpl extends Persistent implements ObjectModel {
         return membership;
     }
 
-    public Membership createMembership(float price, Date date) throws DTException {
+    public Membership createMembership(double price, Date date) throws DTException {
         Membership membership = new MembershipImpl(price, date);
         return membership;
     }
@@ -304,7 +304,7 @@ public class ObjectModelImpl extends Persistent implements ObjectModel {
         return bid;
     }
 
-    public Bid createBid(Auction auction, RegisteredUser registeredUser, float amount) {
+    public Bid createBid(Auction auction, RegisteredUser registeredUser, double amount) {
         Bid bid = new BidImpl(auction, registeredUser, amount);
         return bid;
     }
@@ -323,12 +323,12 @@ public class ObjectModelImpl extends Persistent implements ObjectModel {
 
     //Auction ------------------------------------
     public Auction createAuction() {
-        Auction auction = new AuctionImpl(0, (float) 0, null);
+        Auction auction = new AuctionImpl(0, (double) 0, null);
         auction.setId(-1);
         return auction;
     }
 
-    public Auction createAuction(Item item, float minPrice, Date expiration) {
+    public Auction createAuction(Item item, double minPrice, Date expiration) {
         Auction auction = new AuctionImpl(item.getId(), minPrice, expiration);
         return auction;
     }

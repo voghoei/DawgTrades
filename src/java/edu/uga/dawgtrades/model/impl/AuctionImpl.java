@@ -10,15 +10,15 @@ public class AuctionImpl extends Persistent implements Auction {
 
     private long itemId;
     private long userId;
-    private float minPrice;
+    private double minPrice;
     private Date expiration;
     private boolean isClosed;
-    private float SellingPrice;
+    private double SellingPrice;
 
     public AuctionImpl() {
     }
 
-    public AuctionImpl(long itemId, float minPrice, Date expiration) {
+    public AuctionImpl(long itemId, double minPrice, Date expiration) {
         this.itemId = itemId;
         this.minPrice = minPrice;
         this.expiration = expiration;
@@ -41,11 +41,11 @@ public class AuctionImpl extends Persistent implements Auction {
         this.userId = userId;
     }
 
-    public float getMinPrice() {
+    public double getMinPrice() {
         return this.minPrice;
     }
 
-    public void setMinPrice(float minPrice) {
+    public void setMinPrice(double minPrice) {
         this.minPrice = minPrice;
     }
 
@@ -65,11 +65,11 @@ public class AuctionImpl extends Persistent implements Auction {
         this.isClosed = isClosed;
     }
 
-    public float getSellingPrice() {
+    public double getSellingPrice() {
         return SellingPrice;
     }
 
-    public void setSellingPrice(float SellingPrice) {
+    public void setSellingPrice(double SellingPrice) {
         this.SellingPrice = SellingPrice;
     }
 

@@ -36,7 +36,7 @@ public class BidManager {
             }
             stmt.setLong(1, bid.getRegisteredUser().getId());
             stmt.setLong(2, bid.getAuction().getId());
-            stmt.setFloat(3, bid.getAmount());
+            stmt.setDouble(3, bid.getAmount());
 
             stmt.setTimestamp(4, new Timestamp(System.currentTimeMillis()));
 

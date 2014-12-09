@@ -72,7 +72,7 @@ public class CreateItemUI extends HttpServlet{
 		if(itemName != null){
 			if(itemName.isEmpty()) {
 				request.setAttribute("error","Name is required.");
-			}else if(desc == null || desc.isEmpty() {
+			}else if(desc == null || desc.isEmpty()) {
 				request.setAttribute("error","Description is required.");
 			}else if(catID == null || Long.parseLong(catID) <= 0) {
 				request.setAttribute("error","Category is invalid.");

@@ -27,7 +27,12 @@
 		<div class="form-group">
 			<#if categoryChosen??>
 			<label for="category"> Category:</label>
-				<p class="form-control-static"> ${categoryChosen.getName()}</p>
+ 			<select class="form-control" onChange="window.location.href=this.value">
+                        <option value="#"> Select a Category </option>
+                        <#if categoryList??>
+                                        <#list categoryList as category><option value="/createItem?id=${category.getId()}"<#if ${category.getId()} == ${categoryChosen.getId()}>seleted</#if> >${category.getName()}</option>
+                                        </#list>
+
 			<#else>
 			<label for="category"> Category </label>
 			<select class="form-control" onChange="window.location.href=this.value">

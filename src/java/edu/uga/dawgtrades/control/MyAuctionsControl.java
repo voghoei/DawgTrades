@@ -49,20 +49,21 @@ public class MyAuctionsControl{
                 }
         }
 
-	public ArrayList<Auction> getUserAuctions(long userId){
+	public Map<String,Auction> getUserAuctions(long userId){
 		try{
 			this.connect();
-			long[] itemIDs = this.getUserItems(userId);
+			ArrayList<Item> items = this.getUserItems(userId);
 			ArrayList<Auction> auctions = new ArrayList<Auction>();
 			Auction auction = this.objectModel.createAuction();
+			Map<Item,Auction> map = new HashMap<Item,Auction>();
 			for(int i = 0; i< itemIDs.length; i++){
-				auction.setId(itemIDs[i]);
+				auction.setId(items.get(i).getId());
 				Iterator<Auction> results = this.objectModel.findAuction(auction);
 				while(results.hasNext()){
-					auctions.add(results.next());
+					map.put(Long.toString(items.get(i).getId()),results.next());
 				}
 			}
-			return auctions;
+			return map;
 			
 		}catch(DTException e){
 			this.error = e.getMessage();
@@ -72,7 +73,7 @@ public class MyAuctionsControl{
 			this.close();
 		}
 	}
-	private long[] getUserItems(long userId){
+	private ArrayList<Item> getUserItems(long userId){
                 try{
                       //  this.connect();
 			Item modelItem = this.objectModel.createItem();
@@ -88,7 +89,7 @@ public class MyAuctionsControl{
 			for(int i =0;i<itemIDs.length; i++){
 				itemIDs[i] = items.get(i).getId();
 			}
-			return itemIDs;
+			return items;
 
                 }catch(DTException e){
                         this.error = e.getMessage();
@@ -99,6 +100,33 @@ public class MyAuctionsControl{
                 }
 
 	}
+	public ArrayList<Item> getUserItemsPub(long userId){
+                try{
+                        this.connect();
+                        Item modelItem = this.objectModel.createItem();
+                        modelItem.setOwnerId(userId);
+                        Iterator<Item> results = this.objectModel.findItem(modelItem);
+                        ArrayList<Item> items = new ArrayList<Item>();
+
+                        while(results.hasNext()){
+                                items.add(results.next());
+                        }
+                        long[] itemIDs = new long[items.size()];
+                //      Item[] itemsArray = items.toArray();
+                        for(int i =0;i<itemIDs.length; i++){
+                                itemIDs[i] = items.get(i).getId();
+                        }
+                        return items;
+
+                }catch(DTException e){
+                        this.error = e.getMessage();
+                        this.hasError = true;
+                        return null;
+                }finally{
+                      this.close();
+                }
+
+
 	public boolean hasError(){
 		return this.hasError;
 	}

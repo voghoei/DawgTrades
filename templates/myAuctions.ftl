@@ -16,8 +16,9 @@
 <div class="row">
 	<#if auctions??>
 		<ul class="list-group">
-		<#list auctions as auction>
-			<a href="/auction?id=${auction.getId()}"><li class="list-group-item">${auction.getId()}</li></a>
+		<#list items as item>
+			<#assign itemId = "${item.getId()}">
+			<a href="/auction?id=${auctions[itemId].getId()}"><li class="list-group-item">${item.getName()}</li></a>
 		</#list>
 		</ul>
 	<#else>

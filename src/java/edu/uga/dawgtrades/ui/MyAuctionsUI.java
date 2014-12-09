@@ -33,9 +33,11 @@ public class MyAuctionsUI extends HttpServlet{
 
 		long userId = currentUser.getId();
 		MyAuctionsControl auctionCtrl = new MyAuctionsControl();
-		ArrayList<Auction> auctions = auctionCtrl.getUserAuctions(userId);
-		if(auctions != null){
+		Map<String,Auction> auctions = auctionCtrl.getUserAuctions(userId);
+		ArrayList<Item> items = auctionCtrl.getUserItemsPub(userId);
+		if(auctions != null && items!= null){
 			request.setAttribute("auctions",auctions);
+			request.setAttribute("items",items);
 		}else if(auctionCtrl.hasError()){
 			request.setAttribute("error",auctionCtrl.getError());
 		}

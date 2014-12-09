@@ -89,6 +89,28 @@ public class ResetPasswordControl {
             this.error = e.getMessage();
             return false;
         }
+        finally {
+            close();
+        }
+
+    }
+
+    public boolean resetPassword(RegisteredUser user, String password) {
+
+        try {
+            this.connect();
+            user.setPassword(password);
+            this.objectModel.storeRegisteredUser(user);
+            return true;
+        }
+        catch(DTException e) {
+            this.hasError = true;
+            this.error = e.getMessage();
+            return false;
+        }
+        finally {
+            close();
+        }
 
     }
 

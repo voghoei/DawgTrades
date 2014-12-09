@@ -33,14 +33,14 @@ public class MembershipIterator implements Iterator<Membership> {
     public Membership next() {
         long id;
         Date date;
-        float price;
+        double price;
         Membership membership = null;
 
         if (more) {
 
             try {
                 id = rs.getLong(1);
-                price = rs.getFloat(2);
+                price = rs.getDouble(2);
                 date = rs.getDate(3);
 
                 more = rs.next();

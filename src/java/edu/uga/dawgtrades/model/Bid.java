@@ -5,9 +5,9 @@ import java.util.Date;
 public interface Bid
         extends Persistable {
 
-    float getAmount();
+    double getAmount();
 
-    void setAmount(float amount);
+    void setAmount(double amount);
 
     Date getDate();
 

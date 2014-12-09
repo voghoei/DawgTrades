@@ -7,14 +7,14 @@ public class BidImpl extends Persistent implements Bid {
 
     private Auction auction;
     private RegisteredUser registereduser;
-    private float amount;
+    private double amount;
     private Date date;
     private boolean isWinning;
 
     public BidImpl() {
     }
 
-    public BidImpl(Auction auction, RegisteredUser registereduser, float amount) {
+    public BidImpl(Auction auction, RegisteredUser registereduser, double amount) {
         this.auction = auction;
         this.registereduser = registereduser;
         this.amount = amount;
@@ -29,11 +29,11 @@ public class BidImpl extends Persistent implements Bid {
         this.auction = auction;
     }
 
-    public float getAmount() {
+    public double getAmount() {
         return this.amount;
     }
 
-    public void setAmount(float amount) {
+    public void setAmount(double amount) {
         this.amount = amount;
     }
 

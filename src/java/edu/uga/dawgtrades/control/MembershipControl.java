@@ -59,7 +59,7 @@ public class MembershipControl {
         return membershipMap;
     }
 
-    public boolean attemptToCreateMembership(float price) throws DTException {
+    public boolean attemptToCreateMembership(double price) throws DTException {
         Membership modelMembership = null;
         try {
 

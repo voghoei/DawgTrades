@@ -25,7 +25,7 @@ public class DawgTradesContextListener implements ServletContextListener {
                     Statement stmt = null;
                     ResultSet auctionSet = null;
                     Statement bidstmt = null;
-                    Statement delItemStmt = null;
+                    Statement updateStmt = null;
                     ResultSet bidSet = null;
                     try {
                         conn = DbUtils.connect();
@@ -33,8 +33,7 @@ public class DawgTradesContextListener implements ServletContextListener {
                         String selectAuctionSql = "select auct.id,auct.expiration,auct.isClosed,auct.item_id, it.id, it.user_id, user.id, user.email, user.firstName " +
                             "FROM Auction auct, RegisteredUser user, Item it WHERE auct.isClosed != 1 AND auct.item_id = it.id AND it.user_id = user.id";
                         stmt = conn.createStatement();
-                        stmt = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,
-                                   ResultSet.CONCUR_UPDATABLE);
+                        stmt = conn.createStatement();
                         auctionSet = stmt.executeQuery(selectAuctionSql);
 
                         while(auctionSet.next()) {
@@ -52,8 +51,9 @@ public class DawgTradesContextListener implements ServletContextListener {
                                 bidSet = bidstmt.executeQuery(selectBid);
                                 if(bidSet.next()) {
                                     System.out.println("[LISTENER] Auction has winning bid.");
-                                    // Set it closed
-                                    auctionSet.updateBoolean(3, true);
+
+                                    updateStmt = conn.createStatement();
+                                    updateStmt.executeUpdate("UPDATE Auction SET isClosed = 1 WHERE id = " + auctionSet.getLong(1));
 
                                     // Email owner + winner
                                     String winnerEmail = bidSet.getString(5);
@@ -66,8 +66,8 @@ public class DawgTradesContextListener implements ServletContextListener {
                                     // Expired without winner
                                     long itemID = auctionSet.getLong(4);
                                     System.out.println("[LISTENER] Auction has NO winning bid. Deleting item with ID = " + itemID);
-                                    delItemStmt = conn.createStatement();
-                                    delItemStmt.executeUpdate("DELETE FROM Item WHERE id = " + itemID);
+                                    updateStmt = conn.createStatement();
+                                    updateStmt.executeUpdate("DELETE FROM Item WHERE id = " + itemID);
                                 }
                             }
                         }
@@ -85,7 +85,7 @@ public class DawgTradesContextListener implements ServletContextListener {
                         if(bidstmt != null) {
                             bidstmt.close();
                         }
-                        if(delItemStmt != null) { 
+                        if(updateStmt != null) { 
                             delItemStmt.close();
                         }
                     }

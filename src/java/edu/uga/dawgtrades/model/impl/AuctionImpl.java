@@ -12,7 +12,6 @@ public class AuctionImpl extends Persistent implements Auction {
     private long userId;
     private double minPrice;
     private Date expiration;
-    private boolean isClosed;
     private double SellingPrice;
 
     public AuctionImpl() {
@@ -58,11 +57,11 @@ public class AuctionImpl extends Persistent implements Auction {
     }
 
     public boolean getIsClosed() {
-        return isClosed;
+        Date now = new Date();
+        return now.getTime() >= this.expiration.getTime();
     }
 
     public void setIsClosed(boolean isClosed) {
-        this.isClosed = isClosed;
     }
 
     public double getSellingPrice() {

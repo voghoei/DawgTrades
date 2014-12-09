@@ -108,6 +108,7 @@ public class CreateAuctionUI extends HttpServlet{
 						return;
                                 	}else{
 		                                if(!auctionCtrl.attemptAuctionCreate(parameters,itemId)){
+							itemCtrl.removeItem(itemId);
                 		                        request.setAttribute("error", "Error: "+auctionCtrl.getError());
 							request.getRequestDispatcher("/createAuction.ftl").forward(request,response);
 							return;
